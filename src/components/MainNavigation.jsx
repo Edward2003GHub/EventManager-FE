@@ -4,9 +4,11 @@ import EventSeatIcon from "@mui/icons-material/EventSeat";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import IconButton from "@mui/material/IconButton";
+import { useState } from "react";
 
 export default function Events() {
   const navigate = useNavigate();
+  const [toggle, setToggle] = useState(false);
 
   async function handleLogout() {
     try {
@@ -23,13 +25,17 @@ export default function Events() {
     }
   }
 
+  function handleToggle() {
+    setToggle((prevT) => !prevT);
+  }
+
   return (
     <>
       <div className="header-container">
         <div className="dashboard-header">
           <div className="brand">
-            <IconButton sx={{ width: 30, height: 30 }}>
-              <MenuOpenIcon sx={{ fontSize: 18 }} />
+            <IconButton sx={{ width: 30, height: 30 }} onClick={handleToggle}>
+              <MenuOpenIcon sx={{ fontSize: 18, transform: toggle ? undefined : "scaleX(-1)" }} />
             </IconButton>
             <h1>Event Manager</h1>
           </div>
@@ -47,21 +53,21 @@ export default function Events() {
               to="events"
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
-              <EventIcon fontSize="5px" />
+              <EventIcon fontSize="5px" />{toggle ? <span>Events</span> : undefined}
             </NavLink>
 
             <NavLink
               to="rooms"
-              className={({ isActive }) => (isActive ? "active" : undefined)}
+              className={({ isActive }) => (isActive ? <span>active</span> : undefined)}
             >
-              <EventSeatIcon fontSize="5px" />
+              <EventSeatIcon fontSize="5px" />{toggle ? <span>Rooms</span> : undefined}
             </NavLink>
 
             <NavLink
               to="attendees"
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
-              <PeopleAltIcon fontSize="5px" />
+              <PeopleAltIcon fontSize="5px" />{toggle ? <span>Attendees</span> : undefined}
             </NavLink>
           </div>
         </div>

@@ -179,6 +179,9 @@ body {
 }
 
 .nav-links > a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   text-decoration: none;
   padding: 4px 10px;
   text-decoration: none;
@@ -187,6 +190,10 @@ body {
 
 .nav-links > a:hover {
   background-color: rgb(245, 245, 245);
+}
+
+.nav-links > a > span {
+  font-size: x-small;
 }
 
 .event-wrapper {
@@ -253,4 +260,8 @@ body {
 
 .brand h1 {
   font-size: large;
+}
+
+.mirror-v {
+  transform: scaleY(-1);
 }
