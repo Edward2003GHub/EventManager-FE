@@ -48,6 +48,8 @@ export default function Login() {
 
       if (response.ok) {
         localStorage.setItem("token", result.token);
+        localStorage.setItem("email", result.email);
+        localStorage.setItem("name", result.personName);
         setLoginError(false);
         navigate("/dashboard/events");
       } else {

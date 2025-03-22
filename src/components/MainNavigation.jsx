@@ -4,7 +4,9 @@ import EventSeatIcon from "@mui/icons-material/EventSeat";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import IconButton from "@mui/material/IconButton";
+import { Avatar } from "@mui/material";
 import { useState } from "react";
+import AccountMenu from "./AccountMenu";
 
 export default function Events() {
   const navigate = useNavigate();
@@ -15,13 +17,28 @@ export default function Events() {
       const response = await fetch("https://localhost:7262/api/Account/Logout");
 
       if (response.ok) {
-        localStorage.removeItem("token");
+        localStorage.clear();
         navigate("/");
       } else {
         console.log("Logging out error");
       }
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async function handleDelete() {
+    const response = await fetch(`https://localhost:7262/api/Account/${localStorage.getItem("email")}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.ok) {
+      console.log("Delete good!");
+      navigate("/");
+    } else {
+      console.log("error");
     }
   }
 
@@ -35,14 +52,22 @@ export default function Events() {
         <div className="dashboard-header">
           <div className="brand">
             <IconButton sx={{ width: 30, height: 30 }} onClick={handleToggle}>
-              <MenuOpenIcon sx={{ fontSize: 18, transform: toggle ? undefined : "scaleX(-1)" }} />
+              <MenuOpenIcon
+                sx={{
+                  fontSize: 18,
+                  transform: toggle ? undefined : "scaleX(-1)",
+                }}
+              />
             </IconButton>
             <h1>Event Manager</h1>
           </div>
           <div>
-            <button className="logout" onClick={handleLogout}>
-              Logout
-            </button>
+            <AccountMenu
+              fLetter={localStorage.getItem("name").charAt(0)}
+              email={localStorage.getItem("email")}
+              logout={handleLogout}
+              delAcc={handleDelete}
+            />
           </div>
         </div>
       </div>
@@ -53,21 +78,24 @@ export default function Events() {
               to="events"
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
-              <EventIcon fontSize="5px" />{toggle ? <span>Events</span> : undefined}
+              <EventIcon fontSize="5px" />
+              {toggle ? <span>Events</span> : undefined}
             </NavLink>
 
             <NavLink
               to="rooms"
-              className={({ isActive }) => (isActive ? <span>active</span> : undefined)}
+              className={({ isActive }) => (isActive ? "active" : undefined)}
             >
-              <EventSeatIcon fontSize="5px" />{toggle ? <span>Rooms</span> : undefined}
+              <EventSeatIcon fontSize="5px" />
+              {toggle ? <span>Rooms</span> : undefined}
             </NavLink>
 
             <NavLink
               to="attendees"
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
-              <PeopleAltIcon fontSize="5px" />{toggle ? <span>Attendees</span> : undefined}
+              <PeopleAltIcon fontSize="5px" />
+              {toggle ? <span>Attendees</span> : undefined}
             </NavLink>
           </div>
         </div>
