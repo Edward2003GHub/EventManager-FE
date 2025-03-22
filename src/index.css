@@ -1,0 +1,256 @@
+* {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+.form-style {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  background-image: linear-gradient(
+    140deg,
+    rgb(126, 126, 255),
+    rgb(255, 112, 112)
+  );
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  margin: 0px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-wrapper {
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  box-shadow: 0px 0px 10px 16px rgba(0, 0, 0, 0.2);
+}
+
+.form-wrapper > h1 {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.register-inputs {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 10px;
+}
+
+.register-input > p {
+  color: red;
+  margin: 0;
+  font-size: x-small;
+}
+
+.register-input > input {
+  width: 100%;
+  padding: 6px 4px 6px 10px;
+  box-sizing: border-box;
+  border: 1px solid rgb(135, 135, 135);
+  outline: none;
+}
+
+.register-input > input:focus {
+  border-image: linear-gradient(140deg, rgb(126, 126, 255), rgb(255, 112, 112))
+    1;
+}
+
+.reg-btn > input {
+  background-image: linear-gradient(
+    140deg,
+    rgb(126, 126, 255),
+    rgb(255, 112, 112)
+  );
+  width: 100%;
+  border: none;
+  color: white;
+  padding: 10px;
+  font-size: medium;
+  border-radius: 3px;
+  margin-top: 20px;
+}
+
+.reg-btn > input:hover {
+  background-image: linear-gradient(
+    140deg,
+    rgb(141, 141, 253),
+    rgb(254, 130, 130)
+  );
+}
+
+.no-acc {
+  color: rgb(70, 70, 70);
+  text-align: center;
+  font-size: medium;
+}
+
+.register-inputs > p > a {
+  color: black;
+}
+
+.err {
+  color: red;
+  margin: 0;
+  padding: 2px 0;
+  font-size: small;
+}
+
+.header-container {
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1000;
+  background-color: white;
+  width: 100%;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.dashboard-header h1 {
+  margin: 0;
+}
+
+.dashboard-wrapper {
+  background-color: rgb(249, 250, 251);
+  padding-left: 60px;
+  padding-top: 30px;
+  height: calc(100vh - 30px);
+}
+
+.acc-nav {
+  position: fixed;
+  top: 36.8px;
+  left: 0;
+  width: 80px;
+  height: calc(100vh - 25px);
+  background-color: white;
+  z-index: 999;
+
+  background-color: white;
+  width: auto;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+  text-align: center;
+}
+
+.logo-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.logo-nav > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.logo-nav > h1 {
+  margin: 0;
+  color: white;
+  text-align: center;
+}
+
+.active {
+  color: white;
+  background-color: rgb(237, 244, 251);
+  text-decoration: none;
+  padding: 4px;
+  border-radius: 3px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nav-links {
+  margin-top: 5px;
+}
+
+.nav-links > a {
+  text-decoration: none;
+  padding: 4px 10px;
+  text-decoration: none;
+  color: rgb(97, 97, 97);
+}
+
+.nav-links > a:hover {
+  background-color: rgb(245, 245, 245);
+}
+
+.event-wrapper {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 2.3rem 0px;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.card {
+  width: auto;
+  padding: 10px;
+  width: 250px;
+}
+
+.card-link {
+  box-shadow: 0 0 4px 1px;
+  border-radius: 5px;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.card-link:hover {
+  box-shadow: 0 0 6px 1px;
+}
+
+.card h2 {
+  margin-bottom: 2px;
+  margin-top: 2px;
+}
+
+.date {
+  font-size: x-small;
+  margin: 0px;
+  color: rgb(149, 149, 149);
+}
+
+.des {
+  color: rgb(149, 149, 149);
+  margin-bottom: 0px;
+}
+
+.logout {
+  text-align: center;
+  background-color: red;
+  color: white;
+  padding: 4px;
+  border: none;
+  border-radius: 3px;
+}
+
+.logout:hover {
+  background-color: rgb(152, 0, 0);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.brand h1 {
+  font-size: large;
+}
