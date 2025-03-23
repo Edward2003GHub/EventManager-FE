@@ -126,9 +126,9 @@ body {
 
 .dashboard-wrapper {
   background-color: rgb(249, 250, 251);
-  padding-left: 60px;
-  padding-top: 30px;
-  height: calc(100vh - 30px);
+  padding-left: 36px;
+  padding-top: 36px;
+  height: calc(100vh - 36px);
 }
 
 .acc-nav {
@@ -200,11 +200,9 @@ body {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
-  padding: 2.3rem 0px;
+  padding: 20px;
   max-height: 80vh;
   overflow-y: auto;
-  padding-right: 10px;
-  padding-left: 10px;
 }
 
 .card {
@@ -214,7 +212,7 @@ body {
 
 .card-link {
   background-color: white;
-  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.50);
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.5);
   transition: box-shadow 0.2s ease-in-out;
 }
 
