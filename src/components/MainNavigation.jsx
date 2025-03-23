@@ -82,7 +82,7 @@ export default function Events() {
               end
             >
               <HomeIcon fontSize="5px" />
-              {toggle ? <span>Events</span> : undefined}
+              {toggle ? <span>Home</span> : undefined}
             </NavLink>
 
             <NavLink

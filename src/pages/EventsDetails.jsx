@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import DateRangeIcon from '@mui/icons-material/DateRange';
 
 export default function EventDetails() {
   const params = useParams();
@@ -33,11 +34,28 @@ export default function EventDetails() {
   return (
     <div>
       {eventData && (
-        <div>
-          <h1>{eventData.name}</h1>
+        <div className="details">
+          <div className="detail-container">
+            <img src="https://picsum.photos/id/1/200/300" alt="event-photo" />
+            <div className="detail-title-date">
+              <h1>{eventData.name}</h1>
+              <div className="detail-date-con">
+                <DateRangeIcon sx={{fontSize: "15px"}} />
+                <div className="detail-date">
+                  <h3>Date and Time</h3>
+                  <p>
+                    {new Date(eventData.startTime).toLocaleString()} to
+                  </p>
+                  <p>
+                    {new Date(eventData.endTime).toLocaleString()}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <h3>Description</h3>
           <p>{eventData.description}</p>
-          <p>Start Time: {new Date(eventData.startTime).toLocaleString()}</p>
-          <p>End Time: {new Date(eventData.endTime).toLocaleString()}</p>
         </div>
       )}
     </div>
