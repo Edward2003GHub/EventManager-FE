@@ -25,11 +25,11 @@ export default function AccountMenu({fLetter, email, logout, delAcc}) {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title="Account settings">
+        <Tooltip>
           <IconButton
             onClick={handleClick}
             size="small"
-            sx={{ ml: 2, padding: 0 }}
+            sx={{ padding: 0, marginRight: "7px" }}
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
@@ -51,6 +51,7 @@ export default function AccountMenu({fLetter, email, logout, delAcc}) {
               overflow: 'visible',
               filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
               mt: 1.5,
+              ml: 1.5,
               '& .MuiAvatar-root': {
                 width: 32,
                 height: 32,
@@ -75,19 +76,19 @@ export default function AccountMenu({fLetter, email, logout, delAcc}) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleClose} sx={{ fontSize: "10px" }}>
           <Avatar /> {email}
         </MenuItem>
         <Divider />
-        <MenuItem onClick={delAcc}>
+        <MenuItem onClick={delAcc} sx={{ fontSize: "10px" }}>
           <ListItemIcon>
-            <DeleteIcon fontSize="small" />
+            <DeleteIcon fontSize="small" sx={{ fontSize: "15px" }}/>
           </ListItemIcon>
           Delete account
         </MenuItem>
-        <MenuItem onClick={logout}>
+        <MenuItem onClick={logout} sx={{ fontSize: "10px" }}>
           <ListItemIcon>
-            <Logout fontSize="small" />
+            <Logout fontSize="small" sx={{ fontSize: "15px" }} />
           </ListItemIcon>
           Logout
         </MenuItem>
