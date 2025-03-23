@@ -1,12 +1,11 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import EventIcon from "@mui/icons-material/Event";
 import EventSeatIcon from "@mui/icons-material/EventSeat";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import IconButton from "@mui/material/IconButton";
-import { Avatar } from "@mui/material";
 import { useState } from "react";
 import AccountMenu from "./AccountMenu";
+import HomeIcon from "@mui/icons-material/Home";
 
 export default function Events() {
   const navigate = useNavigate();
@@ -28,12 +27,15 @@ export default function Events() {
   }
 
   async function handleDelete() {
-    const response = await fetch(`https://localhost:7262/api/Account/${localStorage.getItem("email")}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await fetch(
+      `https://localhost:7262/api/Account/${localStorage.getItem("email")}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (response.ok) {
       console.log("Delete good!");
       navigate("/");
@@ -75,6 +77,15 @@ export default function Events() {
         <div className="logo-nav">
           <div className="nav-links">
             <NavLink
+              to="home"
+              className={({ isActive }) => (isActive ? "active" : undefined)}
+              end
+            >
+              <HomeIcon fontSize="5px" />
+              {toggle ? <span>Events</span> : undefined}
+            </NavLink>
+
+            <NavLink
               to="events"
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
@@ -88,14 +99,6 @@ export default function Events() {
             >
               <EventSeatIcon fontSize="5px" />
               {toggle ? <span>Rooms</span> : undefined}
-            </NavLink>
-
-            <NavLink
-              to="attendees"
-              className={({ isActive }) => (isActive ? "active" : undefined)}
-            >
-              <PeopleAltIcon fontSize="5px" />
-              {toggle ? <span>Attendees</span> : undefined}
             </NavLink>
           </div>
         </div>

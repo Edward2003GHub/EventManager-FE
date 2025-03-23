@@ -198,6 +198,7 @@ body {
 
 .event-wrapper {
   display: flex;
+  justify-content: center;
   gap: 15px;
   flex-wrap: wrap;
   padding: 20px;
@@ -206,8 +207,17 @@ body {
 }
 
 .card {
-  padding: 10px;
-  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 170px;
+  height: 190px;
+}
+
+.org-name {
+  background-color: rgb(249, 249, 249);
+  padding: 3px 0px;
+  margin: 0;
 }
 
 .card-link {
@@ -220,20 +230,29 @@ body {
   box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.51);
 }
 
+.card div img {
+  width: 100%;
+  height: 6rem;
+}
+
 .card h2 {
-  margin-bottom: 2px;
-  margin-top: 2px;
+  font-size: small;
+  margin: 0;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.card p {
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .date {
+  display: flex;
+  align-items: center;
+  gap: 2px;
   font-size: x-small;
   margin: 0px;
   color: rgb(149, 149, 149);
-}
-
-.des {
-  color: rgb(149, 149, 149);
-  margin-bottom: 0px;
 }
 
 .logout {

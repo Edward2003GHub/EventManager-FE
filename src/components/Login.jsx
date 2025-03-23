@@ -51,7 +51,7 @@ export default function Login() {
         localStorage.setItem("email", result.email);
         localStorage.setItem("name", result.personName);
         setLoginError(false);
-        navigate("/dashboard/events");
+        navigate("/dashboard/home");
       } else {
         console.error("Login failed:", result);
         setLoginError(true);

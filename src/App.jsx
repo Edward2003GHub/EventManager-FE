@@ -5,7 +5,10 @@ import PrivateRoute from "./components/PrivateRoute";
 import Start from "./components/Start";
 import Events from "./pages/Events";
 import Rooms from "./pages/Rooms";
-import Attendees from "./pages/Attendees";
+import Home from "./pages/Home";
+import EventDetails from "./pages/EventsDetails";
+import Root from "./components/Root";
+import EventsRoot from "./components/EventsRoot";
 
 const router = createBrowserRouter([
   { path: "/", element: <Start /> },
@@ -15,9 +18,16 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <PrivateRoute />,
     children: [
-      { path: "events", element: <Events /> },
+      { path: "home", element: <Home /> },
+      {
+        path: "events",
+        element: <EventsRoot />,
+        children: [
+          { path: "", element: <Events /> },
+          { path: ":id", element: <EventDetails /> },
+        ],
+      },
       { path: "rooms", element: <Rooms /> },
-      { path: "attendees", element: <Attendees /> },
     ],
   },
 ]);

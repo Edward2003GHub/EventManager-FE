@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Card from "../components/Card";
 import Input2 from "../components/Input2";
 import { useEffect, useState } from "react";
@@ -37,14 +38,14 @@ export default function Events() {
     <>
       <div className="event-wrapper">
         {events.map((evt) => (
-          <Card
-            key={evt.eventID}
-            name={evt.name}
-            startDate={evt.startTime}
-            endDate={evt.endTime}
-            des={evt.description}
-            attendees={evt.attendees}
-          />
+          <Link
+          key={evt.eventID}  // Move the key here
+          to={evt.eventID}
+          style={{ textDecoration: "none", color: "inherit" }}
+          className="card-link"
+        >
+          <Card name={evt.name} startDate={evt.startTime} />
+        </Link>
         ))}
       </div>
     </>
