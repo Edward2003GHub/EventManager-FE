@@ -68,6 +68,7 @@ export default function EventDetails() {
               variant="contained"
               color="success"
               startIcon={<HowToRegIcon />}
+              sx={{fontSize: "10px"}}
             >
               Register
             </Button>

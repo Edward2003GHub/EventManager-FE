@@ -36,7 +36,7 @@ export default function Events() {
 
   return (
     <>
-      <div className="event-wrapper">
+      <div className="event-wrapper" style={{margin: "auto"}}>
         {events.map((evt) => (
           <Link
           key={evt.eventID}  // Move the key here

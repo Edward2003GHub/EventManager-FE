@@ -198,13 +198,11 @@ body {
 
 .event-wrapper {
   display: flex;
-  gap: 15px;
   flex-wrap: wrap;
-  padding: 10px;
   max-height: 80vh;
   overflow-y: auto;
   max-width: 800px;
-  margin: auto;
+  margin: -10px;
 }
 
 .card {
@@ -225,6 +223,7 @@ body {
   background-color: white;
   box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.5);
   transition: box-shadow 0.2s ease-in-out;
+  margin: 10px;
 }
 
 .card-link:hover {
@@ -325,9 +324,11 @@ body {
   display: flex;
   flex-direction: column;
   max-width: 800px;
+  padding: 0 10px 10px 10px;
   margin: auto;
+  gap: 20px;
 }
 
-.home-container img {
+.home-container > img {
   height: 300px;
 }
