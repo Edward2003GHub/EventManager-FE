@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import { Button } from "@mui/material";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
 
 export default function EventDetails() {
   const params = useParams();
@@ -60,6 +62,15 @@ export default function EventDetails() {
           <hr />
           <h3>Description</h3>
           <p>{eventData.description}</p>
+          <div style={{display: "flex", justifyContent: "flex-end"}}>
+            <Button
+              variant="contained"
+              color="success"
+              startIcon={<HowToRegIcon />}
+            >
+              Register
+            </Button>
+          </div>
         </div>
       )}
     </div>

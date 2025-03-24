@@ -295,6 +295,10 @@ body {
   flex-direction: column;
 }
 
+.detail-title-date h1 {
+  margin-top: 0px;
+}
+
 .detail-container {
   display: flex;
   gap: 1rem;
