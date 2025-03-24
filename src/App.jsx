@@ -7,6 +7,9 @@ import Events from "./pages/Events";
 import Home from "./pages/Home";
 import EventDetails from "./pages/EventsDetails";
 import EventsRoot from "./components/EventsRoot";
+import Organization from "./pages/Organization";
+import News from "./pages/News";
+import Forms from "./pages/Forms";
 
 const router = createBrowserRouter([
   { path: "/", element: <Start /> },
@@ -25,6 +28,9 @@ const router = createBrowserRouter([
           { path: ":id", element: <EventDetails /> },
         ],
       },
+      { path: "organizations", element: <Organization /> },
+      { path: "news", element: <News /> },
+      { path: "forms", element: <Forms /> },
     ],
   },
 ]);

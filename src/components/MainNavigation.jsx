@@ -1,11 +1,13 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import EventIcon from "@mui/icons-material/Event";
-import EventSeatIcon from "@mui/icons-material/EventSeat";
+import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import IconButton from "@mui/material/IconButton";
 import { useState } from "react";
 import AccountMenu from "./AccountMenu";
-import HomeIcon from "@mui/icons-material/Home";
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
 
 export default function Events() {
   const navigate = useNavigate();
@@ -81,7 +83,7 @@ export default function Events() {
               className={({ isActive }) => (isActive ? "active" : undefined)}
               end
             >
-              <HomeIcon fontSize="5px" />
+              <HomeOutlinedIcon fontSize="5px" />
               {toggle ? <span>Home</span> : undefined}
             </NavLink>
 
@@ -89,8 +91,32 @@ export default function Events() {
               to="events"
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
-              <EventIcon fontSize="5px" />
+              <EventOutlinedIcon fontSize="5px" />
               {toggle ? <span>Events</span> : undefined}
+            </NavLink>
+
+            <NavLink
+              to="organizations"
+              className={({ isActive }) => (isActive ? "active" : undefined)}
+            >
+              <PeopleOutlineOutlinedIcon fontSize="5px" />
+              {toggle ? <span>Organizations</span> : undefined}
+            </NavLink>
+
+            <NavLink
+              to="news"
+              className={({ isActive }) => (isActive ? "active" : undefined)}
+            >
+              <ArticleOutlinedIcon fontSize="5px" />
+              {toggle ? <span>News</span> : undefined}
+            </NavLink>
+
+            <NavLink
+              to="forms"
+              className={({ isActive }) => (isActive ? "active" : undefined)}
+            >
+              <SummarizeOutlinedIcon fontSize="5px" />
+              {toggle ? <span>Forms</span> : undefined}
             </NavLink>
           </div>
         </div>
