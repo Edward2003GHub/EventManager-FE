@@ -4,10 +4,8 @@ import Register from "./components/Register";
 import PrivateRoute from "./components/PrivateRoute";
 import Start from "./components/Start";
 import Events from "./pages/Events";
-import Rooms from "./pages/Rooms";
 import Home from "./pages/Home";
 import EventDetails from "./pages/EventsDetails";
-import Root from "./components/Root";
 import EventsRoot from "./components/EventsRoot";
 
 const router = createBrowserRouter([
@@ -27,7 +25,6 @@ const router = createBrowserRouter([
           { path: ":id", element: <EventDetails /> },
         ],
       },
-      { path: "rooms", element: <Rooms /> },
     ],
   },
 ]);

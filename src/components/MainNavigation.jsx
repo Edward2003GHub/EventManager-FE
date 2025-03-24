@@ -92,14 +92,6 @@ export default function Events() {
               <EventIcon fontSize="5px" />
               {toggle ? <span>Events</span> : undefined}
             </NavLink>
-
-            <NavLink
-              to="rooms"
-              className={({ isActive }) => (isActive ? "active" : undefined)}
-            >
-              <EventSeatIcon fontSize="5px" />
-              {toggle ? <span>Rooms</span> : undefined}
-            </NavLink>
           </div>
         </div>
       </div>

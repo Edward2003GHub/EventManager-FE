@@ -62,6 +62,7 @@ export default function EventDetails() {
           <hr />
           <h3>Description</h3>
           <p>{eventData.description}</p>
+          <hr />
           <div style={{display: "flex", justifyContent: "flex-end"}}>
             <Button
               variant="contained"
