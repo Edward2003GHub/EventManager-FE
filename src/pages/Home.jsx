@@ -56,7 +56,7 @@ export default function Home() {
         alt="bau-photo"
       />
       <div>
-        <div style={{ display: "flex", gap: "10px"}}>
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap"}}>
           {events.map((evt) => (
             <Link
               key={evt.eventID}
@@ -72,7 +72,7 @@ export default function Home() {
           <Button
             variant="outlined"
             onClick={() => navigate("/dashboard/events")}
-            sx={{ fontSize: "10px" }}
+            sx={{ fontSize: "8px", marginTop: "10px" }}
           >
             view more events
           </Button>
@@ -81,9 +81,9 @@ export default function Home() {
 
       <div>
         <h2>Organizations</h2>
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
           {org.map((each) => (
-            <OrgCard image={each.image} title={each.title} />
+            <OrgCard key={each.id} image={each.image} title={each.title} />
           ))}
         </div>
       </div>

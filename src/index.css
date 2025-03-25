@@ -4,6 +4,7 @@
 
 body {
   margin: 0;
+  background-color: rgb(249, 250, 251);
 }
 
 .form-style {
@@ -125,7 +126,6 @@ body {
 }
 
 .dashboard-wrapper {
-  background-color: rgb(249, 250, 251);
   padding-left: 36px;
   padding-top: 36px;
   height: calc(100vh - 36px);
