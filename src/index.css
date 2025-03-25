@@ -197,12 +197,12 @@ body {
 }
 
 .event-wrapper {
+  padding: 10px;
   display: flex;
+  gap: 10px;
   flex-wrap: wrap;
   max-height: 80vh;
-  overflow-y: auto;
   max-width: 800px;
-  margin: -10px;
 }
 
 .card {
@@ -221,13 +221,14 @@ body {
 
 .card-link {
   background-color: white;
-  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
+    0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
   transition: box-shadow 0.2s ease-in-out;
-  margin: 10px;
 }
 
 .card-link:hover {
-  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.51);
+  box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2),
+    0px 13px 19px 2px rgba(0, 0, 0, 0.14), 0px 5px 24px 4px rgba(0, 0, 0, 0.12);
 }
 
 .card div img {
@@ -331,4 +332,24 @@ body {
 
 .home-container > img {
   height: 300px;
+}
+
+.org-link {
+  text-decoration: none;
+  color: black;
+}
+
+.org-card {
+  background-color: white;
+  text-align: center;
+  padding: 10px;
+  width: 120px;
+  box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
+    0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.org-card:hover {
+  box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2),
+    0px 13px 19px 2px rgba(0, 0, 0, 0.14), 0px 5px 24px 4px rgba(0, 0, 0, 0.12);
 }

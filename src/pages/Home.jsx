@@ -2,6 +2,20 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import { Button } from "@mui/material";
+import OrgCard from "../components/OrgCard";
+
+const org = [
+  {
+    id: "o1",
+    title: "Orange",
+    image: "https://picsum.photos/id/1/200/300",
+  },
+  {
+    id: "o2",
+    title: "Zain",
+    image: "https://picsum.photos/id/1/200/300",
+  },
+];
 
 export default function Home() {
   const [events, setEvents] = useState([]);
@@ -42,7 +56,7 @@ export default function Home() {
         alt="bau-photo"
       />
       <div>
-        <div className="event-wrapper">
+        <div style={{ display: "flex", gap: "10px"}}>
           {events.map((evt) => (
             <Link
               key={evt.eventID}
@@ -54,14 +68,24 @@ export default function Home() {
             </Link>
           ))}
         </div>
-        <div style={{display: "flex", justifyContent: "flex-end"}}>
-          <Button variant="outlined" onClick={() => navigate("/dashboard/events")} sx={{fontSize: "10px"}}>view more events</Button>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            variant="outlined"
+            onClick={() => navigate("/dashboard/events")}
+            sx={{ fontSize: "10px" }}
+          >
+            view more events
+          </Button>
         </div>
       </div>
 
       <div>
         <h2>Organizations</h2>
-        <p>list of organizations</p>
+        <div style={{ display: "flex", gap: "10px" }}>
+          {org.map((each) => (
+            <OrgCard image={each.image} title={each.title} />
+          ))}
+        </div>
       </div>
 
       <div>
