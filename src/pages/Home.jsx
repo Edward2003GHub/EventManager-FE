@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import { Button } from "@mui/material";
 import OrgCard from "../components/OrgCard";
+import NewsCard from "../components/NewsCard";
 
 const org = [
   {
@@ -14,6 +15,18 @@ const org = [
     id: "o2",
     title: "Zain",
     image: "https://picsum.photos/id/1/200/300",
+  },
+];
+
+const news = [
+  {
+    id: "n1",
+    image: "https://picsum.photos/id/1/200/300",
+    title: "Apply to be a Chief Appointed Official for the ASUC!",
+    date: "Monday, March 24, 2025",
+    postedBy: "Edward",
+    description:
+      "ASUC is seeking dynamic student leaders to be the next CFO, CLO, CTO, CCO, and CPO",
   },
 ];
 
@@ -56,7 +69,7 @@ export default function Home() {
         alt="bau-photo"
       />
       <div>
-        <div style={{ display: "flex", gap: "20px", flexWrap: "wrap"}}>
+        <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
           {events.map((evt) => (
             <Link
               key={evt.eventID}
@@ -90,7 +103,17 @@ export default function Home() {
 
       <div>
         <h2>Latest News</h2>
-        <p>list of organizations</p>
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          {news.map((each) => (
+            <NewsCard
+              image={each.image}
+              title={each.title}
+              date={each.date}
+              postedBy={each.postedBy}
+              description={each.description}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
