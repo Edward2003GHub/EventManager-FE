@@ -5,11 +5,11 @@ export default function OrgCard({ image, title }) {
         <img
           src={image}
           alt=""
-          width="75px"
-          height="75px"
-          style={{ borderRadius: "50%", marginBottom: "10px" }}
+          width="77px"
+          height="77px"
+          style={{ borderRadius: "50%", marginBottom: "20px" }}
         />
-        <p style={{ margin: 0, fontSize: "10px" }}>{title}</p>
+        <h3 style={{margin: "0px 0px 43px", fontWeight: "normal"}}>{title}</h3>
       </div>
     </a>
   );
