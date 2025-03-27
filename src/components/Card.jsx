@@ -11,13 +11,13 @@ export default function Card({ name, startDate }) {
     <div className="card">
       <div>
         <img src="https://picsum.photos/id/1/200/300" alt="event-img" />
-        <h2 style={{ marginTop: "3px" }}>{name}</h2>
+        <h3>{name}</h3>
       </div>
       <p className="date">
         <DateRangeIcon fontSize="5px" />
         {formattedStartDate}
       </p>
-      <h2 className="org-name">Organization name</h2>
+      <p className="org-name">Organization name</p>
     </div>
   );
 }

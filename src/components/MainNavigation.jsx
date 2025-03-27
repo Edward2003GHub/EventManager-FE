@@ -55,10 +55,10 @@ export default function Events() {
       <div className="header-container">
         <div className="dashboard-header">
           <div className="brand">
-            <IconButton sx={{ width: 30, height: 30 }} onClick={handleToggle}>
+            <IconButton sx={{ width: 40, height: 40 }} onClick={handleToggle}>
               <MenuOpenIcon
                 sx={{
-                  fontSize: 18,
+                  fontSize: 30,
                   transform: toggle ? undefined : "scaleX(-1)",
                 }}
               />
@@ -83,7 +83,7 @@ export default function Events() {
               className={({ isActive }) => (isActive ? "active" : undefined)}
               end
             >
-              <HomeOutlinedIcon fontSize="5px" />
+              <HomeOutlinedIcon sx={{fontSize: 28}} />
               {toggle ? <span>Home</span> : undefined}
             </NavLink>
 
@@ -91,7 +91,7 @@ export default function Events() {
               to="events"
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
-              <EventOutlinedIcon fontSize="5px" />
+              <EventOutlinedIcon sx={{fontSize: 28}} />
               {toggle ? <span>Events</span> : undefined}
             </NavLink>
 
@@ -99,7 +99,7 @@ export default function Events() {
               to="organizations"
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
-              <PeopleOutlineOutlinedIcon fontSize="5px" />
+              <PeopleOutlineOutlinedIcon sx={{fontSize: 28}} />
               {toggle ? <span>Organizations</span> : undefined}
             </NavLink>
 
@@ -107,7 +107,7 @@ export default function Events() {
               to="news"
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
-              <ArticleOutlinedIcon fontSize="5px" />
+              <ArticleOutlinedIcon sx={{fontSize: 28}} />
               {toggle ? <span>News</span> : undefined}
             </NavLink>
 
@@ -115,7 +115,7 @@ export default function Events() {
               to="forms"
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
-              <SummarizeOutlinedIcon fontSize="5px" />
+              <SummarizeOutlinedIcon sx={{fontSize: 28}} />
               {toggle ? <span>Forms</span> : undefined}
             </NavLink>
           </div>

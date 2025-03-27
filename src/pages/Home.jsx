@@ -56,7 +56,7 @@ export default function Home() {
         alt="bau-photo"
       />
       <div>
-        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap"}}>
+        <div style={{ display: "flex", gap: "20px", flexWrap: "wrap"}}>
           {events.map((evt) => (
             <Link
               key={evt.eventID}
@@ -72,7 +72,7 @@ export default function Home() {
           <Button
             variant="outlined"
             onClick={() => navigate("/dashboard/events")}
-            sx={{ fontSize: "8px", marginTop: "10px" }}
+            sx={{ fontSize: "16px", marginTop: "10px" }}
           >
             view more events
           </Button>
