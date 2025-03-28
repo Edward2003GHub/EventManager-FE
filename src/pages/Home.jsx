@@ -106,6 +106,7 @@ export default function Home() {
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           {news.map((each) => (
             <NewsCard
+              key={each.id}
               image={each.image}
               title={each.title}
               date={each.date}

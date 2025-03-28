@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import { Button } from "@mui/material";
+import { Alert, Button, Snackbar } from "@mui/material";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 
 export default function EventDetails() {
   const params = useParams();
   const [eventData, setEventData] = useState(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     async function getEventById() {
@@ -33,6 +34,42 @@ export default function EventDetails() {
 
     getEventById();
   }, [params.id]);
+
+  async function handleRegister() {
+    try {
+      const userId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(
+        `https://localhost:7262/api/Attendees/${params.id}?userId=${userId}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        console.error("Registration failed:", errorMessage);
+        return;
+      } else {
+        setOpen(true);
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+    }
+  }
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    window.location.reload();
+    setOpen(false);
+  };
 
   return (
     <div>
@@ -63,15 +100,34 @@ export default function EventDetails() {
           <h3>Description</h3>
           <p>{eventData.description}</p>
           <hr />
-          <div style={{display: "flex", justifyContent: "flex-end"}}>
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <Button
+              onClick={handleRegister}
               variant="contained"
               color="success"
               startIcon={<HowToRegIcon />}
-              sx={{fontSize: "8px"}}
+              sx={{ fontSize: "16px" }}
             >
               Register
             </Button>
+            <Snackbar
+              open={open}
+              autoHideDuration={3000}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+            >
+              <Alert
+                onClose={handleClose}
+                severity="success"
+                variant="filled"
+                sx={{ width: "100%" }}
+              >
+                Register successful!
+              </Alert>
+            </Snackbar>
           </div>
         </div>
       )}

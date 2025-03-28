@@ -50,6 +50,7 @@ export default function Login() {
         localStorage.setItem("token", result.token);
         localStorage.setItem("email", result.email);
         localStorage.setItem("name", result.personName);
+        localStorage.setItem("userId", result.id);
         setLoginError(false);
         navigate("/dashboard/home");
       } else {
