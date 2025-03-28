@@ -1,6 +1,5 @@
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import { format, parseISO } from "date-fns";
-import { Link } from "react-router-dom";
 
 export default function Card({ name, startDate }) {
   const formattedStartDate = startDate

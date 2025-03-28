@@ -85,7 +85,7 @@ export default function Home() {
         alt="bau-photo"
       />
       <div>
-        <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: "20px" }}>
           {events.map((evt) => (
             <Link
               key={evt.eventID}
