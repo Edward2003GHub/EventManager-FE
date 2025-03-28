@@ -1,15 +1,15 @@
-export default function OrgCard({ image, title }) {
+export default function OrgCard({ description }) {
   return (
     <a href="#" className="org-link">
       <div className="org-card">
         <img
-          src={image}
+          src="https://picsum.photos/id/1/200/300"
           alt=""
           width="77px"
           height="77px"
           style={{ borderRadius: "50%", marginBottom: "20px" }}
         />
-        <h3 style={{margin: "0px 0px 43px", fontWeight: "normal"}}>{title}</h3>
+        <p style={{fontWeight: "normal", margin: 0}}>{description}</p>
       </div>
     </a>
   );

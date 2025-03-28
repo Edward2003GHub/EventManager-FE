@@ -5,19 +5,6 @@ import { Button } from "@mui/material";
 import OrgCard from "../components/OrgCard";
 import NewsCard from "../components/NewsCard";
 
-const org = [
-  {
-    id: "o1",
-    title: "Orange",
-    image: "https://picsum.photos/id/1/200/300",
-  },
-  {
-    id: "o2",
-    title: "Zain",
-    image: "https://picsum.photos/id/1/200/300",
-  },
-];
-
 const news = [
   {
     id: "n1",
@@ -32,6 +19,7 @@ const news = [
 
 export default function Home() {
   const [events, setEvents] = useState([]);
+  const [org, setOrg] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,6 +48,34 @@ export default function Home() {
     }
 
     fetchEvents();
+  }, []);
+
+  useEffect(() => {
+    async function fetchOrg() {
+      try {
+        const token = localStorage.getItem("token");
+
+        const response = await fetch("https://localhost:7262/api/Organizations", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          console.error(`Error: ${response.statusText} (${response.status})`);
+          return;
+        }
+
+        const resData = await response.json();
+        setOrg(resData);
+      } catch (error) {
+        console.error("Error fetching org:", error);
+      }
+    }
+
+    fetchOrg();
   }, []);
 
   return (
@@ -96,7 +112,7 @@ export default function Home() {
         <h2>Organizations</h2>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
           {org.map((each) => (
-            <OrgCard key={each.id} image={each.image} title={each.title} />
+            <OrgCard key={each.id} description={each.description} />
           ))}
         </div>
       </div>
