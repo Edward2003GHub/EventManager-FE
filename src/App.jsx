@@ -10,6 +10,8 @@ import EventsRoot from "./components/EventsRoot";
 import Organization from "./pages/Organization";
 import News from "./pages/News";
 import Forms from "./pages/Forms";
+import OrgDetails from "./pages/OrgDetails";
+import OrgRoot from "./components/OrgRoot";
 
 const router = createBrowserRouter([
   { path: "/", element: <Start /> },
@@ -28,7 +30,14 @@ const router = createBrowserRouter([
           { path: ":id", element: <EventDetails /> },
         ],
       },
-      { path: "organizations", element: <Organization /> },
+      {
+        path: "organizations",
+        element: <OrgRoot />,
+        children: [
+          { path: "", element: <Organization /> },
+          { path: ":id", element: <OrgDetails /> },
+        ],
+      },
       { path: "news", element: <News /> },
       { path: "forms", element: <Forms /> },
     ],

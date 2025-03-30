@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Card from "../components/Card";
-import Input2 from "../components/Input2";
 import { useEffect, useState } from "react";
 
 export default function Events() {
