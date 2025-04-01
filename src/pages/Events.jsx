@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import Card from "../components/Card";
 import { useEffect, useState } from "react";
+import { Snackbar, Alert } from "@mui/material";
 
 export default function Events() {
   const [events, setEvents] = useState([]);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useEffect(() => {
     async function fetchEvents() {
@@ -31,22 +33,44 @@ export default function Events() {
     }
 
     fetchEvents();
+
+    // Check if registration was successful
+    if (localStorage.getItem("registrationSuccess") === "true") {
+      setSnackbarOpen(true);
+      localStorage.removeItem("registrationSuccess"); // Clear flag after showing Snackbar
+    }
   }, []);
+
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
 
   return (
     <>
-      <div className="event-wrapper" style={{margin: "auto"}}>
+      <div className="event-wrapper" style={{ margin: "auto" }}>
         {events.map((evt) => (
           <Link
-          key={evt.eventID}  // Move the key here
-          to={evt.eventID}
-          style={{ textDecoration: "none", color: "inherit" }}
-          className="card-link"
-        >
-          <Card name={evt.name} startDate={evt.startTime} />
-        </Link>
+            key={evt.eventID}
+            to={`/dashboard/events/${evt.eventID}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+            className="card-link"
+          >
+            <Card name={evt.name} startDate={evt.startTime} />
+          </Link>
         ))}
       </div>
+
+      {/* Snackbar for Registration Success */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity="success" variant="filled">
+          Registration successful!
+        </Alert>
+      </Snackbar>
     </>
   );
 }

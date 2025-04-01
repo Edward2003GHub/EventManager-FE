@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import { Alert, Button, Snackbar } from "@mui/material";
+import { Button } from "@mui/material";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 export default function EventDetails() {
+  const navigate = useNavigate();
   const params = useParams();
   const [eventData, setEventData] = useState(null);
-  const [open, setOpen] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
     async function getEventById() {
@@ -56,20 +58,66 @@ export default function EventDetails() {
         console.error("Registration failed:", errorMessage);
         return;
       } else {
-        setOpen(true);
+        localStorage.setItem("registrationSuccess", "true");
+        navigate("/dashboard/events");
       }
     } catch (error) {
       console.error("Network error:", error);
     }
   }
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
+  async function handleUnregister() {
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await fetch(
+        `https://localhost:7262/api/Attendees/${params.id}?userId=${userId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        console.log("Successfully unregistered");
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.error("Network error:", error);
     }
-    window.location.reload();
-    setOpen(false);
-  };
+  }
+
+  useEffect(() => {
+    async function getAttendees() {
+      const response = await fetch(
+        `https://localhost:7262/api/Attendees/${params.id}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("notGG");
+      }
+
+      const users = await response.json();
+      const userExists = users.some(
+        (user) => user.id === localStorage.getItem("userId")
+      );
+      setIsRegistered(userExists);
+    }
+
+    getAttendees();
+  }, []);
 
   return (
     <div>
@@ -102,36 +150,18 @@ export default function EventDetails() {
           </div>
           <hr />
           <h1>Description</h1>
-          <p style={{fontSize: "20px"}}>{eventData.description}</p>
+          <p style={{ fontSize: "20px" }}>{eventData.description}</p>
           <hr />
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <Button
-              onClick={handleRegister}
+              onClick={isRegistered ? handleUnregister : handleRegister}
               variant="contained"
-              color="success"
-              startIcon={<HowToRegIcon />}
+              color={isRegistered ? "error" : "success"}
+              startIcon={isRegistered ? <ExitToAppIcon /> : <HowToRegIcon />}
               sx={{ fontSize: "16px" }}
             >
-              Register
+              {isRegistered ? "Unregister" : "Register"}
             </Button>
-            <Snackbar
-              open={open}
-              autoHideDuration={3000}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-            >
-              <Alert
-                onClose={handleClose}
-                severity="success"
-                variant="filled"
-                sx={{ width: "100%" }}
-              >
-                Register successful!
-              </Alert>
-            </Snackbar>
           </div>
         </div>
       )}
