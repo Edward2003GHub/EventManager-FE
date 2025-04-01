@@ -76,7 +76,11 @@ export default function EventDetails() {
       {eventData && (
         <div className="details">
           <div className="detail-container">
-            <img src="https://picsum.photos/id/1/200/300" alt="event-photo" />
+            <div
+              style={{ width: "100%", flex: 1, margin: "10px 30px 10px 10px" }}
+            >
+              <div className="detail-events-img"></div>
+            </div>
             <div className="detail-title-date">
               <h1>{eventData.name}</h1>
               <div className="detail-date-con">
@@ -97,8 +101,8 @@ export default function EventDetails() {
             </div>
           </div>
           <hr />
-          <h3>Description</h3>
-          <p>{eventData.description}</p>
+          <h1>Description</h1>
+          <p style={{fontSize: "20px"}}>{eventData.description}</p>
           <hr />
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <Button

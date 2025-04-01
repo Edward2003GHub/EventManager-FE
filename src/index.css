@@ -294,6 +294,7 @@ body {
 .detail-title-date {
   height: 100%;
   display: flex;
+  flex: 1;
   flex-direction: column;
 }
 
@@ -305,12 +306,15 @@ body {
 .detail-container {
   display: flex;
   gap: 1rem;
-  height: auto;
 }
 
-.detail-container > img {
-  width: 500px;
-  height: 300px;
+.detail-events-img {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  padding-bottom: 60%;
+  margin-bottom: 16px;
+  background-image: url("https://picsum.photos/id/1/200/300");
 }
 
 .detail-date-con {
