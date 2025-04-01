@@ -112,7 +112,7 @@ export default function Home() {
         <h2>Organizations</h2>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
           {org.map((each) => (
-            <OrgCard key={each.id} description={each.description} />
+            <OrgCard key={each.id} name={each.name} to={`/dashboard/organizations/${each.organizationID}`} />
           ))}
         </div>
       </div>
