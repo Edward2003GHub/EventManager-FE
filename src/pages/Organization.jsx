@@ -22,7 +22,7 @@ export default function Organization() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "1330px", margin: "auto", padding: "35px" }}>
       {org.map((each) => (
-        <OrgCard2 description={each.description} to={each.organizationID} name={each.name}/>
+        <OrgCard2 key={each.organizationID} description={each.description} to={each.organizationID} name={each.name}/>
       ))}
     </div>
   );
