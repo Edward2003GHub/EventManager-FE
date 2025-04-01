@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function OrgCard2({ description, to }) {
+export default function OrgCard2({ description, name, to }) {
   return (
     <Link to={to} style={{ textDecoration: "none", color: "black" }}>
       <div className="org-card2">
@@ -11,7 +11,10 @@ export default function OrgCard2({ description, to }) {
           height="75px"
           style={{ borderRadius: "50%" }}
         />
-        <h3 style={{ padding: "0 16px", margin: "0 0 16px 0", flexGrow: 1 }}>{description}</h3>
+        <div style={{ padding: "0 16px", margin: "0 0 16px 0", flexGrow: 1 }}>
+          <h2 style={{marginTop: 0}}>{name}</h2>
+          <p>{description}</p>
+        </div>
       </div>
     </Link>
   );
