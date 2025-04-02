@@ -83,7 +83,8 @@ export default function EventDetails() {
       );
 
       if (response.ok) {
-        console.log("Successfully unregistered");
+        localStorage.setItem("unregistrationSuccess", "true");
+        navigate("/dashboard/events");
       } else {
         console.log("error");
       }

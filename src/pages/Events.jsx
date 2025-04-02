@@ -6,6 +6,7 @@ import { Snackbar, Alert } from "@mui/material";
 export default function Events() {
   const [events, setEvents] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarUnreg, setSnackbarUnreg] = useState(false);
 
   useEffect(() => {
     async function fetchEvents() {
@@ -39,6 +40,11 @@ export default function Events() {
       setSnackbarOpen(true);
       localStorage.removeItem("registrationSuccess"); // Clear flag after showing Snackbar
     }
+
+    if (localStorage.getItem("unregistrationSuccess") === "true") {
+      setSnackbarUnreg(true);
+      localStorage.removeItem("unregistrationSuccess"); // Clear flag after showing Snackbar
+    }
   }, []);
 
   const handleCloseSnackbar = () => {
@@ -69,6 +75,17 @@ export default function Events() {
       >
         <Alert onClose={handleCloseSnackbar} severity="success" variant="filled">
           Registration successful!
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={snackbarUnreg}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity="success" variant="filled">
+          Unregistration successful!
         </Alert>
       </Snackbar>
     </>
