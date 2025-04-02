@@ -1,3 +1,42 @@
+import { useEffect, useState } from "react";
+import NewsCard from "../components/NewsCard";
+
 export default function News() {
-    return <h1>News</h1>;
+  const [news, setNews] = useState([]);
+
+  useEffect(() => {
+    async function fetchNews() {
+      const response = await fetch("https://localhost:7262/api/News", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setNews(await response.json());
+      }
+    }
+
+    fetchNews();
+  }, []);
+
+  return (
+    <>
+      <div style={{ maxWidth: "1330px", padding: "35px", margin: "auto" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          {news.map((n) => (
+            <NewsCard
+              key={n.id}
+              title={n.title}
+              cdate={n.createdDate}
+              udate={n.updatedDate}
+              content={n.content}
+            />
+          ))}
+        </div>
+      </div>
+    </>
+  );
 }

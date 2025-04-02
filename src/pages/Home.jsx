@@ -5,21 +5,10 @@ import { Button } from "@mui/material";
 import OrgCard from "../components/OrgCard";
 import NewsCard from "../components/NewsCard";
 
-const news = [
-  {
-    id: "n1",
-    image: "https://picsum.photos/id/1/200/300",
-    title: "Apply to be a Chief Appointed Official for the ASUC!",
-    date: "Monday, March 24, 2025",
-    postedBy: "Edward",
-    description:
-      "ASUC is seeking dynamic student leaders to be the next CFO, CLO, CTO, CCO, and CPO",
-  },
-];
-
 export default function Home() {
   const [events, setEvents] = useState([]);
   const [org, setOrg] = useState([]);
+  const [news, setNews] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,13 +44,16 @@ export default function Home() {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch("https://localhost:7262/api/Organizations", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          "https://localhost:7262/api/Organizations",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         if (!response.ok) {
           console.error(`Error: ${response.statusText} (${response.status})`);
@@ -76,6 +68,24 @@ export default function Home() {
     }
 
     fetchOrg();
+  }, []);
+
+  useEffect(() => {
+    async function fetchNews() {
+      const response = await fetch("https://localhost:7262/api/News", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setNews(await response.json());
+      }
+    }
+
+    fetchNews();
   }, []);
 
   return (
@@ -112,22 +122,25 @@ export default function Home() {
         <h2>Organizations</h2>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
           {org.map((each) => (
-            <OrgCard key={each.organizationID} name={each.name} to={`/dashboard/organizations/${each.organizationID}`} />
+            <OrgCard
+              key={each.organizationID}
+              name={each.name}
+              to={`/dashboard/organizations/${each.organizationID}`}
+            />
           ))}
         </div>
       </div>
 
       <div>
         <h2>Latest News</h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           {news.map((each) => (
             <NewsCard
               key={each.id}
-              image={each.image}
               title={each.title}
-              date={each.date}
-              postedBy={each.postedBy}
-              description={each.description}
+              cdate={each.createdDate}
+              udate={each.updatedDate}
+              content={each.content}
             />
           ))}
         </div>

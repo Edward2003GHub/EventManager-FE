@@ -383,7 +383,8 @@ body {
 }
 
 .news-img {
-  width: 250px;
+  max-width: 15.625rem;
+  flex: 0 0 15.625rem;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
