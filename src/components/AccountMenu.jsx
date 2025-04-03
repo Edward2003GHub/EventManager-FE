@@ -43,6 +43,7 @@ export default function AccountMenu({ fLetter, email, logout, delAcc }) {
         open={open}
         onClose={handleClose}
         onClick={handleClose}
+        disableScrollLock={true}
         slotProps={{
           paper: {
             elevation: 0,
