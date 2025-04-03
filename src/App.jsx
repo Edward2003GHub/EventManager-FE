@@ -12,6 +12,8 @@ import News from "./pages/News";
 import Forms from "./pages/Forms";
 import OrgDetails from "./pages/OrgDetails";
 import OrgRoot from "./components/OrgRoot";
+import NewDetails from "./pages/NewDetails";
+import NewsRoot from "./components/NewsRoot";
 
 const router = createBrowserRouter([
   { path: "/", element: <Start /> },
@@ -38,7 +40,14 @@ const router = createBrowserRouter([
           { path: ":id", element: <OrgDetails /> },
         ],
       },
-      { path: "news", element: <News /> },
+      {
+        path: "news",
+        element: <NewsRoot />,
+        children: [
+          { path: "", element: <News /> },
+          { path: ":id", element: <NewDetails /> },
+        ],
+      },
       { path: "forms", element: <Forms /> },
     ],
   },

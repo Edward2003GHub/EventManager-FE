@@ -1,4 +1,6 @@
-export default function NewsCard({ title, cdate, udate, content }) {
+import { Link } from "react-router-dom";
+
+export default function NewsCard({ title, cdate, udate, content, to }) {
   const formatDate = (isoString) => {
     if (!isoString) return "N/A";
     const date = new Date(isoString);
@@ -14,7 +16,7 @@ export default function NewsCard({ title, cdate, udate, content }) {
   };
 
   return (
-    <a href="#" style={{ textDecoration: "none", color: "black" }}>
+    <Link to={to} style={{ textDecoration: "none", color: "black" }}>
       <div className="news-card">
         <div
           className="news-img"
@@ -27,6 +29,6 @@ export default function NewsCard({ title, cdate, udate, content }) {
           <div dangerouslySetInnerHTML={{ __html: content }} />
         </div>
       </div>
-    </a>
+    </Link>
   );
 }

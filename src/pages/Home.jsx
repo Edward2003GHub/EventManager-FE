@@ -141,6 +141,7 @@ export default function Home() {
               cdate={each.createdDate}
               udate={each.updatedDate}
               content={each.content}
+              to={`/dashboard/news/${each.id}`}
             />
           ))}
         </div>

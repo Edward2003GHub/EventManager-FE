@@ -33,6 +33,7 @@ export default function News() {
               cdate={n.createdDate}
               udate={n.updatedDate}
               content={n.content}
+              to={n.id}
             />
           ))}
         </div>
