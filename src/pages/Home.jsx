@@ -67,10 +67,6 @@ export default function Home() {
 
   return (
     <div className="home-container">
-      <img
-        src="https://bau.edu.jo/bauliveportal/attch/13052_1.jpg"
-        alt="bau-photo"
-      />
       <div>
         <div style={{ display: "flex", gap: "20px" }}>
           {events.map((evt) => (
@@ -91,7 +87,11 @@ export default function Home() {
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
             variant="outlined"
-            onClick={() => navigate(localStorage.getItem("token") ? "/user/events" : "/events")}
+            onClick={() =>
+              navigate(
+                localStorage.getItem("token") ? "/user/events" : "/events"
+              )
+            }
             sx={{ fontSize: "16px", marginTop: "10px" }}
           >
             view more events

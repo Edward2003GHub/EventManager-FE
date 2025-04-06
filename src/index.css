@@ -338,12 +338,6 @@ body {
   gap: 20px;
 }
 
-.home-container > img {
-  box-sizing: border-box;
-  width: 100%;
-  max-height: 680px;
-}
-
 .org-link {
   text-decoration: none;
   color: black;
