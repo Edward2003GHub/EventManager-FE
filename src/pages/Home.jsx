@@ -66,8 +66,10 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="home-container">
-      <div>
+      <div className="home-container">
+          <h1>Welcome to the Home Page</h1> 
+          <div>
+
         <div style={{ display: "flex", gap: "20px" }}>
           {events.map((evt) => (
             <Link
