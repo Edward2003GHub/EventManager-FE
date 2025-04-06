@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import PrivateRoute from "./components/PrivateRoute";
-import Start from "./components/Start";
 import Events from "./pages/Events";
 import Home from "./pages/Home";
 import EventDetails from "./pages/EventsDetails";
@@ -14,13 +13,14 @@ import OrgDetails from "./pages/OrgDetails";
 import OrgRoot from "./components/OrgRoot";
 import NewDetails from "./pages/NewDetails";
 import NewsRoot from "./components/NewsRoot";
+import Welcome from "./pages/Welcome";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Start /> },
+  { path: "/", element: <Welcome /> },
   { path: "/register", element: <Register /> },
   { path: "/login", element: <Login /> },
   {
-    path: "/dashboard",
+    path: "/user",
     element: <PrivateRoute />,
     children: [
       { path: "home", element: <Home /> },

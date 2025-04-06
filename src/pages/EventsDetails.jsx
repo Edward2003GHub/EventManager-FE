@@ -59,7 +59,7 @@ export default function EventDetails() {
         return;
       } else {
         localStorage.setItem("registrationSuccess", "true");
-        navigate("/dashboard/events");
+        navigate("/user/events");
       }
     } catch (error) {
       console.error("Network error:", error);
@@ -84,7 +84,7 @@ export default function EventDetails() {
 
       if (response.ok) {
         localStorage.setItem("unregistrationSuccess", "true");
-        navigate("/dashboard/events");
+        navigate("/user/events");
       } else {
         console.log("error");
       }

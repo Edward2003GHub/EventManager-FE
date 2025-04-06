@@ -99,7 +99,7 @@ export default function Home() {
           {events.map((evt) => (
             <Link
               key={evt.eventID}
-              to={`/dashboard/events/${evt.eventID}`}
+              to={`/user/events/${evt.eventID}`}
               style={{ textDecoration: "none", color: "inherit" }}
               className="card-link"
             >
@@ -110,7 +110,7 @@ export default function Home() {
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
             variant="outlined"
-            onClick={() => navigate("/dashboard/events")}
+            onClick={() => navigate("/user/events")}
             sx={{ fontSize: "16px", marginTop: "10px" }}
           >
             view more events
@@ -125,7 +125,7 @@ export default function Home() {
             <OrgCard
               key={each.organizationID}
               name={each.name}
-              to={`/dashboard/organizations/${each.organizationID}`}
+              to={`/user/organizations/${each.organizationID}`}
             />
           ))}
         </div>
@@ -141,7 +141,7 @@ export default function Home() {
               cdate={each.createdDate}
               udate={each.updatedDate}
               content={each.content}
-              to={`/dashboard/news/${each.id}`}
+              to={`/user/news/${each.id}`}
             />
           ))}
         </div>

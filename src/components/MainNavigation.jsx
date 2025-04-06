@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import IconButton from "@mui/material/IconButton";
@@ -66,12 +66,12 @@ export default function Events() {
             <h1>Event Manager</h1>
           </div>
           <div>
-            <AccountMenu
+            {localStorage.getItem("token") ? <AccountMenu
               fLetter={localStorage.getItem("name").charAt(0)}
               email={localStorage.getItem("email")}
               logout={handleLogout}
               delAcc={handleDelete}
-            />
+            /> : <Link to="/login">Log in</Link>}
           </div>
         </div>
       </div>

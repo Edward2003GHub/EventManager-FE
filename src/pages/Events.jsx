@@ -57,7 +57,7 @@ export default function Events() {
         {events.map((evt) => (
           <Link
             key={evt.eventID}
-            to={`/dashboard/events/${evt.eventID}`}
+            to={`/user/events/${evt.eventID}`}
             style={{ textDecoration: "none", color: "inherit" }}
             className="card-link"
           >

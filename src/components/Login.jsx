@@ -51,7 +51,7 @@ export default function Login() {
         localStorage.setItem("name", result.personName);
         localStorage.setItem("userId", result.id);
         setLoginError(false);
-        navigate("/dashboard/home");
+        navigate("/user/home");
       } else {
         console.error("Login failed:", result);
         setLoginError(true);
