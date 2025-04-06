@@ -8,6 +8,14 @@ export default function Events() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarUnreg, setSnackbarUnreg] = useState(false);
 
+  const handleCloseRegistrationSnackbar = () => {
+    setSnackbarOpen(false);
+  };
+
+  const handleCloseUnregistrationSnackbar = () => {
+    setSnackbarUnreg(false);
+  };
+
   useEffect(() => {
     async function fetchEvents() {
       try {
@@ -70,10 +78,10 @@ export default function Events() {
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}
-        onClose={handleCloseSnackbar}
+        onClose={handleCloseRegistrationSnackbar}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       >
-        <Alert onClose={handleCloseSnackbar} severity="success" variant="filled">
+        <Alert onClose={handleCloseRegistrationSnackbar} severity="success" variant="filled">
           Registration successful!
         </Alert>
       </Snackbar>
@@ -81,10 +89,10 @@ export default function Events() {
       <Snackbar
         open={snackbarUnreg}
         autoHideDuration={3000}
-        onClose={handleCloseSnackbar}
+        onClose={handleCloseUnregistrationSnackbar}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       >
-        <Alert onClose={handleCloseSnackbar} severity="success" variant="filled">
+        <Alert onClose={handleCloseUnregistrationSnackbar} severity="success" variant="filled">
           Unregistration successful!
         </Alert>
       </Snackbar>
