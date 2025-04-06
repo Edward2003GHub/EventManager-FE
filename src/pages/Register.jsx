@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Input2 from "./Input2";
+import Input2 from "../components/Input2";
 
 export default function Register() {
   const [passwordEmpty, setPasswordEmpty] = useState(false);

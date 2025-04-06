@@ -67,6 +67,18 @@ export default function Home() {
 
   return (
     <div className="home-container">
+      <div style={{ display: "flex" }}>
+        <img src="https://picsum.photos/id/1/200/300" alt="" />
+        <div>
+          {news.map((n) => (
+            <div>
+              <p>{n.title}</p>
+              <p>{n.createdDate}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div>
         <div style={{ display: "flex", gap: "20px" }}>
           {events.map((evt) => (
