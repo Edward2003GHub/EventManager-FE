@@ -1,13 +1,13 @@
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
+import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import IconButton from "@mui/material/IconButton";
 import { useState } from "react";
 import AccountMenu from "./AccountMenu";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
-import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
-import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
 
 export default function Events() {
   const navigate = useNavigate();
@@ -66,12 +66,7 @@ export default function Events() {
             <h1>Event Manager</h1>
           </div>
           <div>
-            <AccountMenu
-              fLetter={localStorage.getItem("name").charAt(0)}
-              email={localStorage.getItem("email")}
-              logout={handleLogout}
-              delAcc={handleDelete}
-            />
+            <Link to="/login">Log in</Link>
           </div>
         </div>
       </div>
@@ -79,11 +74,11 @@ export default function Events() {
         <div className="logo-nav">
           <div className="nav-links">
             <NavLink
-              to="home"
+              to=""
               className={({ isActive }) => (isActive ? "active" : undefined)}
               end
             >
-              <HomeOutlinedIcon sx={{ fontSize: 28 }} />
+              <HomeOutlinedIcon sx={{fontSize: 28}} />
               {toggle ? <span>Home</span> : undefined}
             </NavLink>
 
@@ -91,7 +86,7 @@ export default function Events() {
               to="events"
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
-              <EventOutlinedIcon sx={{ fontSize: 28 }} />
+              <EventOutlinedIcon sx={{fontSize: 28}} />
               {toggle ? <span>Events</span> : undefined}
             </NavLink>
 
@@ -99,7 +94,7 @@ export default function Events() {
               to="organizations"
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
-              <PeopleOutlineOutlinedIcon sx={{ fontSize: 28 }} />
+              <PeopleOutlineOutlinedIcon sx={{fontSize: 28}} />
               {toggle ? <span>Organizations</span> : undefined}
             </NavLink>
 
@@ -107,7 +102,7 @@ export default function Events() {
               to="news"
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
-              <ArticleOutlinedIcon sx={{ fontSize: 28 }} />
+              <ArticleOutlinedIcon sx={{fontSize: 28}} />
               {toggle ? <span>News</span> : undefined}
             </NavLink>
 
@@ -115,7 +110,7 @@ export default function Events() {
               to="forms"
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
-              <SummarizeOutlinedIcon sx={{ fontSize: 28 }} />
+              <SummarizeOutlinedIcon sx={{fontSize: 28}} />
               {toggle ? <span>Forms</span> : undefined}
             </NavLink>
           </div>
