@@ -91,7 +91,7 @@ export default function Home() {
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
             variant="outlined"
-            onClick={() => navigate("/user/events")}
+            onClick={() => navigate(localStorage.getItem("token") ? "/user/events" : "/events")}
             sx={{ fontSize: "16px", marginTop: "10px" }}
           >
             view more events
