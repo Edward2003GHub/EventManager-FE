@@ -65,7 +65,7 @@ export default function Events() {
         {events.map((evt) => (
           <Link
             key={evt.eventID}
-            to={`/user/events/${evt.eventID}`}
+            to={localStorage.getItem("token") ? `/user/events/${evt.eventID}` : `/events/${evt.eventID}`}
             style={{ textDecoration: "none", color: "inherit" }}
             className="card-link"
           >

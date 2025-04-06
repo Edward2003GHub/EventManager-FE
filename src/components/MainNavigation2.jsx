@@ -8,46 +8,18 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
+import { Button } from "@mui/material";
 
 export default function Events() {
   const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
 
-  async function handleLogout() {
-    try {
-      const response = await fetch("https://localhost:7262/api/Account/Logout");
-
-      if (response.ok) {
-        localStorage.clear();
-        navigate("/");
-      } else {
-        console.log("Logging out error");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async function handleDelete() {
-    const response = await fetch(
-      `https://localhost:7262/api/Account/${localStorage.getItem("email")}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (response.ok) {
-      console.log("Delete good!");
-      navigate("/");
-    } else {
-      console.log("error");
-    }
-  }
-
   function handleToggle() {
     setToggle((prevT) => !prevT);
+  }
+
+  function handleLogin() {
+    navigate("/login");
   }
 
   return (
@@ -66,7 +38,7 @@ export default function Events() {
             <h1>Event Manager</h1>
           </div>
           <div>
-            <Link to="/login">Log in</Link>
+            <Button onClick={handleLogin} variant="contained">Login</Button>
           </div>
         </div>
       </div>

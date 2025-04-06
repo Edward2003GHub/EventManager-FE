@@ -39,27 +39,31 @@ export default function EventDetails() {
 
   async function handleRegister() {
     try {
-      const userId = localStorage.getItem("userId");
-      const token = localStorage.getItem("token");
+      if (localStorage.getItem("token")) {
+        const userId = localStorage.getItem("userId");
+        const token = localStorage.getItem("token");
 
-      const response = await fetch(
-        `https://localhost:7262/api/Attendees/${params.id}?userId=${userId}`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+        const response = await fetch(
+          `https://localhost:7262/api/Attendees/${params.id}?userId=${userId}`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          const errorMessage = await response.text();
+          console.error("Registration failed:", errorMessage);
+          return;
+        } else {
+          localStorage.setItem("registrationSuccess", "true");
+          navigate("/user/events");
         }
-      );
-
-      if (!response.ok) {
-        const errorMessage = await response.text();
-        console.error("Registration failed:", errorMessage);
-        return;
       } else {
-        localStorage.setItem("registrationSuccess", "true");
-        navigate("/user/events");
+        navigate("/login");
       }
     } catch (error) {
       console.error("Network error:", error);

@@ -99,7 +99,7 @@ export default function Home() {
           {events.map((evt) => (
             <Link
               key={evt.eventID}
-              to={`/user/events/${evt.eventID}`}
+              to={localStorage.getItem("token") ? `/user/events/${evt.eventID}` : `/events/${evt.eventID}`}
               style={{ textDecoration: "none", color: "inherit" }}
               className="card-link"
             >
@@ -125,7 +125,7 @@ export default function Home() {
             <OrgCard
               key={each.organizationID}
               name={each.name}
-              to={`/user/organizations/${each.organizationID}`}
+              to={localStorage.getItem("token") ? `/user/organizations/${each.organizationID}` : `/organizations/${each.organizationID}`}
             />
           ))}
         </div>
@@ -141,7 +141,7 @@ export default function Home() {
               cdate={each.createdDate}
               udate={each.updatedDate}
               content={each.content}
-              to={`/user/news/${each.id}`}
+              to={localStorage.getItem("token") ? `/user/news/${each.id}` : `/news/${each.id}`}
             />
           ))}
         </div>
