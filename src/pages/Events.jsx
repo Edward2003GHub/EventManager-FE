@@ -19,15 +19,7 @@ export default function Events() {
   useEffect(() => {
     async function fetchEvents() {
       try {
-        const token = localStorage.getItem("token");
-
-        const response = await fetch("https://localhost:7262/api/Events", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch("https://localhost:7262/api/Events");
 
         if (!response.ok) {
           console.error(`Error: ${response.statusText} (${response.status})`);

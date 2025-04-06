@@ -6,13 +6,7 @@ export default function Organization() {
 
   useEffect(() => {
     async function fetchOrg() {
-      const response = await fetch("https://localhost:7262/api/Organizations", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch("https://localhost:7262/api/Organizations");
       const resData = await response.json();
       setOrg(resData);
     }

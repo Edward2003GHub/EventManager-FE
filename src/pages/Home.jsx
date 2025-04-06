@@ -14,15 +14,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchEvents() {
       try {
-        const token = localStorage.getItem("token");
-
-        const response = await fetch("https://localhost:7262/api/Events", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch("https://localhost:7262/api/Events");
 
         if (!response.ok) {
           console.error(`Error: ${response.statusText} (${response.status})`);
@@ -42,17 +34,8 @@ export default function Home() {
   useEffect(() => {
     async function fetchOrg() {
       try {
-        const token = localStorage.getItem("token");
-
         const response = await fetch(
-          "https://localhost:7262/api/Organizations",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
+          "https://localhost:7262/api/Organizations"
         );
 
         if (!response.ok) {
@@ -72,13 +55,7 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchNews() {
-      const response = await fetch("https://localhost:7262/api/News", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch("https://localhost:7262/api/News");
 
       if (response.ok) {
         setNews(await response.json());
@@ -99,7 +76,11 @@ export default function Home() {
           {events.map((evt) => (
             <Link
               key={evt.eventID}
-              to={localStorage.getItem("token") ? `/user/events/${evt.eventID}` : `/events/${evt.eventID}`}
+              to={
+                localStorage.getItem("token")
+                  ? `/user/events/${evt.eventID}`
+                  : `/events/${evt.eventID}`
+              }
               style={{ textDecoration: "none", color: "inherit" }}
               className="card-link"
             >
@@ -125,7 +106,11 @@ export default function Home() {
             <OrgCard
               key={each.organizationID}
               name={each.name}
-              to={localStorage.getItem("token") ? `/user/organizations/${each.organizationID}` : `/organizations/${each.organizationID}`}
+              to={
+                localStorage.getItem("token")
+                  ? `/user/organizations/${each.organizationID}`
+                  : `/organizations/${each.organizationID}`
+              }
             />
           ))}
         </div>
@@ -141,7 +126,11 @@ export default function Home() {
               cdate={each.createdDate}
               udate={each.updatedDate}
               content={each.content}
-              to={localStorage.getItem("token") ? `/user/news/${each.id}` : `/news/${each.id}`}
+              to={
+                localStorage.getItem("token")
+                  ? `/user/news/${each.id}`
+                  : `/news/${each.id}`
+              }
             />
           ))}
         </div>

@@ -6,13 +6,7 @@ export default function News() {
 
   useEffect(() => {
     async function fetchNews() {
-      const response = await fetch("https://localhost:7262/api/News", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch("https://localhost:7262/api/News");
 
       if (response.ok) {
         setNews(await response.json());
