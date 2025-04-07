@@ -33,7 +33,7 @@ export default function OrgDetails() {
     <>
       <div style={{ maxWidth: "1330px", margin: "auto", padding: "35px" }}>
         <div style={{ display: "flex" }}>
-          <img src="https://picsum.photos/id/1/200/300" alt="org-img" style={{borderRadius: "50%", width: "90px", height: "90px"}} />
+          <img src={`https://localhost:7262/${org.logoUrl}`} alt="org-img" style={{borderRadius: "50%", width: "90px", height: "90px"}} />
           <div style={{marginLeft: "20px"}}>
             <h1 style={{margin: 0}}>{org.name}</h1>
             <p style={{margin: 0}}>{org.college}</p>
