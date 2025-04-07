@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function NewsCard({ title, cdate, udate, content, to }) {
+export default function NewsCard({ title, date, isUpdated, content, to }) {
   const formatDate = (isoString) => {
     if (!isoString) return "N/A";
     const date = new Date(isoString);
@@ -24,8 +24,9 @@ export default function NewsCard({ title, cdate, udate, content, to }) {
         ></div>
         <div className="news-padding">
           <h3>{title}</h3>
-          <p className="news-detail">{"Created: " + formatDate(cdate)}</p>
-          <p className="news-detail">{"Updated: " + formatDate(udate)}</p>
+          <p className="news-detail">
+            {(isUpdated ? "Updated: " : "Created: ") + formatDate(date)}
+          </p>
           <div dangerouslySetInnerHTML={{ __html: content }} />
         </div>
       </div>

@@ -24,8 +24,8 @@ export default function News() {
             <NewsCard
               key={n.id}
               title={n.title}
-              cdate={n.createdDate}
-              udate={n.updatedDate}
+              date={n.updatedDate ? n.updatedDate : n.createdDate}
+              isUpdated={!!n.updatedDate}
               content={n.content}
               to={n.id}
             />
