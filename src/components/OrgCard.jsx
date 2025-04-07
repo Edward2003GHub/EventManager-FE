@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
-export default function OrgCard({ name, to }) {
+export default function OrgCard({ name, image, to }) {
   return (
     <Link to={to} className="org-link">
       <div className="org-card">
         <img
-          src="https://picsum.photos/id/1/200/300"
+          src= {`https://localhost:7262/${image}`}
           alt=""
           width="77px"
           height="77px"

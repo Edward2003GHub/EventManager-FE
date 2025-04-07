@@ -4,11 +4,13 @@ import Card from "../components/Card";
 import { Button } from "@mui/material";
 import OrgCard from "../components/OrgCard";
 import NewsCard from "../components/NewsCard";
+import { format } from "date-fns";
 
 export default function Home() {
   const [events, setEvents] = useState([]);
   const [org, setOrg] = useState([]);
   const [news, setNews] = useState([]);
+  const [hoveredImage, setHoveredImage] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -68,6 +70,78 @@ export default function Home() {
   return (
     <div className="home-container">
       <div>
+        <h2>Latest News</h2>
+        <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+          <img
+            src={hoveredImage || "https://picsum.photos/id/1/200/300"} // Default image
+            alt="news-img"
+            style={{ flex: 1 }}
+            height="350px"
+          />
+          <div
+            style={{
+              flex: 1,
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+            }}
+          >
+            {news.map((n) => (
+              <div key={n.id}>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "5px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "20px",
+                      width: "75px",
+                    }}
+                  >
+                    <div
+                      align="center"
+                      style={{
+                        flex: 1,
+                        backgroundColor: "rgb(25, 118, 210)",
+                        color: "white",
+                        width: "100%",
+                      }}
+                    >
+                      <span>{n.updatedDate ? format(new Date(n.updatedDate), "dd") : format(new Date(n.createdDate), "dd")}</span>
+                    </div>
+                    <div
+                      align="center"
+                      style={{
+                        flex: 1,
+                        width: "100%",
+                        backgroundColor: "rgb(33, 91, 149)",
+                        color: "white",
+                      }}
+                    >
+                      <span>{n.updatedDate ?  format(new Date(n.updatedDate), "MMM") : format(new Date(n.createdDate), "MMM")}</span>
+                    </div>
+                  </div>
+                  <div
+                    className="eachNewsLink"
+                    onMouseEnter={() => setHoveredImage(n.imageUrl)} // Assuming `n.imageUrl` contains the URL of the image
+                    onMouseLeave={() => setHoveredImage(null)}
+                  >
+                    {n.title}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div>
         <div style={{ display: "flex", gap: "20px" }}>
           {events.map((evt) => (
             <Link
@@ -106,30 +180,11 @@ export default function Home() {
             <OrgCard
               key={each.organizationID}
               name={each.name}
+              image={each.logoUrl}
               to={
                 localStorage.getItem("token")
                   ? `/user/organizations/${each.organizationID}`
                   : `/organizations/${each.organizationID}`
-              }
-            />
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <h2>Latest News</h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          {news.map((each) => (
-            <NewsCard
-              key={each.id}
-              title={each.title}
-              cdate={each.createdDate}
-              udate={each.updatedDate}
-              content={each.content}
-              to={
-                localStorage.getItem("token")
-                  ? `/user/news/${each.id}`
-                  : `/news/${each.id}`
               }
             />
           ))}

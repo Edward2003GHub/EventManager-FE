@@ -63,7 +63,7 @@ export default function Events() {
                 }}
               />
             </IconButton>
-            <h1>Event Manager</h1>
+            <img src="../../Images/BAUClubs.png" alt="" width={"70px"} />
           </div>
           <div>
             <AccountMenu
