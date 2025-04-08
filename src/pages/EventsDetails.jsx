@@ -132,7 +132,7 @@ export default function EventDetails() {
             <div
               style={{ width: "100%", flex: 1, margin: "10px 30px 10px 10px" }}
             >
-              <div className="detail-events-img"></div>
+              <div className="detail-events-img" style={{backgroundImage: `url(https://localhost:7262/${eventData.photoUrl})`}}></div>
             </div>
             <div className="detail-title-date">
               <h1>{eventData.name}</h1>
