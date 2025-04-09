@@ -9,6 +9,8 @@ export default function Register() {
   const [emailNotValid, setEmailNotValid] = useState(false);
   const [nameEmpty, setNameEmpty] = useState(false);
   const [numberEmpty, setNumberEmpty] = useState(false);
+  const [error, setError] = useState(false);
+  const [registerError, setRegisterError] = useState();
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
@@ -80,7 +82,8 @@ export default function Register() {
         localStorage.setItem("regGood", "true");
         // Handle success (e.g., redirect user or show success message)
       } else {
-        console.error("Registration failed:", result);
+        setError(true);
+        setRegisterError(result.detail);
         // Handle error (e.g., show error message)
       }
     } catch (error) {
@@ -205,7 +208,12 @@ export default function Register() {
               error={passwordNotEqual}
               errorText="The password aren't equal"
             />
-            <Button variant="contained" sx={{ marginTop: "20px" }} type="submit">
+            {error && <p className="err">{registerError}</p>}
+            <Button
+              variant="contained"
+              sx={{ marginTop: "20px" }}
+              type="submit"
+            >
               Register
             </Button>
             <p className="no-acc">
