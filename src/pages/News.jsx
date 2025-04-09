@@ -23,6 +23,7 @@ export default function News() {
           {news.map((n) => (
             <NewsCard
               key={n.id}
+              image={n.photoUrl}
               title={n.title}
               date={n.updatedDate ? n.updatedDate : n.createdDate}
               isUpdated={!!n.updatedDate}
