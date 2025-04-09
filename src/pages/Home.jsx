@@ -142,7 +142,7 @@ export default function Home() {
       </div>
 
       <div>
-        <div style={{ display: "flex", gap: "20px" }}>
+        <div className="event-wrapper" style={{padding: 0}}>
           {events.map((evt) => (
             <Link
               key={evt.eventID}

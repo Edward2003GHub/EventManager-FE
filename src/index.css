@@ -203,9 +203,10 @@ body {
   }
 }
 
-@media (max-width: 685px) {
+@media (max-width: 800px) {
   .event-wrapper {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
   }
 }
 
