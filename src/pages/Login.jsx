@@ -1,14 +1,24 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input2 from "../components/Input2";
-import { Button } from "@mui/material";
+import { Alert, Button, Snackbar } from "@mui/material";
 
 export default function Login() {
   const [passwordEmpty, setPasswordEmpty] = useState(false);
   const [emailNotValid, setEmailNotValid] = useState(false);
   const [loginFailed, setLoginFailed] = useState("");
   const [loginError, setLoginError] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
   const navigate = useNavigate();
+
+  if (localStorage.getItem("regGood")) {
+    setSnackbarOpen(true);
+    localStorage.removeItem("regGood");
+  }
+
+  function handleCloseSnackbar() {
+    setSnackbarOpen(false);
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -174,6 +184,20 @@ export default function Login() {
           </div>
         </div>
       </form>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="success"
+          variant="filled"
+        >
+          Registration successful!
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

@@ -47,10 +47,6 @@ export default function Events() {
     }
   }, []);
 
-  const handleCloseSnackbar = () => {
-    setSnackbarOpen(false);
-  };
-
   return (
     <>
       <div className="event-wrapper" style={{ margin: "auto" }}>

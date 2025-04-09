@@ -77,6 +77,7 @@ export default function Register() {
 
       if (response.ok) {
         navigate("/login");
+        localStorage.setItem("regGood", "true");
         // Handle success (e.g., redirect user or show success message)
       } else {
         console.error("Registration failed:", result);
