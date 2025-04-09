@@ -61,7 +61,7 @@ export default function Events() {
             style={{ textDecoration: "none", color: "inherit" }}
             className="card-link"
           >
-            <Card name={evt.name} startDate={evt.startTime} />
+            <Card name={evt.name} image={evt.photoUrl} startDate={evt.startTime} />
           </Link>
         ))}
       </div>

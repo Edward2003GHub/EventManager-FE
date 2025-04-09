@@ -154,7 +154,7 @@ export default function Home() {
               style={{ textDecoration: "none", color: "inherit" }}
               className="card-link"
             >
-              <Card name={evt.name} startDate={evt.startTime} />
+              <Card name={evt.name} startDate={evt.startTime} image={evt.photoUrl} />
             </Link>
           ))}
         </div>
