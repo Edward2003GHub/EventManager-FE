@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Link,
-  useNavigate,
-  useParams,
-  useRouteLoaderData,
-} from "react-router-dom";
+import { useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { Button } from "@mui/material";
@@ -104,11 +99,31 @@ export default function EventDetails() {
     getAttendees();
   }, []);
 
+  async function handleDelete() {
+    const response = await fetch(
+      `https://localhost:7262/api/Events/${params.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.log("delete failed");
+    }
+
+    navigate("/events");
+  }
+
   return (
     <div>
       {eventData && (
         <div className="details">
-          <div style={{display: "flex", gap: "10px", justifyContent: "flex-end"}}>
+          <div
+            style={{ display: "flex", gap: "10px", justifyContent: "flex-end" }}
+          >
             <Button
               variant="contained"
               onClick={() => {
@@ -117,7 +132,7 @@ export default function EventDetails() {
             >
               Edit
             </Button>
-            <Button variant="contained" color="error">
+            <Button variant="contained" color="error" onClick={handleDelete}>
               Delete
             </Button>
           </div>

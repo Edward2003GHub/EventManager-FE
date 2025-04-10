@@ -1,45 +1,79 @@
 import { Button } from "@mui/material";
 import Input2 from "./Input2";
+import { useNavigate } from "react-router-dom";
 
-export default function EventForm({ event }) {
+export default function EventForm({ event, method }) {
+  const navigate = useNavigate();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    const fd = new FormData(e.target);
+
+    const response = await fetch("https://localhost:7262/api/Events", {
+      method,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        // Don't manually set Content-Type when using FormData
+      },
+      body: fd,
+    });
+
+    if (!response.ok) {
+      console.log("newEventFail");
+    }
+
+    navigate("/user/events");
+  }
+
   return (
-    <form method="post" style={{display: "flex", flexDirection: "column", maxWidth: "1330px", margin: "auto", gap: "10px", padding: "35px"}}>
+    <form
+      onSubmit={handleSubmit}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        maxWidth: "1330px",
+        margin: "auto",
+        gap: "10px",
+        padding: "35px",
+      }}
+    >
       <Input2
         label="Name"
         type="text"
-        name="name"
-        defaultValue={event ? event.name : ""}
+        name="Name"
+        defaultValue={event?.name || ""}
       />
       <Input2
         label="Description"
         type="text"
-        name="description"
-        defaultValue={event ? event.description : ""}
+        name="Description"
+        defaultValue={event?.description || ""}
       />
       <Input2
         label="Start Time"
-        type="text"
-        name="startTime"
-        defaultValue={event ? event.startTime : ""}
+        type="datetime-local"
+        name="StartTime"
+        InputLabelProps={{ shrink: true }}
+        defaultValue={event?.startTime || ""}
       />
       <Input2
         label="End Time"
-        type="text"
-        name="endTime"
-        defaultValue={event ? event.endTime : ""}
+        type="datetime-local"
+        name="EndTime"
+        InputLabelProps={{ shrink: true }}
+        defaultValue={event?.endTime || ""}
       />
-      <Input2
-        type="file"
-        name="eventPhoto"
-        defaultValue={event ? event.eventPhoto : ""}
-      />
+      <Input2 type="file" name="EventPhoto" />
       <Input2
         label="Photo Url"
         type="text"
-        name="photoUrl"
-        defaultValue={event ? event.photoUrl : ""}
+        name="PhotoUrl"
+        defaultValue={event?.photoUrl || ""}
       />
-      <Button variant="contained" type="submit">Add Event</Button>
+      <Button variant="contained" type="submit">
+        Add Event
+      </Button>
     </form>
   );
 }
