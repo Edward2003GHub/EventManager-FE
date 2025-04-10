@@ -45,6 +45,7 @@ export default function Events() {
       }
     );
     if (response.ok) {
+      localStorage.clear();
       console.log("Delete good!");
       navigate("/");
     } else {
