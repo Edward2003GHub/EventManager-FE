@@ -1,43 +1,45 @@
+import { Button } from "@mui/material";
+import Input2 from "./Input2";
+
 export default function EventForm({ event }) {
   return (
-    <form method="post">
-      <input
+    <form method="post" style={{display: "flex", flexDirection: "column", maxWidth: "1330px", margin: "auto", gap: "10px", padding: "35px"}}>
+      <Input2
+        label="Name"
         type="text"
         name="name"
-        placeholder="Name"
         defaultValue={event ? event.name : ""}
       />
-      <input
+      <Input2
+        label="Description"
         type="text"
         name="description"
-        placeholder="Description"
         defaultValue={event ? event.description : ""}
       />
-      <input
+      <Input2
+        label="Start Time"
         type="text"
         name="startTime"
-        placeholder="StartTime"
         defaultValue={event ? event.startTime : ""}
       />
-      <input
+      <Input2
+        label="End Time"
         type="text"
         name="endTime"
-        placeholder="EndTime"
         defaultValue={event ? event.endTime : ""}
       />
-      <input
+      <Input2
         type="file"
         name="eventPhoto"
-        placeholder="EventPhoto"
         defaultValue={event ? event.eventPhoto : ""}
       />
-      <input
+      <Input2
+        label="Photo Url"
         type="text"
         name="photoUrl"
-        placeholder="PhotoUrl"
         defaultValue={event ? event.photoUrl : ""}
       />
-      <input type="submit" value="Add Event" />
+      <Button variant="contained">Add Event</Button>
     </form>
   );
 }
