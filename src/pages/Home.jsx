@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import { Button } from "@mui/material";
 import OrgCard from "../components/OrgCard";
-import NewsCard from "../components/NewsCard";
 import { format } from "date-fns";
 
 export default function Home() {
