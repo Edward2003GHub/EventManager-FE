@@ -21,9 +21,9 @@ export default function EventForm({ event, method }) {
 
     if (!response.ok) {
       console.log("newEventFail");
+    } else {
+      navigate("/user/events");
     }
-
-    navigate("/user/events");
   }
 
   return (
