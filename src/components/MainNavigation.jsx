@@ -70,7 +70,7 @@ export default function Events() {
                 }}
               />
             </IconButton>
-            <img src="../../Images/BAUClubs.png" alt="" width={"70px"} />
+            <img src="/Images/BAUClubs.png" alt="" width={"70px"} />
           </div>
           <div>
             {isLoggedIn ? (
