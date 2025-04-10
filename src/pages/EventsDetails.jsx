@@ -112,9 +112,9 @@ export default function EventDetails() {
 
     if (!response.ok) {
       console.log("delete failed");
+    } else {
+      navigate("/user/events");
     }
-
-    navigate("/events");
   }
 
   return (
