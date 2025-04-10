@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useRouteLoaderData,
+} from "react-router-dom";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { Button } from "@mui/material";
@@ -9,7 +14,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 export default function EventDetails() {
   const navigate = useNavigate();
   const params = useParams();
-  const eventData = useRouteLoaderData('event-details');
+  const eventData = useRouteLoaderData("event-details");
   const [isRegistered, setIsRegistered] = useState(false);
 
   async function handleRegister() {
@@ -108,7 +113,15 @@ export default function EventDetails() {
             <div
               style={{ width: "100%", flex: 1, margin: "10px 30px 10px 10px" }}
             >
-              <div className="detail-events-img" style={{backgroundImage: `url(https://localhost:7262/${eventData.photoUrl.replace(/\\/g, "/")})`}}></div>
+              <div
+                className="detail-events-img"
+                style={{
+                  backgroundImage: `url(https://localhost:7262/${eventData.photoUrl.replace(
+                    /\\/g,
+                    "/"
+                  )})`,
+                }}
+              ></div>
             </div>
             <div className="detail-title-date">
               <h1>{eventData.name}</h1>
@@ -151,21 +164,20 @@ export default function EventDetails() {
 }
 
 export async function loader({ params }) {
-  const token = localStorage.getItem("token");
-
   const response = await fetch(
     `https://localhost:7262/api/Events/${params.id}`,
     {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     }
   );
 
   if (!response.ok) {
-    throw new Response("Failed to fetch event data", { status: response.status });
+    throw new Response("Failed to fetch event data", {
+      status: response.status,
+    });
   }
 
   return await response.json();
