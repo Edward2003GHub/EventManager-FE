@@ -108,7 +108,19 @@ export default function EventDetails() {
     <div>
       {eventData && (
         <div className="details">
-          <Link to="edit">edit</Link>
+          <div style={{display: "flex", gap: "10px", justifyContent: "flex-end"}}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                navigate("edit");
+              }}
+            >
+              Edit
+            </Button>
+            <Button variant="contained" color="error">
+              Delete
+            </Button>
+          </div>
           <div className="detail-container">
             <div
               style={{ width: "100%", flex: 1, margin: "10px 30px 10px 10px" }}

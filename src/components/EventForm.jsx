@@ -39,7 +39,7 @@ export default function EventForm({ event }) {
         name="photoUrl"
         defaultValue={event ? event.photoUrl : ""}
       />
-      <Button variant="contained">Add Event</Button>
+      <Button variant="contained" type="submit">Add Event</Button>
     </form>
   );
 }
