@@ -50,7 +50,7 @@ export default function Events() {
 
   return (
     <>
-      <div style={{maxWidth: "1330px", margin: "auto", padding: "20px 35px 0px 35px"}}>
+      {localStorage.getItem("token") && <div style={{maxWidth: "1330px", margin: "auto", padding: "20px 35px 0px 35px"}}>
         <Button
           variant="contained"
           color="success"
@@ -58,7 +58,7 @@ export default function Events() {
         >
           Add Event
         </Button>
-      </div>
+      </div>}
       <div className="event-wrapper" style={{ margin: "auto" }}>
         {events.map((evt) => (
           <Link

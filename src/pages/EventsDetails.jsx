@@ -121,21 +121,27 @@ export default function EventDetails() {
     <div>
       {eventData && (
         <div className="details">
-          <div
-            style={{ display: "flex", gap: "10px", justifyContent: "flex-end" }}
-          >
-            <Button
-              variant="contained"
-              onClick={() => {
-                navigate("edit");
+          {localStorage.getItem("token") && (
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+                justifyContent: "flex-end",
               }}
             >
-              Edit
-            </Button>
-            <Button variant="contained" color="error" onClick={handleDelete}>
-              Delete
-            </Button>
-          </div>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  navigate("edit");
+                }}
+              >
+                Edit
+              </Button>
+              <Button variant="contained" color="error" onClick={handleDelete}>
+                Delete
+              </Button>
+            </div>
+          )}
           <div className="detail-container">
             <div
               style={{ width: "100%", flex: 1, margin: "10px 30px 10px 10px" }}
