@@ -8,10 +8,16 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
+import { Button } from "@mui/material";
 
 export default function Events() {
   const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
+  const isLoggedIn = !!localStorage.getItem("token");
+
+  function handleLogin() {
+    navigate("/login");
+  }
 
   async function handleLogout() {
     try {
@@ -66,12 +72,18 @@ export default function Events() {
             <img src="../../Images/BAUClubs.png" alt="" width={"70px"} />
           </div>
           <div>
-            <AccountMenu
-              fLetter={localStorage.getItem("name").charAt(0)}
-              email={localStorage.getItem("email")}
-              logout={handleLogout}
-              delAcc={handleDelete}
-            />
+            {isLoggedIn ? (
+              <AccountMenu
+                fLetter={localStorage.getItem("name").charAt(0)}
+                email={localStorage.getItem("email")}
+                logout={handleLogout}
+                delAcc={handleDelete}
+              />
+            ) : (
+              <Button onClick={handleLogin} variant="contained">
+                Login
+              </Button>
+            )}
           </div>
         </div>
       </div>
@@ -79,7 +91,7 @@ export default function Events() {
         <div className="logo-nav">
           <div className="nav-links">
             <NavLink
-              to="home"
+              to={isLoggedIn ? "home" : "/"}
               className={({ isActive }) => (isActive ? "active" : undefined)}
               end
             >
