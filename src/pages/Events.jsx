@@ -49,15 +49,24 @@ export default function Events() {
 
   return (
     <>
+      <Link to="new">add event</Link>
       <div className="event-wrapper" style={{ margin: "auto" }}>
         {events.map((evt) => (
           <Link
             key={evt.eventID}
-            to={localStorage.getItem("token") ? `/user/events/${evt.eventID}` : `/events/${evt.eventID}`}
+            to={
+              localStorage.getItem("token")
+                ? `/user/events/${evt.eventID}`
+                : `/events/${evt.eventID}`
+            }
             style={{ textDecoration: "none", color: "inherit" }}
             className="card-link"
           >
-            <Card name={evt.name} image={evt.photoUrl} startDate={evt.startTime} />
+            <Card
+              name={evt.name}
+              image={evt.photoUrl}
+              startDate={evt.startTime}
+            />
           </Link>
         ))}
       </div>
@@ -69,7 +78,11 @@ export default function Events() {
         onClose={handleCloseRegistrationSnackbar}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       >
-        <Alert onClose={handleCloseRegistrationSnackbar} severity="success" variant="filled">
+        <Alert
+          onClose={handleCloseRegistrationSnackbar}
+          severity="success"
+          variant="filled"
+        >
           Registration successful!
         </Alert>
       </Snackbar>
@@ -80,7 +93,11 @@ export default function Events() {
         onClose={handleCloseUnregistrationSnackbar}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       >
-        <Alert onClose={handleCloseUnregistrationSnackbar} severity="success" variant="filled">
+        <Alert
+          onClose={handleCloseUnregistrationSnackbar}
+          severity="success"
+          variant="filled"
+        >
           Unregistration successful!
         </Alert>
       </Snackbar>

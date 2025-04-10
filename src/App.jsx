@@ -4,7 +4,9 @@ import Register from "./pages/Register";
 import PrivateRoute from "./components/PrivateRoute";
 import Events from "./pages/Events";
 import Home from "./pages/Home";
-import EventDetails from "./pages/EventsDetails";
+import EventDetails, {
+  loader as eventDetailLoader,
+} from "./pages/EventsDetails";
 import EventsRoot from "./components/EventsRoot";
 import Organization from "./pages/Organization";
 import News from "./pages/News";
@@ -14,6 +16,8 @@ import OrgRoot from "./components/OrgRoot";
 import NewDetails from "./pages/NewDetails";
 import NewsRoot from "./components/NewsRoot";
 import WelcomeRoot from "./components/WelcomeRoot";
+import EditEvent from "./pages/EditEvent";
+import NewEvent from "./pages/NewEvent";
 
 const router = createBrowserRouter([
   {
@@ -23,10 +27,11 @@ const router = createBrowserRouter([
       { path: "", element: <Home /> },
       {
         path: "events",
+
         element: <EventsRoot />,
         children: [
           { path: "", element: <Events /> },
-          { path: ":id", element: <EventDetails /> },
+          { path: ":id", element: <EventDetails />, loader: EventDetails },
         ],
       },
       {
@@ -60,7 +65,16 @@ const router = createBrowserRouter([
         element: <EventsRoot />,
         children: [
           { path: "", element: <Events /> },
-          { path: ":id", element: <EventDetails /> },
+          {
+            path: ":id",
+            id: "event-details",
+            loader: eventDetailLoader,
+            children: [
+              { path: "", element: <EventDetails /> },
+              { path: "edit", element: <EditEvent /> },
+            ],
+          },
+          { path: "new", element: <NewEvent /> },
         ],
       },
       {

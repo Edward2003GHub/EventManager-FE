@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { Button } from "@mui/material";
@@ -9,33 +9,8 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 export default function EventDetails() {
   const navigate = useNavigate();
   const params = useParams();
-  const [eventData, setEventData] = useState(null);
+  const eventData = useRouteLoaderData('event-details');
   const [isRegistered, setIsRegistered] = useState(false);
-
-  useEffect(() => {
-    async function getEventById() {
-      const response = await fetch(
-        `https://localhost:7262/api/Events/${params.id}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      const resData = await response.json();
-
-      if (response.ok) {
-        setEventData(resData);
-      } else {
-        console.log("Failed to fetch event data");
-      }
-    }
-
-    getEventById();
-  }, [params.id]);
 
   async function handleRegister() {
     try {
@@ -128,11 +103,12 @@ export default function EventDetails() {
     <div>
       {eventData && (
         <div className="details">
+          <Link to="edit">edit</Link>
           <div className="detail-container">
             <div
               style={{ width: "100%", flex: 1, margin: "10px 30px 10px 10px" }}
             >
-              <div className="detail-events-img" style={{backgroundImage: `url(https://localhost:7262/${eventData.photoUrl})`}}></div>
+              <div className="detail-events-img" style={{backgroundImage: `url(https://localhost:7262/${eventData.photoUrl.replace(/\\/g, "/")})`}}></div>
             </div>
             <div className="detail-title-date">
               <h1>{eventData.name}</h1>
@@ -172,4 +148,25 @@ export default function EventDetails() {
       )}
     </div>
   );
+}
+
+export async function loader({ params }) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(
+    `https://localhost:7262/api/Events/${params.id}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Response("Failed to fetch event data", { status: response.status });
+  }
+
+  return await response.json();
 }

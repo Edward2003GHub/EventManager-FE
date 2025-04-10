@@ -1,9 +1,9 @@
-import MainNavigation2 from './MainNavigation2';
+import MainNavigation from './MainNavigation';
 
 export default function WelcomeRoot() {
   return (
     <>
-      <MainNavigation2 />
+      <MainNavigation />
     </>
   );
 }
