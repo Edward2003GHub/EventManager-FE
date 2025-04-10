@@ -143,10 +143,12 @@ export default function EventDetails() {
               <div
                 className="detail-events-img"
                 style={{
-                  backgroundImage: `url(https://localhost:7262/${eventData.photoUrl.replace(
-                    /\\/g,
-                    "/"
-                  )})`,
+                  backgroundImage: eventData.photoUrl
+                    ? `url(https://localhost:7262/${eventData.photoUrl.replace(
+                        /\\/g,
+                        "/"
+                      )})`
+                    : `url(/Images/emptyPhoto.png)`, // Default image URL
                 }}
               ></div>
             </div>

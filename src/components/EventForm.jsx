@@ -1,16 +1,23 @@
 import { Button } from "@mui/material";
 import Input2 from "./Input2";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function EventForm({ event, method }) {
   const navigate = useNavigate();
+  const params = useParams();
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     const fd = new FormData(e.target);
 
-    const response = await fetch("https://localhost:7262/api/Events", {
+    let url = "https://localhost:7262/api/Events";
+
+    if (method === "PATCH") {
+      url = `https://localhost:7262/api/Events?Id=${params.id}`;
+    }
+
+    const response = await fetch(url, {
       method,
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -55,14 +62,14 @@ export default function EventForm({ event, method }) {
         type="datetime-local"
         name="StartTime"
         InputLabelProps={{ shrink: true }}
-        defaultValue={event?.startTime || ""}
+        defaultValue={event?.startTime.split(".")[0] || ""}
       />
       <Input2
         label="End Time"
         type="datetime-local"
         name="EndTime"
         InputLabelProps={{ shrink: true }}
-        defaultValue={event?.endTime || ""}
+        defaultValue={event?.endTime.split(".")[0] || ""}
       />
       <Input2 type="file" name="EventPhoto" />
       <Input2
@@ -72,7 +79,7 @@ export default function EventForm({ event, method }) {
         defaultValue={event?.photoUrl || ""}
       />
       <Button variant="contained" type="submit">
-        Add Event
+        {method === "POST" ? "Add Event" : "Edit Event"}
       </Button>
     </form>
   );
