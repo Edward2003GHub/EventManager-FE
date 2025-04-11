@@ -76,8 +76,6 @@ export default function Register() {
       );
 
       const result = await response.json();
-      // console.log(result.errors["Phone"][0]);
-      console.log(result);
 
       if (response.ok) {
         navigate("/login");
