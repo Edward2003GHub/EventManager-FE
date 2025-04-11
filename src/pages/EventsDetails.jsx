@@ -9,7 +9,9 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 export default function EventDetails() {
   const navigate = useNavigate();
   const params = useParams();
-  const eventData = useRouteLoaderData("event-details");
+  const publicData = useRouteLoaderData("public-event-details");
+  const privateData = useRouteLoaderData("private-event-details");
+  const eventData = publicData || privateData;
   const [isRegistered, setIsRegistered] = useState(false);
 
   async function handleRegister() {
