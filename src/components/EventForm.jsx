@@ -55,6 +55,8 @@ export default function EventForm({ event, method }) {
         label="Description"
         type="text"
         name="Description"
+        multiline
+        rows={10}
         defaultValue={event?.description || ""}
       />
       <Input2
