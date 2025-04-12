@@ -37,7 +37,7 @@ export default function Carousel({ news }) {
                 e.target.src = "https://picsum.photos/id/1015/1200/400";
               }}
             />
-            <div style={{backgroundColor: "white", borderRadius: "20px"}} className="carousel-caption d-none d-md-block">
+            <div style={{backgroundColor: "rgba(255, 255, 255, 0.5)", borderRadius: "20px"}} className="carousel-caption d-none d-md-block">
               <h5 style={{color: "black"}}>{n.title}</h5>
               <div dangerouslySetInnerHTML={{ __html: n.content }} />
             </div>
