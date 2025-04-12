@@ -8,7 +8,7 @@ export default function Carousel({ news }) {
       data-bs-ride="carousel"
     >
       <div className="carousel-indicators">
-        {news.map((_, index) => (
+        {news.slice(0, 5).map((_, index) => (
           <button
             key={index}
             type="button"
@@ -22,7 +22,7 @@ export default function Carousel({ news }) {
       </div>
 
       <div className="carousel-inner">
-        {news.map((n, index) => (
+        {news.slice(0, 5).map((n, index) => (
           <div
             key={n.id}
             className={`carousel-item ${index === 0 ? "active" : ""}`}

@@ -34,7 +34,7 @@ export default function News() {
             color="success"
             onClick={() => navigate("new")}
           >
-            Add Organization
+            Add News
           </Button>
         </div>
       )}
