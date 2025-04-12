@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import Input2 from "./Input2";
 import { useNavigate, useParams } from "react-router-dom";
 
-export default function EventForm({ event, method }) {
+export default function OrgForm({ org, method }) {
   const navigate = useNavigate();
   const params = useParams();
 
@@ -11,10 +11,10 @@ export default function EventForm({ event, method }) {
 
     const fd = new FormData(e.target);
 
-    let url = "https://localhost:7262/api/Events";
+    let url = "https://localhost:7262/api/Organizations";
 
     if (method === "PATCH") {
-      url = `https://localhost:7262/api/Events?Id=${params.id}`;
+      url = `https://localhost:7262/api/Organizations?Id=${params.id}`;
     }
 
     const response = await fetch(url, {
@@ -27,9 +27,9 @@ export default function EventForm({ event, method }) {
     });
 
     if (!response.ok) {
-      console.log("newEventFail");
+      console.log("newOrgFail");
     } else {
-      navigate("/user/events");
+      navigate("/user/organizations");
     }
   }
 
@@ -49,37 +49,46 @@ export default function EventForm({ event, method }) {
         label="Name"
         type="text"
         name="Name"
-        defaultValue={event?.name || ""}
+        defaultValue={org?.name || ""}
       />
       <Input2
         label="Description"
         type="text"
         name="Description"
-        defaultValue={event?.description || ""}
+        defaultValue={org?.description || ""}
       />
       <Input2
-        label="Start Time"
-        type="datetime-local"
-        name="StartTime"
-        InputLabelProps={{ shrink: true }}
-        defaultValue={event?.startTime.split(".")[0] || ""}
-      />
-      <Input2
-        label="End Time"
-        type="datetime-local"
-        name="EndTime"
-        InputLabelProps={{ shrink: true }}
-        defaultValue={event?.endTime.split(".")[0] || ""}
-      />
-      <Input2 type="file" name="EventPhoto" />
-      <Input2
-        label="Photo Url"
+        label="College"
         type="text"
-        name="PhotoUrl"
-        defaultValue={event?.photoUrl || ""}
+        name="College"
+        defaultValue={org?.college || ""}
+      />
+      <Input2
+        label="Contact Number"
+        type="number"
+        name="ContactNumber"
+        defaultValue={org?.contactNumber || ""}
+      />
+      <Input2
+        label="Email"
+        type="email"
+        name="Email"
+        defaultValue={org?.email || ""}
+      />
+      <Input2
+        InputLabelProps={{ shrink: true }}
+        label="Logo"
+        type="file"
+        name="Logo"
+      />
+      <Input2
+        label="Logo Url"
+        type="text"
+        name="LogoUrl"
+        defaultValue={org?.logoUrl || ""}
       />
       <Button variant="contained" type="submit">
-        {method === "POST" ? "Add Event" : "Edit Event"}
+        {method === "POST" ? "Add Organization" : "Edit Organization"}
       </Button>
     </form>
   );

@@ -9,7 +9,7 @@ export default function Card({ name, startDate, image }) {
   return (
     <div className="card">
       <div>
-        <img src={`https://localhost:7262/${image}`} alt="event-img" />
+        <img src={!image ? "/Images/emptyPhoto.png" : `https://localhost:7262/${image}`} alt="event-img" />
         <h3>{name}</h3>
       </div>
       <p className="date">

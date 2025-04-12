@@ -80,11 +80,9 @@ export default function Register() {
       if (response.ok) {
         navigate("/login");
         localStorage.setItem("regGood", "true");
-        // Handle success (e.g., redirect user or show success message)
       } else {
         setError(true);
-        setRegisterError(result.detail);
-        // Handle error (e.g., show error message)
+        setRegisterError(result.detail || result.errors["Phone"][0]);
       }
     } catch (error) {
       console.error("Error registering user:", error);

@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import NewsCard from "../components/NewsCard";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function News() {
+  const navigate = useNavigate();
   const [news, setNews] = useState([]);
 
   useEffect(() => {
@@ -18,6 +21,23 @@ export default function News() {
 
   return (
     <>
+      {localStorage.getItem("email") === "admin@example.com" && (
+        <div
+          style={{
+            maxWidth: "1330px",
+            margin: "auto",
+            padding: "20px 35px 0px 35px",
+          }}
+        >
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => navigate("new")}
+          >
+            Add Organization
+          </Button>
+        </div>
+      )}
       <div style={{ maxWidth: "1330px", padding: "35px", margin: "auto" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           {news.map((n) => (

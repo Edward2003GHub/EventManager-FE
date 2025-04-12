@@ -1,29 +1,12 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Button } from "@mui/material";
+import { useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
 
 export default function NewDetails() {
   const params = useParams();
-  const [news, setNews] = useState([]);
-
-  useEffect(() => {
-    async function fetchNewById() {
-      const response = await fetch(
-        `https://localhost:7262/api/News/${params.id}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      const resData = await response.json();
-      setNews(resData);
-    }
-
-    fetchNewById();
-  }, []);
+  const navigate = useNavigate();
+  const privateDetails = useRouteLoaderData("private-new-details");
+  const publicDetails = useRouteLoaderData("public-new-details");
+  const news = privateDetails || publicDetails;
 
   const formatDate = (isoString) => {
     if (!isoString) return "N/A";
@@ -39,6 +22,24 @@ export default function NewDetails() {
     });
   };
 
+  async function handleDelete() {
+    const response = await fetch(
+      `https://localhost:7262/api/News/${params.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.log("delete failed");
+    } else {
+      navigate("/user/news");
+    }
+  }
+
   return (
     <div
       style={{
@@ -48,6 +49,27 @@ export default function NewDetails() {
         backgroundColor: "white",
       }}
     >
+      {localStorage.getItem("email") === "admin@example.com" && (
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            justifyContent: "flex-end",
+          }}
+        >
+          <Button
+            variant="contained"
+            onClick={() => {
+              navigate("edit");
+            }}
+          >
+            Edit
+          </Button>
+          <Button variant="contained" color="error" onClick={handleDelete}>
+            Delete
+          </Button>
+        </div>
+      )}
       <h1 style={{ margin: 0 }}>{news.title}</h1>
       <p style={{ marginTop: 0 }}>Posted {formatDate(news.createdDate)}</p>
       <div style={{ width: "100%", overflow: "hidden", margin: "20px 0" }}>
@@ -67,4 +89,21 @@ export default function NewDetails() {
       </div>
     </div>
   );
+}
+
+export async function loader({ params }) {
+  const response = await fetch(`https://localhost:7262/api/News/${params.id}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Response("Failed to fetch news", { status: response.status });
+  }
+
+  const resData = await response.json();
+  return resData;
 }

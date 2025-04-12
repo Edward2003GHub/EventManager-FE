@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import { useEffect, useState } from "react";
-import { Snackbar, Alert } from "@mui/material";
+import { Snackbar, Alert, Button } from "@mui/material";
 
 export default function Events() {
+  const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarUnreg, setSnackbarUnreg] = useState(false);
@@ -49,7 +50,15 @@ export default function Events() {
 
   return (
     <>
-      <Link to="new">add event</Link>
+      {localStorage.getItem("email") === "admin@example.com" && <div style={{maxWidth: "1330px", margin: "auto", padding: "20px 35px 0px 35px"}}>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => navigate("new")}
+        >
+          Add Event
+        </Button>
+      </div>}
       <div className="event-wrapper" style={{ margin: "auto" }}>
         {events.map((evt) => (
           <Link

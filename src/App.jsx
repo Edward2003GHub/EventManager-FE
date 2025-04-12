@@ -11,13 +11,17 @@ import EventsRoot from "./components/EventsRoot";
 import Organization from "./pages/Organization";
 import News from "./pages/News";
 import Forms from "./pages/Forms";
-import OrgDetails from "./pages/OrgDetails";
+import OrgDetails, { loader as orgDetailLoader } from "./pages/OrgDetails";
 import OrgRoot from "./components/OrgRoot";
-import NewDetails from "./pages/NewDetails";
+import NewDetails, { loader as newDetailLoader } from "./pages/NewDetails";
 import NewsRoot from "./components/NewsRoot";
 import WelcomeRoot from "./components/WelcomeRoot";
 import EditEvent from "./pages/EditEvent";
 import NewEvent from "./pages/NewEvent";
+import EditOrg from "./pages/EditOrg";
+import NewOrg from "./pages/NewOrg";
+import NewNew from "./pages/NewNew";
+import EditNew from "./pages/EditNew";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +34,12 @@ const router = createBrowserRouter([
         element: <EventsRoot />,
         children: [
           { path: "", element: <Events /> },
-          { path: ":id", element: <EventDetails /> },
+          {
+            path: ":id",
+            id: "public-event-details",
+            loader: eventDetailLoader,
+            element: <EventDetails />,
+          },
         ],
       },
       {
@@ -38,7 +47,12 @@ const router = createBrowserRouter([
         element: <OrgRoot />,
         children: [
           { path: "", element: <Organization /> },
-          { path: ":id", element: <OrgDetails /> },
+          {
+            path: ":id",
+            id: "public-org-details",
+            loader: orgDetailLoader,
+            element: <OrgDetails />,
+          },
         ],
       },
       {
@@ -46,7 +60,12 @@ const router = createBrowserRouter([
         element: <NewsRoot />,
         children: [
           { path: "", element: <News /> },
-          { path: ":id", element: <NewDetails /> },
+          {
+            path: ":id",
+            id: "public-new-details",
+            loader: newDetailLoader,
+            element: <NewDetails />,
+          },
         ],
       },
       { path: "forms", element: <Forms /> },
@@ -66,7 +85,7 @@ const router = createBrowserRouter([
           { path: "", element: <Events /> },
           {
             path: ":id",
-            id: "event-details",
+            id: "private-event-details",
             loader: eventDetailLoader,
             children: [
               { path: "", element: <EventDetails /> },
@@ -81,7 +100,16 @@ const router = createBrowserRouter([
         element: <OrgRoot />,
         children: [
           { path: "", element: <Organization /> },
-          { path: ":id", element: <OrgDetails /> },
+          {
+            path: ":id",
+            id: "private-org-details",
+            loader: orgDetailLoader,
+            children: [
+              { path: "", element: <OrgDetails /> },
+              { path: "edit", element: <EditOrg /> },
+            ],
+          },
+          { path: "new", element: <NewOrg /> },
         ],
       },
       {
@@ -89,7 +117,16 @@ const router = createBrowserRouter([
         element: <NewsRoot />,
         children: [
           { path: "", element: <News /> },
-          { path: ":id", element: <NewDetails /> },
+          {
+            path: ":id",
+            id: "private-new-details",
+            loader: newDetailLoader,
+            children: [
+              { path: "", element: <NewDetails /> },
+              { path: "edit", element: <EditNew /> },
+            ],
+          },
+          { path: "new", element: <NewNew /> },
         ],
       },
       { path: "forms", element: <Forms /> },

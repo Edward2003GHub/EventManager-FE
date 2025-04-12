@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Link,
-  useNavigate,
-  useParams,
-  useRouteLoaderData,
-} from "react-router-dom";
+import { useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { Button } from "@mui/material";
@@ -14,7 +9,9 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 export default function EventDetails() {
   const navigate = useNavigate();
   const params = useParams();
-  const eventData = useRouteLoaderData("event-details");
+  const publicData = useRouteLoaderData("public-event-details");
+  const privateData = useRouteLoaderData("private-event-details");
+  const eventData = publicData || privateData;
   const [isRegistered, setIsRegistered] = useState(false);
 
   async function handleRegister() {
@@ -104,11 +101,49 @@ export default function EventDetails() {
     getAttendees();
   }, []);
 
+  async function handleDelete() {
+    const response = await fetch(
+      `https://localhost:7262/api/Events/${params.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.log("delete failed");
+    } else {
+      navigate("/user/events");
+    }
+  }
+
   return (
     <div>
       {eventData && (
         <div className="details">
-          <Link to="edit">edit</Link>
+          {localStorage.getItem("email") === "admin@example.com" && (
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+                justifyContent: "flex-end",
+              }}
+            >
+              <Button
+                variant="contained"
+                onClick={() => {
+                  navigate("edit");
+                }}
+              >
+                Edit
+              </Button>
+              <Button variant="contained" color="error" onClick={handleDelete}>
+                Delete
+              </Button>
+            </div>
+          )}
           <div className="detail-container">
             <div
               style={{ width: "100%", flex: 1, margin: "10px 30px 10px 10px" }}
@@ -116,10 +151,12 @@ export default function EventDetails() {
               <div
                 className="detail-events-img"
                 style={{
-                  backgroundImage: `url(https://localhost:7262/${eventData.photoUrl.replace(
-                    /\\/g,
-                    "/"
-                  )})`,
+                  backgroundImage: eventData.photoUrl
+                    ? `url(https://localhost:7262/${eventData.photoUrl.replace(
+                        /\\/g,
+                        "/"
+                      )})`
+                    : `url(/Images/emptyPhoto.png)`, // Default image URL
                 }}
               ></div>
             </div>
