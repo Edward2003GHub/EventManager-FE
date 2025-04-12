@@ -123,7 +123,7 @@ export default function EventDetails() {
     <div>
       {eventData && (
         <div className="details">
-          {localStorage.getItem("token") && (
+          {localStorage.getItem("email") === "admin@example.com" && (
             <div
               style={{
                 display: "flex",

@@ -29,7 +29,7 @@ export default function OrgDetails() {
   return (
     <>
       <div style={{ maxWidth: "1330px", margin: "auto", padding: "35px" }}>
-        {localStorage.getItem("token") && (
+        {localStorage.getItem("email") === "admin@example.com" && (
           <div
             style={{
               display: "flex",

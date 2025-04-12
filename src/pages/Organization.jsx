@@ -18,7 +18,7 @@ export default function Organization() {
   }, []);
   return (
     <>
-      {localStorage.getItem("token") && (
+      {localStorage.getItem("email") === "admin@example.com" && (
         <div
           style={{
             maxWidth: "1330px",

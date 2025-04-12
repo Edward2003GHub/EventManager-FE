@@ -49,7 +49,7 @@ export default function NewDetails() {
         backgroundColor: "white",
       }}
     >
-      {localStorage.getItem("token") && (
+      {localStorage.getItem("email") === "admin@example.com" && (
         <div
           style={{
             display: "flex",

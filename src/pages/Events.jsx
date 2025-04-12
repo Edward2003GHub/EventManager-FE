@@ -50,7 +50,7 @@ export default function Events() {
 
   return (
     <>
-      {localStorage.getItem("token") && <div style={{maxWidth: "1330px", margin: "auto", padding: "20px 35px 0px 35px"}}>
+      {localStorage.getItem("email") === "admin@example.com" && <div style={{maxWidth: "1330px", margin: "auto", padding: "20px 35px 0px 35px"}}>
         <Button
           variant="contained"
           color="success"
