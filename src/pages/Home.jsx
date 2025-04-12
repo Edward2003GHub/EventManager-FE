@@ -73,12 +73,19 @@ export default function Home() {
         <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
           <img
             src={
-              `https://localhost:7262/${hoveredImage}` ||
-              "https://picsum.photos/id/1/200/300"
-            } // Default image
+              hoveredImage && hoveredImage !== "null" && hoveredImage.trim() !== ""
+                ? hoveredImage.startsWith("http")
+                  ? hoveredImage
+                  : `https://localhost:7262/${hoveredImage}`
+                : "https://picsum.photos/id/1/200/300"
+            }
             alt="news-img"
             style={{ flex: 1 }}
             height="350px"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://picsum.photos/id/1/200/300";
+            }}
           />
           <div
             style={{
@@ -139,8 +146,16 @@ export default function Home() {
                   </div>
                   <div
                     className="eachNewsLink"
-                    onMouseEnter={() => setHoveredImage(n.photoUrl)} // Assuming `n.imageUrl` contains the URL of the image
-                    onMouseLeave={() => setHoveredImage(null)}
+                    onMouseEnter={() =>
+                      setHoveredImage(
+                        n.photoUrl &&
+                        n.photoUrl !== "null" &&
+                        n.photoUrl.trim() !== ""
+                          ? n.photoUrl
+                          : "https://picsum.photos/id/1/200/300"
+                      )
+                    }
+                    onMouseLeave={() => setHoveredImage("https://picsum.photos/id/1/200/300")}
                   >
                     {n.title}
                   </div>
