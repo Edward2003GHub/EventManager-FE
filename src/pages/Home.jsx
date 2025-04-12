@@ -72,7 +72,10 @@ export default function Home() {
         <h2>Latest News</h2>
         <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
           <img
-            src={hoveredImage || "https://picsum.photos/id/1/200/300"} // Default image
+            src={
+              `https://localhost:7262/${hoveredImage}` ||
+              "https://picsum.photos/id/1/200/300"
+            } // Default image
             alt="news-img"
             style={{ flex: 1 }}
             height="350px"
@@ -85,7 +88,7 @@ export default function Home() {
               gap: "10px",
             }}
           >
-            {news.map((n) => (
+            {news.slice(0, 4).map((n) => (
               <div key={n.id}>
                 <div
                   style={{
@@ -112,7 +115,11 @@ export default function Home() {
                         width: "100%",
                       }}
                     >
-                      <span>{n.updatedDate ? format(new Date(n.updatedDate), "dd") : format(new Date(n.createdDate), "dd")}</span>
+                      <span>
+                        {n.updatedDate
+                          ? format(new Date(n.updatedDate), "dd")
+                          : format(new Date(n.createdDate), "dd")}
+                      </span>
                     </div>
                     <div
                       align="center"
@@ -123,12 +130,16 @@ export default function Home() {
                         color: "white",
                       }}
                     >
-                      <span>{n.updatedDate ?  format(new Date(n.updatedDate), "MMM") : format(new Date(n.createdDate), "MMM")}</span>
+                      <span>
+                        {n.updatedDate
+                          ? format(new Date(n.updatedDate), "MMM")
+                          : format(new Date(n.createdDate), "MMM")}
+                      </span>
                     </div>
                   </div>
                   <div
                     className="eachNewsLink"
-                    onMouseEnter={() => setHoveredImage(n.imageUrl)} // Assuming `n.imageUrl` contains the URL of the image
+                    onMouseEnter={() => setHoveredImage(n.photoUrl)} // Assuming `n.imageUrl` contains the URL of the image
                     onMouseLeave={() => setHoveredImage(null)}
                   >
                     {n.title}
@@ -141,8 +152,8 @@ export default function Home() {
       </div>
 
       <div>
-        <div className="event-wrapper" style={{padding: 0}}>
-          {events.map((evt) => (
+        <div className="event-wrapper" style={{ padding: 0 }}>
+          {events.slice(0, 4).map((evt) => (
             <Link
               key={evt.eventID}
               to={
@@ -153,7 +164,11 @@ export default function Home() {
               style={{ textDecoration: "none", color: "inherit" }}
               className="card-link"
             >
-              <Card name={evt.name} startDate={evt.startTime} image={evt.photoUrl} />
+              <Card
+                name={evt.name}
+                startDate={evt.startTime}
+                image={evt.photoUrl}
+              />
             </Link>
           ))}
         </div>
@@ -175,7 +190,7 @@ export default function Home() {
       <div>
         <h2>Organizations</h2>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-          {org.map((each) => (
+          {org.slice(0, 4).map((each) => (
             <OrgCard
               key={each.organizationID}
               name={each.name}
