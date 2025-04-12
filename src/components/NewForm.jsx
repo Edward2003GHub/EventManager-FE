@@ -56,7 +56,12 @@ export default function NewForm({ n, method }) {
         name="Content"
         defaultValue={n?.content || ""}
       />
-      <Input2 type="file" name="NewsPhoto" />
+      <Input2
+        InputLabelProps={{ shrink: true }}
+        label="News Photo"
+        type="file"
+        name="NewsPhoto"
+      />
       <Input2
         label="Photo Url"
         type="text"

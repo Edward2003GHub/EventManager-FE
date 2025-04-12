@@ -57,25 +57,30 @@ export default function OrgForm({ org, method }) {
         name="Description"
         defaultValue={org?.description || ""}
       />
-      <Input2 
-      label="College"
-      type="text"
-      name="College"
-      defaultValue={org?.college || ""}
+      <Input2
+        label="College"
+        type="text"
+        name="College"
+        defaultValue={org?.college || ""}
       />
-      <Input2 
-      label="Contact Number"
-      type="number"
-      name="ContactNumber"
-      defaultValue={org?.contactNumber || ""}
+      <Input2
+        label="Contact Number"
+        type="number"
+        name="ContactNumber"
+        defaultValue={org?.contactNumber || ""}
       />
-      <Input2 
-      label="Email"
-      type="email"
-      name="Email"
-      defaultValue={org?.email || ""}
+      <Input2
+        label="Email"
+        type="email"
+        name="Email"
+        defaultValue={org?.email || ""}
       />
-      <Input2 type="file" name="Logo" />
+      <Input2
+        InputLabelProps={{ shrink: true }}
+        label="Logo"
+        type="file"
+        name="Logo"
+      />
       <Input2
         label="Logo Url"
         type="text"
