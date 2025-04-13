@@ -1,15 +1,21 @@
 import { Button } from "@mui/material";
 import Input2 from "./Input2";
 import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getOrgs } from "../utility/apiGetCalls";
 
 export default function EventForm({ event, method }) {
   const navigate = useNavigate();
   const params = useParams();
+  const [org, setOrg] = useState([]);
+  const [selectedOrgId, setSelectedOrgId] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     const fd = new FormData(e.target);
+
+    fd.set("organizationID", selectedOrgId);
 
     let url = "https://localhost:7262/api/Events";
 
@@ -32,6 +38,23 @@ export default function EventForm({ event, method }) {
       navigate("/user/events");
     }
   }
+
+  useEffect(() => {
+    async function fetchAndSetOrgs() {
+      const data = await getOrgs();
+      if (data) {
+        setOrg(data);
+      }
+    }
+
+    fetchAndSetOrgs();
+  }, []);
+
+  useEffect(() => {
+    if (event?.organizationID) {
+      setSelectedOrgId(event.organizationID);
+    }
+  }, [event]);
 
   return (
     <form
@@ -73,6 +96,19 @@ export default function EventForm({ event, method }) {
         InputLabelProps={{ shrink: true }}
         defaultValue={event?.endTime.split(".")[0] || ""}
       />
+      <select
+        className="form-control"
+        value={selectedOrgId}
+        onChange={(e) => setSelectedOrgId(e.target.value)}
+        required
+      >
+        <option value="">Select an organization</option>
+        {org.map((o) => (
+          <option key={o.organizationID} value={o.organizationID}>
+            {o.name}
+          </option>
+        ))}
+      </select>
       <Input2
         label="Event Photo"
         InputLabelProps={{ shrink: true }}

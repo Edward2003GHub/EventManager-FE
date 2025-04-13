@@ -7,6 +7,14 @@ export default function Input2({ label, error, errorText, ...props }) {
       error={error}
       label={label}
       helperText={error && errorText}
+      sx={{
+        "& label.Mui-focused": {
+          color: "green",
+        },
+        "& .MuiOutlinedInput-root.Mui-focused fieldset": {
+          borderColor: "green",
+        },
+      }}
       {...props}
     />
   );
