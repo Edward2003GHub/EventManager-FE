@@ -3,14 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import { Button } from "@mui/material";
 import OrgCard from "../components/OrgCard";
-import { format } from "date-fns";
 import Carousel from "../components/Carousel";
 
 export default function Home() {
   const [events, setEvents] = useState([]);
   const [org, setOrg] = useState([]);
   const [news, setNews] = useState([]);
-  const [hoveredImage, setHoveredImage] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
