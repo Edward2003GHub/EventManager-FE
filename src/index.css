@@ -322,7 +322,7 @@ button {
 
 .dashboard-wrapper {
   padding-left: 70px;
-  padding-top: 60px;
+  padding-top: 50px;
   height: calc(100vh - 60px);
   background-color: #ffffff;
 }
