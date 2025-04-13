@@ -8,6 +8,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import OrgCard2 from "../components/OrgCard2";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { format } from 'date-fns';
 
 export default function EventDetails() {
   const navigate = useNavigate();
@@ -140,90 +141,103 @@ export default function EventDetails() {
   }
 
   return (
-    <div>
+    <div className="event-details-page">
       {eventData && (
-        <div className="details">
+        <div className="event-details-container">
           {localStorage.getItem("email") === "admin@example.com" && (
-            <div
-              style={{
-                display: "flex",
-                gap: "10px",
-                justifyContent: "flex-end",
-              }}
-            >
+            <div className="admin-actions">
               <Button
-              variant="contained"
-              color="primary"
-                onClick={() => {
-                  navigate("edit");
-                }}
+                variant="contained"
+                color="primary"
+                onClick={() => navigate("edit")}
+                className="edit-btn"
               >
-                <EditIcon />
+                <EditIcon /> Edit
               </Button>
-              <Button variant="contained" color="error" onClick={handleDelete}>
-                <DeleteIcon />
+              <Button 
+                variant="contained" 
+                color="error" 
+                onClick={handleDelete}
+                className="delete-btn"
+              >
+                <DeleteIcon /> Delete
               </Button>
             </div>
           )}
-          <div className="detail-container">
-            <div
-              style={{ width: "100%", flex: 1, margin: "10px 30px 10px 10px" }}
-            >
+  
+          <div className="event-header">
+            <div className="event-image-container">
               <div
-                className="detail-events-img"
+                className="event-image"
                 style={{
                   backgroundImage: eventData.photoUrl
-                    ? `url(https://localhost:7262/${eventData.photoUrl.replace(
-                        /\\/g,
-                        "/"
-                      )})`
-                    : `url(/Images/emptyPhoto.png)`, // Default image URL
+                    ? `url(https://localhost:7262/${eventData.photoUrl.replace(/\\/g, "/")})`
+                    : `url(/Images/emptyPhoto.png)`,
                 }}
-              ></div>
+              />
             </div>
-            <div className="detail-title-date">
-              <h1>{eventData.name}</h1>
-              <div className="detail-date-con">
-                <DateRangeIcon sx={{ fontSize: "15px" }} />
-                <div className="detail-date">
-                  <h3>Date and Time</h3>
-                  <p>{new Date(eventData.startTime).toLocaleString()} to</p>
-                  <p>{new Date(eventData.endTime).toLocaleString()}</p>
+            <div className="event-info">
+              <h1 className="event-title">{eventData.name}</h1>
+              
+              <div className="event-meta">
+                <div className="meta-item">
+                  <DateRangeIcon className="meta-icon" />
+                  <div>
+                    <h3>Date and Time</h3>
+                    <div className="date-time-group">
+                      <span className="date-icon">📅</span>
+                      <p className="date-text">
+                        {format(new Date(eventData.startTime), "EEEE, MMMM d, yyyy")}
+                      </p>
+                      <span className="time-icon">🕒</span>
+                      <p className="time-text">
+                        {format(new Date(eventData.startTime), "h:mm a")} - {" "}
+                        {format(new Date(eventData.endTime), "h:mm a")}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="detail-date-con">
-                <PeopleAltIcon sx={{ fontSize: "15px" }} />
-                <div className="detail-date">
-                  <h3>Attendees</h3>
-                  <p>{eventData.attendees.length}</p>
+                
+                <div className="meta-item">
+                  <PeopleAltIcon className="meta-icon" />
+                  <div>
+                    <h3>Attendees</h3>
+                    <p className="attendees-count">
+                      {eventData.attendees.length} registered
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <hr />
-          <h1>Description</h1>
-          <p style={{ fontSize: "20px" }}>{eventData.description}</p>
-          <hr />
-          <h1>Hosted by</h1>
-          <OrgCard2
-            key={org.organizationID}
-            image={org.logoUrl}
-            description={org.description}
-            to={
-              localStorage.getItem("token")
-                ? `/user/organizations/${org.organizationID}`
-                : `/organizations/${org.organizationID}`
-            }
-            name={org.name}
-          />
-          <hr />
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+  
+          <div className="event-section">
+            <h2 className="section-title">Description</h2>
+            <p className="event-description">{eventData.description}</p>
+          </div>
+  
+          <div className="event-section">
+            <h2 className="section-title">Hosted by</h2>
+            <OrgCard2
+              key={org.organizationID}
+              image={org.logoUrl}
+              description={org.description}
+              to={
+                localStorage.getItem("token")
+                  ? `/user/organizations/${org.organizationID}`
+                  : `/organizations/${org.organizationID}`
+              }
+              name={org.name}
+            />
+          </div>
+  
+          <div className="event-actions">
             <Button
               onClick={isRegistered ? handleUnregister : handleRegister}
               variant="contained"
               color={isRegistered ? "error" : "success"}
               startIcon={isRegistered ? <ExitToAppIcon /> : <HowToRegIcon />}
-              sx={{ fontSize: "16px" }}
+              className="register-btn"
             >
               {isRegistered ? "Unregister" : "Register"}
             </Button>

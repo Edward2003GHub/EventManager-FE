@@ -34,64 +34,79 @@ export default function OrgForm({ org, method }) {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        maxWidth: "1330px",
-        margin: "auto",
-        gap: "10px",
-        padding: "35px",
-      }}
-    >
-      <Input2
-        label="Name"
-        type="text"
-        name="Name"
-        defaultValue={org?.name || ""}
-      />
-      <Input2
-        label="Description"
-        type="text"
-        name="Description"
-        multiline
-        rows={10}
-        defaultValue={org?.description || ""}
-      />
-      <Input2
-        label="College"
-        type="text"
-        name="College"
-        defaultValue={org?.college || ""}
-      />
-      <Input2
-        label="Contact Number"
-        type="number"
-        name="ContactNumber"
-        defaultValue={org?.contactNumber || ""}
-      />
-      <Input2
-        label="Email"
-        type="email"
-        name="Email"
-        defaultValue={org?.email || ""}
-      />
-      <Input2
-        InputLabelProps={{ shrink: true }}
-        label="Logo"
-        type="file"
-        name="Logo"
-      />
-      <Input2
-        label="Logo Url"
-        type="text"
-        name="LogoUrl"
-        defaultValue={org?.logoUrl || ""}
-      />
-      <Button variant="contained" type="submit">
-        {method === "POST" ? "Add Organization" : "Edit Organization"}
-      </Button>
-    </form>
+    <div className="org-form-container">
+      <h2 className="org-form-header">{method === "POST" ? "Create Organization" : "Edit Organization"}</h2>
+      <form onSubmit={handleSubmit} className="org-form">
+        <div className="form-grid">
+          <div className="form-column">
+            <Input2
+              label="Organization Name"
+              type="text"
+              name="Name"
+              defaultValue={org?.name || ""}
+              fullWidth
+            />
+            <Input2
+              label="College"
+              type="text"
+              name="College"
+              defaultValue={org?.college || ""}
+              fullWidth
+            />
+            <Input2
+              label="Contact Number"
+              type="tel"
+              name="ContactNumber"
+              defaultValue={org?.contactNumber || ""}
+              fullWidth
+            />
+            <Input2
+              label="Email"
+              type="email"
+              name="Email"
+              defaultValue={org?.email || ""}
+              fullWidth
+            />
+          </div>
+  
+          <div className="form-column">
+            <Input2
+              label="Description"
+              type="text"
+              name="Description"
+              multiline
+              rows={10}
+              defaultValue={org?.description || ""}
+              fullWidth
+            />
+            <div className="file-input-group">
+              <Input2
+                InputLabelProps={{ shrink: true }}
+                label="Organization Logo"
+                type="file"
+                name="Logo"
+                fullWidth
+              />
+              <Input2
+                label="Logo URL"
+                type="text"
+                name="LogoUrl"
+                defaultValue={org?.logoUrl || ""}
+                fullWidth
+              />
+            </div>
+          </div>
+        </div>
+  
+        <Button 
+          variant="contained" 
+          type="submit"
+          className="submit-btn"
+          color="success"
+        >
+          {method === "POST" ? "Create Organization" : "Update Organization"}
+        </Button>
+      </form>
+    </div>
   );
 }

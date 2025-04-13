@@ -33,46 +33,60 @@ export default function NewForm({ n, method }) {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        maxWidth: "1330px",
-        margin: "auto",
-        gap: "10px",
-        padding: "35px",
-      }}
-    >
-      <Input2
-        label="Title"
-        type="text"
-        name="Title"
-        defaultValue={n?.title || ""}
-      />
-      <Input2
-        label="Content"
-        type="text"
-        name="Content"
-        multiline
-        rows={10}
-        defaultValue={n?.content || ""}
-      />
-      <Input2
-        InputLabelProps={{ shrink: true }}
-        label="News Photo"
-        type="file"
-        name="NewsPhoto"
-      />
-      <Input2
-        label="Photo Url"
-        type="text"
-        name="PhotoUrl"
-        defaultValue={n?.photoUrl || ""}
-      />
-      <Button variant="contained" type="submit">
-        {method === "POST" ? "Add News" : "Edit News"}
-      </Button>
-    </form>
+    <div className="news-form-container">
+      <form onSubmit={handleSubmit} className="news-form">
+        <div className="form-header">
+          <h2 className="form-title">
+            {method === "POST" ? "Create News Article" : "Edit News Article"}
+          </h2>
+        </div>
+  
+        <div className="form-content">
+          <Input2
+            label="Article Title"
+            type="text"
+            name="Title"
+            defaultValue={n?.title || ""}
+            fullWidth
+          />
+  
+          <Input2
+            label="Content"
+            type="text"
+            name="Content"
+            multiline
+            rows={12}
+            defaultValue={n?.content || ""}
+            fullWidth
+          />
+  
+          <div className="image-input-group">
+            <Input2
+              InputLabelProps={{ shrink: true }}
+              label="Featured Image"
+              type="file"
+              name="NewsPhoto"
+              fullWidth
+            />
+            <Input2
+              label="Image URL"
+              type="text"
+              name="PhotoUrl"
+              defaultValue={n?.photoUrl || ""}
+              fullWidth
+            />
+          </div>
+  
+          <Button 
+            variant="contained" 
+            type="submit"
+            className="submit-btn"
+            color="success"
+          >
+            {method === "POST" ? "Publish News" : "Update Article"}
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 }
