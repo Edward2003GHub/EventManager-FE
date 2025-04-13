@@ -88,6 +88,7 @@ export default function Home() {
                 name={evt.name}
                 startDate={evt.startTime}
                 image={evt.photoUrl}
+                orgId={evt.organizationID}
               />
             </Link>
           ))}

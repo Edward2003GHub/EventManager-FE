@@ -75,6 +75,7 @@ export default function Events() {
               name={evt.name}
               image={evt.photoUrl}
               startDate={evt.startTime}
+              orgId={evt.organizationID}
             />
           </Link>
         ))}

@@ -5,12 +5,14 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { Button } from "@mui/material";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import OrgCard2 from "../components/OrgCard2";
 
 export default function EventDetails() {
   const navigate = useNavigate();
   const params = useParams();
   const publicData = useRouteLoaderData("public-event-details");
   const privateData = useRouteLoaderData("private-event-details");
+  const [org, setOrg] = useState([]);
   const eventData = publicData || privateData;
   const [isRegistered, setIsRegistered] = useState(false);
 
@@ -101,6 +103,22 @@ export default function EventDetails() {
     getAttendees();
   }, []);
 
+  useEffect(() => {
+    async function fetchOrgById() {
+      const response = await fetch(
+        `https://localhost:7262/api/Organizations/${eventData.organizationID}`
+      );
+
+      if (!response.ok) {
+        console.log("fetch error");
+      } else {
+        setOrg(await response.json());
+      }
+    }
+
+    fetchOrgById();
+  }, []);
+
   async function handleDelete() {
     const response = await fetch(
       `https://localhost:7262/api/Events/${params.id}`,
@@ -182,6 +200,19 @@ export default function EventDetails() {
           <hr />
           <h1>Description</h1>
           <p style={{ fontSize: "20px" }}>{eventData.description}</p>
+          <hr />
+          <h1>Hosted by</h1>
+          <OrgCard2
+            key={org.organizationID}
+            image={org.logoUrl}
+            description={org.description}
+            to={
+              localStorage.getItem("token")
+                ? `/user/organizations/${org.organizationID}`
+                : `/organizations/${org.organizationID}`
+            }
+            name={org.name}
+          />
           <hr />
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <Button
