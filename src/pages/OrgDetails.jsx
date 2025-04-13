@@ -1,6 +1,7 @@
 import { Button, Typography, Divider } from "@mui/material";
 import { useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
-import { Edit, Delete } from "@mui/icons-material";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function OrgDetails() {
   const params = useParams();
@@ -33,20 +34,15 @@ export default function OrgDetails() {
         <div className="org-actions">
           <Button
             variant="contained"
-            startIcon={<Edit />}
-            onClick={() => navigate("edit")}
-            className="edit-btn"
+            color="primary"
+            onClick={() => {
+              navigate("edit");
+            }}
           >
-            Edit
+            <EditIcon />
           </Button>
-          <Button
-            variant="contained"
-            color="error"
-            startIcon={<Delete />}
-            onClick={handleDelete}
-            className="delete-btn"
-          >
-            Delete
+          <Button variant="contained" color="error" onClick={handleDelete}>
+            <DeleteIcon />
           </Button>
         </div>
       )}
