@@ -1,18 +1,31 @@
 import { Link } from "react-router-dom";
+import { Button, Typography } from "@mui/material";
+import GroupsIcon from '@mui/icons-material/Groups';
 
 export default function OrgCard({ name, image, to }) {
   return (
-    <Link to={to} className="org-link">
-      <div className="org-card">
+    <div className="org-card">
+      <div className="org-card-content">
         <img
-          src= {`https://localhost:7262/${image}`}
-          alt=""
-          width="77px"
-          height="77px"
-          style={{ borderRadius: "50%", marginBottom: "20px" }}
+          src={image ? `https://localhost:7262/${image}` : "/default-org.png"}
+          alt={name}
+          className="org-logo"
         />
-        <p style={{fontWeight: "normal", margin: 0}}>{name}</p>
+        <Typography variant="subtitle1" className="org-name">
+          {name}
+        </Typography>
       </div>
-    </Link>
+      <Button
+        component={Link}
+        to={to}
+        variant="outlined"
+        size="small"
+        color="success"
+        startIcon={<GroupsIcon />}
+        className="view-details-btn"
+      >
+        View Details
+      </Button>
+    </div>
   );
 }

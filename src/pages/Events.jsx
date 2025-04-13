@@ -1,7 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import { useEffect, useState } from "react";
-import { Snackbar, Alert, Button } from "@mui/material";
+import { Snackbar, Alert, Button, Typography } from "@mui/material";
+import { EventNote, Add } from "@mui/icons-material";
 
 export default function Events() {
   const navigate = useNavigate();
@@ -36,52 +37,67 @@ export default function Events() {
 
     fetchEvents();
 
-    // Check if registration was successful
     if (localStorage.getItem("registrationSuccess") === "true") {
       setSnackbarOpen(true);
-      localStorage.removeItem("registrationSuccess"); // Clear flag after showing Snackbar
+      localStorage.removeItem("registrationSuccess");
     }
 
     if (localStorage.getItem("unregistrationSuccess") === "true") {
       setSnackbarUnreg(true);
-      localStorage.removeItem("unregistrationSuccess"); // Clear flag after showing Snackbar
+      localStorage.removeItem("unregistrationSuccess");
     }
   }, []);
 
   return (
-    <>
-      {localStorage.getItem("email") === "admin@example.com" && <div style={{maxWidth: "1330px", margin: "auto", padding: "20px 35px 0px 35px"}}>
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => navigate("new")}
-        >
-          Add Event
-        </Button>
-      </div>}
-      <div className="event-wrapper" style={{ margin: "auto" }}>
-        {events.map((evt) => (
-          <Link
-            key={evt.eventID}
-            to={
-              localStorage.getItem("token")
-                ? `/user/events/${evt.eventID}`
-                : `/events/${evt.eventID}`
-            }
-            style={{ textDecoration: "none", color: "inherit" }}
-            className="card-link"
+    <div className="events-page">
+      <div className="events-header">
+        <Typography variant="h4" component="h1" className="events-title">
+          <EventNote className="title-icon" /> Upcoming Events
+        </Typography>
+        {localStorage.getItem("email") === "admin@example.com" && (
+          <Button
+            variant="contained"
+            color="success"
+            startIcon={<Add />}
+            onClick={() => navigate("new")}
+            className="add-event-btn"
           >
-            <Card
-              name={evt.name}
-              image={evt.photoUrl}
-              startDate={evt.startTime}
-              orgId={evt.organizationID}
-            />
-          </Link>
-        ))}
+            Add Event
+          </Button>
+        )}
       </div>
 
-      {/* Snackbar for Registration Success */}
+      {events.length === 0 ? (
+        <div className="no-events">
+          <Typography variant="h6">No upcoming events</Typography>
+          <Typography variant="body1">
+            Check back later for new events!
+          </Typography>
+        </div>
+      ) : (
+        <div className="event-grid">
+          {events.map((evt) => (
+            <Link
+              key={evt.eventID}
+              to={
+                localStorage.getItem("token")
+                  ? `/user/events/${evt.eventID}`
+                  : `/events/${evt.eventID}`
+              }
+              className="event-card-link"
+            >
+              <Card
+                name={evt.name}
+                startDate={evt.startTime}
+                organization={evt.organization || "University Club"}
+                attendees={evt.attendees?.length || 0}
+              />
+            </Link>
+          ))}
+        </div>
+      )}
+
+      {/* Snackbars */}
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}
@@ -111,6 +127,6 @@ export default function Events() {
           Unregistration successful!
         </Alert>
       </Snackbar>
-    </>
+    </div>
   );
 }
