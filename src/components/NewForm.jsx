@@ -54,6 +54,8 @@ export default function NewForm({ n, method }) {
         label="Content"
         type="text"
         name="Content"
+        multiline
+        rows={10}
         defaultValue={n?.content || ""}
       />
       <Input2

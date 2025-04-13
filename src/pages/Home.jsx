@@ -3,13 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import { Button } from "@mui/material";
 import OrgCard from "../components/OrgCard";
-import { format } from "date-fns";
+import Carousel from "../components/Carousel";
 
 export default function Home() {
   const [events, setEvents] = useState([]);
   const [org, setOrg] = useState([]);
   const [news, setNews] = useState([]);
-  const [hoveredImage, setHoveredImage] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -68,103 +67,7 @@ export default function Home() {
 
   return (
     <div className="home-container">
-      <div>
-        <h2>Latest News</h2>
-        <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-          <img
-            src={
-              hoveredImage && hoveredImage !== "null" && hoveredImage.trim() !== ""
-                ? hoveredImage.startsWith("http")
-                  ? hoveredImage
-                  : `https://localhost:7262/${hoveredImage}`
-                : "https://picsum.photos/id/1/200/300"
-            }
-            alt="news-img"
-            style={{ flex: 1 }}
-            height="350px"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = "https://picsum.photos/id/1/200/300";
-            }}
-          />
-          <div
-            style={{
-              flex: 1,
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-            }}
-          >
-            {news.slice(0, 4).map((n) => (
-              <div key={n.id}>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "5px",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "20px",
-                      width: "75px",
-                    }}
-                  >
-                    <div
-                      align="center"
-                      style={{
-                        flex: 1,
-                        backgroundColor: "rgb(25, 118, 210)",
-                        color: "white",
-                        width: "100%",
-                      }}
-                    >
-                      <span>
-                        {n.updatedDate
-                          ? format(new Date(n.updatedDate), "dd")
-                          : format(new Date(n.createdDate), "dd")}
-                      </span>
-                    </div>
-                    <div
-                      align="center"
-                      style={{
-                        flex: 1,
-                        width: "100%",
-                        backgroundColor: "rgb(33, 91, 149)",
-                        color: "white",
-                      }}
-                    >
-                      <span>
-                        {n.updatedDate
-                          ? format(new Date(n.updatedDate), "MMM")
-                          : format(new Date(n.createdDate), "MMM")}
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    className="eachNewsLink"
-                    onMouseEnter={() =>
-                      setHoveredImage(
-                        n.photoUrl &&
-                        n.photoUrl !== "null" &&
-                        n.photoUrl.trim() !== ""
-                          ? n.photoUrl
-                          : "https://picsum.photos/id/1/200/300"
-                      )
-                    }
-                    onMouseLeave={() => setHoveredImage("https://picsum.photos/id/1/200/300")}
-                  >
-                    {n.title}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <Carousel news={news} />
 
       <div>
         <div className="event-wrapper" style={{ padding: 0 }}>
@@ -183,6 +86,7 @@ export default function Home() {
                 name={evt.name}
                 startDate={evt.startTime}
                 image={evt.photoUrl}
+                orgId={evt.organizationID}
               />
             </Link>
           ))}

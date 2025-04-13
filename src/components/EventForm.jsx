@@ -55,6 +55,8 @@ export default function EventForm({ event, method }) {
         label="Description"
         type="text"
         name="Description"
+        multiline
+        rows={10}
         defaultValue={event?.description || ""}
       />
       <Input2
@@ -71,7 +73,12 @@ export default function EventForm({ event, method }) {
         InputLabelProps={{ shrink: true }}
         defaultValue={event?.endTime.split(".")[0] || ""}
       />
-      <Input2 type="file" name="EventPhoto" />
+      <Input2
+        label="Event Photo"
+        InputLabelProps={{ shrink: true }}
+        type="file"
+        name="EventPhoto"
+      />
       <Input2
         label="Photo Url"
         type="text"

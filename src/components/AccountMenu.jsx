@@ -79,12 +79,12 @@ export default function AccountMenu({ fLetter, email, logout, delAcc }) {
           <Avatar /> {email}
         </MenuItem>
         <Divider />
-        <MenuItem onClick={delAcc} sx={{ fontSize: "15px" }}>
+        {localStorage.getItem("email") !== "admin@example.com" && <MenuItem onClick={delAcc} sx={{ fontSize: "15px" }}>
           <ListItemIcon>
             <DeleteIcon sx={{ fontSize: "25px" }} />
           </ListItemIcon>
           Delete account
-        </MenuItem>
+        </MenuItem>}
         <MenuItem onClick={logout} sx={{ fontSize: "15px" }}>
           <ListItemIcon>
             <Logout sx={{ fontSize: "25px" }} />

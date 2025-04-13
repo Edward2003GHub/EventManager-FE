@@ -55,6 +55,8 @@ export default function OrgForm({ org, method }) {
         label="Description"
         type="text"
         name="Description"
+        multiline
+        rows={10}
         defaultValue={org?.description || ""}
       />
       <Input2

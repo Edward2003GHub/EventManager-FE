@@ -1,5 +1,7 @@
 import { Button } from "@mui/material";
 import { useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function NewDetails() {
   const params = useParams();
@@ -59,14 +61,15 @@ export default function NewDetails() {
         >
           <Button
             variant="contained"
+            color="primary"
             onClick={() => {
               navigate("edit");
             }}
           >
-            Edit
+            <EditIcon />
           </Button>
           <Button variant="contained" color="error" onClick={handleDelete}>
-            Delete
+            <DeleteIcon />
           </Button>
         </div>
       )}
