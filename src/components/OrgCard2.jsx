@@ -1,19 +1,22 @@
 import { Link } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 export default function OrgCard2({ description, name, image, to }) {
   return (
-    <Link to={to} style={{ textDecoration: "none", color: "black" }}>
+    <Link to={to} className="org-card2-link">
       <div className="org-card2">
         <img
           src={`https://localhost:7262/${image}`}
-          alt=""
-          width="75px"
-          height="75px"
-          style={{ borderRadius: "50%" }}
+          alt={name}
+          className="org-logo"
         />
-        <div style={{ padding: "0 16px", margin: "0 0 16px 0", flexGrow: 1 }}>
-          <h2 style={{marginTop: 0}}>{name}</h2>
-          <p>{description}</p>
+        <div className="org-card2-content">
+          <Typography variant="subtitle1" className="org-card2-title">
+            {name}
+          </Typography>
+          <Typography variant="body2" className="org-card2-description">
+            {description}
+          </Typography>
         </div>
       </div>
     </Link>
