@@ -1,5 +1,6 @@
-import { Button } from "@mui/material";
+import { Button, Typography, Divider } from "@mui/material";
 import { useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
+import { Edit, Delete } from "@mui/icons-material";
 
 export default function OrgDetails() {
   const params = useParams();
@@ -27,47 +28,72 @@ export default function OrgDetails() {
   }
 
   return (
-    <>
-      <div style={{ maxWidth: "1330px", margin: "auto", padding: "35px" }}>
-        {localStorage.getItem("email") === "admin@example.com" && (
-          <div
-            style={{
-              display: "flex",
-              gap: "10px",
-              justifyContent: "flex-end",
-            }}
+    <div className="org-details-page">
+      {localStorage.getItem("email") === "admin@example.com" && (
+        <div className="org-actions">
+          <Button
+            variant="contained"
+            startIcon={<Edit />}
+            onClick={() => navigate("edit")}
+            className="edit-btn"
           >
-            <Button
-              variant="contained"
-              onClick={() => {
-                navigate("edit");
-              }}
-            >
-              Edit
-            </Button>
-            <Button variant="contained" color="error" onClick={handleDelete}>
-              Delete
-            </Button>
-          </div>
-        )}
-        <div style={{ display: "flex" }}>
-          <img
-            src={`https://localhost:7262/${org.logoUrl}`}
-            alt="org-img"
-            style={{ borderRadius: "50%", width: "90px", height: "90px" }}
-          />
-          <div style={{ marginLeft: "20px" }}>
-            <h1 style={{ margin: 0 }}>{org.name}</h1>
-            <p style={{ margin: 0 }}>{org.college}</p>
-          </div>
+            Edit
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            startIcon={<Delete />}
+            onClick={handleDelete}
+            className="delete-btn"
+          >
+            Delete
+          </Button>
         </div>
-        <h3>Description</h3>
-        <p>{org.description}</p>
-        <h3>Info</h3>
-        <p>{org.email}</p>
-        <p>{org.contactNumber}</p>
+      )}
+
+      <div className="org-header">
+        <img
+          src={`https://localhost:7262/${org.logoUrl}`}
+          alt={org.name}
+          className="org-logo-large"
+        />
+        <div className="org-info">
+          <Typography variant="h4" className="org-name">
+            {org.name}
+          </Typography>
+          <Typography variant="subtitle1" className="org-college">
+            {org.college}
+          </Typography>
+        </div>
       </div>
-    </>
+
+      <Divider className="divider" />
+
+      <div className="org-section">
+        <Typography variant="h5" className="section-title">
+          Description
+        </Typography>
+        <Typography variant="body1" className="org-description">
+          {org.description}
+        </Typography>
+      </div>
+
+      <Divider className="divider" />
+
+      <div className="org-section">
+        <Typography variant="h5" className="section-title">
+          Contact Information
+        </Typography>
+        <div className="contact-info">
+          <Typography variant="body1">
+            <strong>Email:</strong> {org.email}
+          </Typography>
+          <Typography variant="body1">
+            <strong>Phone:</strong> {org.contactNumber}
+          </Typography>
+        </div>
+      </div>
+    </div>
   );
 }
 
