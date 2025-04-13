@@ -89,8 +89,8 @@ export default function Events() {
               <Card
                 name={evt.name}
                 startDate={evt.startTime}
-                organization={evt.organization || "University Club"}
                 attendees={evt.attendees?.length || 0}
+                orgId={evt.organizationID}
               />
             </Link>
           ))}

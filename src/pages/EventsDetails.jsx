@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import OrgCard2 from "../components/OrgCard2";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function EventDetails() {
   const navigate = useNavigate();
@@ -150,15 +152,16 @@ export default function EventDetails() {
               }}
             >
               <Button
-                variant="contained"
+              variant="contained"
+              color="primary"
                 onClick={() => {
                   navigate("edit");
                 }}
               >
-                Edit
+                <EditIcon />
               </Button>
               <Button variant="contained" color="error" onClick={handleDelete}>
-                Delete
+                <DeleteIcon />
               </Button>
             </div>
           )}
