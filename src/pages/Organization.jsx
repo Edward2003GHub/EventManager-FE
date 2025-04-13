@@ -3,6 +3,7 @@ import { Button, Typography, Divider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Add } from "@mui/icons-material";
 import OrgCard from "../components/OrgCard";
+import { getOrgs } from "../utility/apiGetCalls";
 
 export default function Organization() {
   const navigate = useNavigate();
@@ -10,11 +11,12 @@ export default function Organization() {
   const [groupedOrgs, setGroupedOrgs] = useState({});
 
   useEffect(() => {
-    async function fetchOrgs() {
-      const response = await fetch("https://localhost:7262/api/Organizations");
-      const resData = await response.json();
-      setOrgs(resData);
-      
+    async function fetchAndSetOrgs() {
+      const resData = await getOrgs();
+      if (resData) {
+        setOrgs(resData);
+      }
+
       // Group organizations by category
       const grouped = resData.reduce((acc, org) => {
         const category = org.category || "Other";
@@ -27,7 +29,7 @@ export default function Organization() {
       setGroupedOrgs(grouped);
     }
 
-    fetchOrgs();
+    fetchAndSetOrgs();
   }, []);
 
   return (

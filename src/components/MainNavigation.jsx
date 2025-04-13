@@ -81,7 +81,7 @@ export default function Events() {
                 delAcc={handleDelete}
               />
             ) : (
-              <Button onClick={handleLogin} variant="contained">
+              <Button onClick={handleLogin} variant="contained" color="success">
                 Login
               </Button>
             )}

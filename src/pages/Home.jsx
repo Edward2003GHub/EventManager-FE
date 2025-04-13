@@ -4,6 +4,7 @@ import Card from "../components/Card";
 import { Button } from "@mui/material";
 import OrgCard from "../components/OrgCard";
 import Carousel from "../components/Carousel";
+import { getEvents, getNews, getOrgs } from "../utility/apiGetCalls";
 
 export default function Home() {
   const [events, setEvents] = useState([]);
@@ -12,57 +13,36 @@ export default function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetchEvents() {
-      try {
-        const response = await fetch("https://localhost:7262/api/Events");
-
-        if (!response.ok) {
-          console.error(`Error: ${response.statusText} (${response.status})`);
-          return;
-        }
-
-        const resData = await response.json();
-        setEvents(resData);
-      } catch (error) {
-        console.error("Error fetching events:", error);
+    async function fetchAndSetEvents() {
+      const data = await getEvents();
+      if (data) {
+        setEvents(data);
       }
     }
 
-    fetchEvents();
+    fetchAndSetEvents();
   }, []);
 
   useEffect(() => {
-    async function fetchOrg() {
-      try {
-        const response = await fetch(
-          "https://localhost:7262/api/Organizations"
-        );
-
-        if (!response.ok) {
-          console.error(`Error: ${response.statusText} (${response.status})`);
-          return;
-        }
-
-        const resData = await response.json();
-        setOrg(resData);
-      } catch (error) {
-        console.error("Error fetching org:", error);
+    async function fetchAndSetOrgs() {
+      const data = await getOrgs();
+      if (data) {
+        setOrg(data);
       }
     }
 
-    fetchOrg();
+    fetchAndSetOrgs();
   }, []);
 
   useEffect(() => {
-    async function fetchNews() {
-      const response = await fetch("https://localhost:7262/api/News");
-
-      if (response.ok) {
-        setNews(await response.json());
+    async function fetchAndSetNews() {
+      const data = await getNews();
+      if (data) {
+        setNews(data);
       }
     }
 
-    fetchNews();
+    fetchAndSetNews();
   }, []);
 
   return (
@@ -70,6 +50,7 @@ export default function Home() {
       <Carousel news={news} />
 
       <div>
+        <h2>Latest Events</h2>
         <div className="event-wrapper" style={{ padding: 0 }}>
           {events.slice(0, 4).map((evt) => (
             <Link
@@ -94,6 +75,7 @@ export default function Home() {
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
             variant="outlined"
+            color="success"
             onClick={() =>
               navigate(
                 localStorage.getItem("token") ? "/user/events" : "/events"

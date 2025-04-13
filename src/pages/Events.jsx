@@ -3,6 +3,7 @@ import Card from "../components/Card";
 import { useEffect, useState } from "react";
 import { Snackbar, Alert, Button, Typography } from "@mui/material";
 import { EventNote, Add } from "@mui/icons-material";
+import { getEvents } from "../utility/apiGetCalls";
 
 export default function Events() {
   const navigate = useNavigate();
@@ -19,23 +20,14 @@ export default function Events() {
   };
 
   useEffect(() => {
-    async function fetchEvents() {
-      try {
-        const response = await fetch("https://localhost:7262/api/Events");
-
-        if (!response.ok) {
-          console.error(`Error: ${response.statusText} (${response.status})`);
-          return;
-        }
-
-        const resData = await response.json();
-        setEvents(resData);
-      } catch (error) {
-        console.error("Error fetching events:", error);
+    async function fetchAndSetEvents() {
+      const data = await getEvents();
+      if (data) {
+        setEvents(data);
       }
     }
 
-    fetchEvents();
+    fetchAndSetEvents();
 
     if (localStorage.getItem("registrationSuccess") === "true") {
       setSnackbarOpen(true);
@@ -89,7 +81,6 @@ export default function Events() {
               <Card
                 name={evt.name}
                 startDate={evt.startTime}
-                attendees={evt.attendees?.length || 0}
                 orgId={evt.organizationID}
               />
             </Link>
@@ -97,7 +88,6 @@ export default function Events() {
         </div>
       )}
 
-      {/* Snackbars */}
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}

@@ -3,19 +3,21 @@ import NewsCard from "../components/NewsCard";
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Add } from "@mui/icons-material";
+import { getNews } from "../utility/apiGetCalls";
 
 export default function News() {
   const navigate = useNavigate();
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    async function fetchNews() {
-      const response = await fetch("https://localhost:7262/api/News");
-      if (response.ok) {
-        setNews(await response.json());
+    async function fetchAndSetNews() {
+      const data = await getNews();
+      if (data) {
+        setNews(data);
       }
     }
-    fetchNews();
+
+    fetchAndSetNews();
   }, []);
 
   return (
