@@ -125,13 +125,6 @@ export default function EventForm({ event, method }) {
               name="EventPhoto"
               fullWidth
             />
-            <Input2
-              label="Photo URL"
-              type="text"
-              name="PhotoUrl"
-              defaultValue={event?.photoUrl || ""}
-              fullWidth
-            />
           </div>
         </div>
         

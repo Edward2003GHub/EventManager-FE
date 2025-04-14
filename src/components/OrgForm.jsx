@@ -87,13 +87,6 @@ export default function OrgForm({ org, method }) {
                 name="Logo"
                 fullWidth
               />
-              <Input2
-                label="Logo URL"
-                type="text"
-                name="LogoUrl"
-                defaultValue={org?.logoUrl || ""}
-                fullWidth
-              />
             </div>
           </div>
         </div>

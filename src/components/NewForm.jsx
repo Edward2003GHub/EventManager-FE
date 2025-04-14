@@ -68,13 +68,6 @@ export default function NewForm({ n, method }) {
               name="NewsPhoto"
               fullWidth
             />
-            <Input2
-              label="Image URL"
-              type="text"
-              name="PhotoUrl"
-              defaultValue={n?.photoUrl || ""}
-              fullWidth
-            />
           </div>
   
           <Button 
