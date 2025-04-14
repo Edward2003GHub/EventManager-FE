@@ -387,7 +387,7 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2px 20px;
+  padding: 2px 20px 2px 9px;
   height: 50px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
