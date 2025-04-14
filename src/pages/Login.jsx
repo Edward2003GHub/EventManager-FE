@@ -96,7 +96,7 @@ export default function Login() {
         />
         {loginError && <p className="err">{loginFailed}</p>}
 
-        <Button variant="contained" type="submit" sx={{ marginTop: "20px" }}>
+        <Button variant="contained" color="success" type="submit" sx={{ marginTop: "20px" }}>
           Login
         </Button>
 

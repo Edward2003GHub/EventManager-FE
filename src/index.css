@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
 * {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   margin: 0;
@@ -6,18 +6,24 @@
   box-sizing: border-box;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
   min-height: 100vh;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   background: #fff;
-  
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 600;
   color: #000000;
 }
@@ -109,7 +115,7 @@ button {
   .form-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .event-form {
     padding: 20px;
   }
@@ -198,7 +204,7 @@ button {
 }
 
 .event-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -278,12 +284,12 @@ button {
 }
 
 .container {
-  position: absolute ;
+  position: absolute;
   width: 100%;
   max-width: 100vw;
   height: 100%;
   overflow: hidden;
-  inset: 0
+  inset: 0;
 }
 
 .container:hover .top::before,
@@ -304,7 +310,7 @@ button {
 .top::after,
 .bottom::before,
 .bottom::after {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   width: 200vmax;
@@ -360,7 +366,7 @@ button {
 
 .center h2 {
   margin-bottom: 20px;
-  color :#4caf50
+  color: #4caf50;
 }
 
 .center input {
@@ -397,7 +403,7 @@ button {
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
 } */
- 
+
 /* .form-style {
   z-index: 1;
   height: 100vh;
@@ -407,8 +413,8 @@ button {
   align-items: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   } */
-  
-  /* .form-wrapper {
+
+/* .form-wrapper {
     z-index: 2;
     position: relative;
     background: #ffffff;
@@ -420,17 +426,23 @@ button {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     } */
 
-    /* .register-inputs {
+/* .register-inputs {
   display: flex;
   flex-direction: column;
   padding: 2rem;
   gap: 1rem;
 } */
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 .form-wrapper:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
@@ -442,7 +454,7 @@ button {
   font-size: 1.8rem;
   color: #2e7d32;
 }
-  
+
 .register-input > p {
   color: #d32f2f;
   margin: 0;
@@ -946,7 +958,7 @@ button {
   padding: 20px;
 }
 
-.org-form-header{
+.org-form-header {
   color: #2e7d32;
   margin: 20px 35px;
   font-size: 1.8rem;
@@ -993,7 +1005,7 @@ button {
   .form-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .org-form {
     padding: 20px;
   }
@@ -1133,7 +1145,8 @@ button {
   margin-top: 8px;
 }
 
-.date-icon, .time-icon {
+.date-icon,
+.time-icon {
   font-size: 1.2em;
   margin-right: 5px;
 }
@@ -1190,11 +1203,11 @@ button {
     flex-direction: column;
     padding: 20px;
   }
-  
+
   .event-section {
     padding: 20px;
   }
-  
+
   .event-title {
     font-size: 1.5rem;
   }
@@ -1204,11 +1217,11 @@ button {
   .event-details-page {
     padding: 15px;
   }
-  
+
   .admin-actions {
     padding: 15px;
   }
-  
+
   .register-btn {
     width: 100%;
   }
@@ -1299,7 +1312,6 @@ button {
   flex-direction: column;
 }
 
-
 .news-title {
   color: #2e7d32 !important;
   margin-bottom: 12px !important;
@@ -1374,17 +1386,17 @@ button {
   .news-card {
     flex-direction: column;
   }
-  
+
   .news-image {
     width: 100%;
     height: 180px;
   }
-  
+
   .news-header {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .news-date-chip {
     margin-left: 0 !important;
     margin-top: 8px !important;
@@ -1396,12 +1408,11 @@ button {
   .news-content {
     padding: 16px;
   }
-  
+
   .news-title {
     font-size: 1.2rem !important;
   }
 }
-
 
 /* News Form Styles */
 .news-form-container {
@@ -1453,7 +1464,7 @@ button {
   .news-form {
     padding: 20px;
   }
-  
+
   .form-content {
     gap: 20px;
   }
@@ -1466,7 +1477,7 @@ button {
     align-items: flex-start;
     gap: 20px;
   }
-  
+
   .event-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -1476,24 +1487,47 @@ button {
   .events-page {
     padding: 20px;
   }
-  
+
   .event-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .event-card {
     flex-direction: column;
     gap: 15px;
   }
-  
+
   .event-date-badge {
     flex-direction: row;
     justify-content: flex-start;
     gap: 15px;
     padding: 10px 15px;
   }
-  
-  .event-day, .event-month {
+
+  .event-day,
+  .event-month {
     font-size: 1rem;
+  }
+}
+
+.carousel-img {
+  height: 600px;
+}
+
+@media (max-width: 1000px) {
+  .carousel-img {
+    height: 400px;
+  }
+  .carousel-caption {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 830px) {
+  .carousel-img {
+    height: 250px;
+  }
+  .carousel-caption {
+    font-size: 10px;
   }
 }

@@ -156,7 +156,7 @@ export default function Register() {
         />
         {registerError && <p className="err">{registerError}</p>}
 
-        <Button variant="contained" type="submit" sx={{ marginTop: "20px" }}>
+        <Button color="success" variant="contained" type="submit" sx={{ marginTop: "20px" }}>
           Register
         </Button>
 

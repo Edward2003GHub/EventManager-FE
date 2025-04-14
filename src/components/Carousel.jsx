@@ -29,16 +29,22 @@ export default function Carousel({ news }) {
           >
             <img
               src={`https://localhost:7262/${n.photoUrl}`}
-              className="d-block w-100"
+              className="d-block w-100 carousel-img"
               alt={`Slide ${index + 1}`}
-              style={{ height: "600px", objectFit: "cover" }}
+              style={{ objectFit: "cover" }}
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = "https://picsum.photos/id/1015/1200/400";
               }}
             />
-            <div style={{backgroundColor: "rgba(255, 255, 255, 0.5)", borderRadius: "20px"}} className="carousel-caption d-none d-md-block">
-              <h5 style={{color: "black"}}>{n.title}</h5>
+            <div
+              style={{
+                backgroundColor: "rgba(255, 255, 255, 0.5)",
+                borderRadius: "20px",
+              }}
+              className="carousel-caption d-none d-md-block"
+            >
+              <h6 style={{ color: "black" }}>{n.title}</h6>
               <div dangerouslySetInnerHTML={{ __html: n.content }} />
             </div>
           </div>
