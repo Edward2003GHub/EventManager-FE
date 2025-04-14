@@ -69,7 +69,7 @@ export default function Organization() {
                     key={org.organizationID}
                     name={org.name}
                     image={org.logoUrl}
-                    to={`/organizations/${org.organizationID}`}
+                    to={org.organizationID}
                     description={org.description}
                   />
                 ))}
