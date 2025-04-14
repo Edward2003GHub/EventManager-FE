@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input2 from "../components/Input2";
-import { Button } from "@mui/material";
+import { Button, Snackbar, Alert } from "@mui/material";
 
 export default function Register() {
+  const [personName, setPersonName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmationPassword, setConfirmationPassword] = useState("");
+
   const [passwordEmpty, setPasswordEmpty] = useState(false);
   const [passwordNotEqual, setPasswordNotEqual] = useState(false);
   const [emailNotValid, setEmailNotValid] = useState(false);
@@ -11,6 +17,8 @@ export default function Register() {
   const [numberEmpty, setNumberEmpty] = useState(false);
   const [error, setError] = useState(false);
   const [registerError, setRegisterError] = useState();
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false); // Add snackbar state
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
@@ -78,8 +86,9 @@ export default function Register() {
       const result = await response.json();
 
       if (response.ok) {
-        navigate("/login");
+        setSnackbarOpen(true); // Show snackbar on successful registration
         localStorage.setItem("regGood", "true");
+        navigate("/login");
       } else {
         setError(true);
         setRegisterError(result.detail || result.errors["Phone"][0]);
@@ -89,137 +98,83 @@ export default function Register() {
     }
   }
 
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
+
   return (
-    <div className="form-style">
-      <svg
-        className="animated-bg"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
-        x="0px"
-        y="0px"
-        width="100%"
-        height="100%"
-        viewBox="0 0 1600 900"
-        preserveAspectRatio="xMidYMax slice"
-      >
-        <defs>
-          <linearGradient id="bg">
-            <stop
-              offset="0%"
-              style={{ stopColor: "rgba(130, 158, 249, 0.06)" }}
-            />
-            <stop
-              offset="50%"
-              style={{ stopColor: "rgba(76, 190, 255, 0.6)" }}
-            />
-            <stop
-              offset="100%"
-              style={{ stopColor: "rgba(115, 209, 72, 0.2)" }}
-            />
-          </linearGradient>
-          <path
-            id="wave"
-            fill="url(#bg)"
-            d="M-363.852,502.589c0,0,236.988-41.997,505.475,0
-        s371.981,38.998,575.971,0s293.985-39.278,505.474,5.859s493.475,48.368,716.963-4.995v560.106H-363.852V502.589z"
-          />
-        </defs>
-        <g>
-          <use xlinkHref="#wave" opacity=".3">
-            <animateTransform
-              attributeName="transform"
-              attributeType="XML"
-              type="translate"
-              dur="10s"
-              calcMode="spline"
-              values="270 230; -334 180; 270 230"
-              keyTimes="0; .5; 1"
-              keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
-              repeatCount="indefinite"
-            />
-          </use>
-          <use xlinkHref="#wave" opacity=".6">
-            <animateTransform
-              attributeName="transform"
-              attributeType="XML"
-              type="translate"
-              dur="8s"
-              calcMode="spline"
-              values="-270 230;243 220;-270 230"
-              keyTimes="0; .6; 1"
-              keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
-              repeatCount="indefinite"
-            />
-          </use>
-          <use xlinkHref="#wave" opacity=".9">
-            <animateTransform
-              attributeName="transform"
-              attributeType="XML"
-              type="translate"
-              dur="6s"
-              calcMode="spline"
-              values="0 230;-140 200;0 230"
-              keyTimes="0; .4; 1"
-              keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
-              repeatCount="indefinite"
-            />
-          </use>
-        </g>
-      </svg>
-      <form onSubmit={handleSubmit}>
-        <div className="form-wrapper">
-          <h1>CREATE ACCOUNT</h1>
-          <div className="register-inputs">
-            <Input2
-              label="Name"
-              type="text"
-              name="personName"
-              error={nameEmpty}
-              errorText="Please enter a name"
-            />
-            <Input2
-              label="Phone"
-              type="number"
-              name="phone"
-              error={numberEmpty}
-              errorText="Please enter a valid number"
-            />
-            <Input2
-              label="Email"
-              type="email"
-              name="email"
-              error={emailNotValid}
-              errorText="Please enter a valid email address"
-            />
-            <Input2
-              label="Password"
-              type="password"
-              name="password"
-              error={passwordEmpty}
-              errorText="Please enter a valid password"
-            />
-            <Input2
-              label="Confirm password"
-              type="password"
-              name="confirmationPassword"
-              error={passwordNotEqual}
-              errorText="The password aren't equal"
-            />
-            {error && <p className="err">{registerError}</p>}
-            <Button
-              variant="contained"
-              sx={{ marginTop: "20px" }}
-              type="submit"
-            >
-              Register
-            </Button>
-            <p className="no-acc">
-              Have already an account? <Link to="/login">Login here</Link>
-            </p>
-          </div>
-        </div>
+    <div className="container">
+      <div className="top"></div>
+      <div className="bottom"></div>
+      <form className="center" onSubmit={handleSubmit}>
+        <h2>Registeration</h2>
+
+        <Input2
+          label="Name"
+          type="text"
+          name="personName"
+          value={personName}
+          onChange={(e) => setPersonName(e.target.value)}
+          error={nameEmpty}
+          errorText="Please enter a name"
+        />
+        <Input2
+          label="Phone"
+          type="number"
+          name="phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          error={numberEmpty}
+          errorText="Please enter a valid number"
+        />
+        <Input2
+          label="Email"
+          type="email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          error={emailNotValid}
+          errorText="Please enter a valid email address"
+        />
+        <Input2
+          label="Password"
+          type="password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          error={passwordEmpty}
+          errorText="Please enter a valid password"
+        />
+        <Input2
+          label="Confirm password"
+          type="password"
+          name="confirmationPassword"
+          value={confirmationPassword}
+          onChange={(e) => setConfirmationPassword(e.target.value)}
+          error={passwordNotEqual}
+          errorText="The passwords aren't equal"
+        />
+        {registerError && <p className="err">{registerError}</p>}
+
+        <Button variant="contained" type="submit" sx={{ marginTop: "20px" }}>
+          Register
+        </Button>
+
+        <p className="no-acc">
+          Already have an account? <Link to="/login">Login here</Link>
+        </p>
       </form>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity="success" variant="filled">
+          Registration successful!
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
