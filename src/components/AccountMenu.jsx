@@ -9,8 +9,9 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Form } from "react-router-dom";
 
-export default function AccountMenu({ fLetter, email, logout, delAcc }) {
+export default function AccountMenu({ fLetter, email, delAcc }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -79,18 +80,22 @@ export default function AccountMenu({ fLetter, email, logout, delAcc }) {
           <Avatar /> {email}
         </MenuItem>
         <Divider />
-        {localStorage.getItem("email") !== "admin@example.com" && <MenuItem onClick={delAcc} sx={{ fontSize: "15px" }}>
-          <ListItemIcon>
-            <DeleteIcon sx={{ fontSize: "25px" }} />
-          </ListItemIcon>
-          Delete account
-        </MenuItem>}
-        <MenuItem onClick={logout} sx={{ fontSize: "15px" }}>
-          <ListItemIcon>
-            <Logout sx={{ fontSize: "25px" }} />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
+        {localStorage.getItem("email") !== "admin@example.com" && (
+          <MenuItem onClick={delAcc} sx={{ fontSize: "15px" }}>
+            <ListItemIcon>
+              <DeleteIcon sx={{ fontSize: "25px" }} />
+            </ListItemIcon>
+            Delete account
+          </MenuItem>
+        )}
+        <Form action="/user/logout" method="post">
+          <MenuItem type="submit" component="button" sx={{ fontSize: "15px", width: "100%" }}>
+            <ListItemIcon>
+              <Logout sx={{ fontSize: "25px" }} />
+            </ListItemIcon>
+            Logout
+          </MenuItem>
+        </Form>
       </Menu>
     </React.Fragment>
   );

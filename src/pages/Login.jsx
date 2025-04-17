@@ -58,6 +58,9 @@ export default function Login() {
 
       if (response.ok) {
         localStorage.setItem("token", result.token);
+        const expiration = new Date();
+        expiration.setMinutes(expiration.getMinutes() + 30);
+        localStorage.setItem("expiration", expiration.toISOString());
         localStorage.setItem("email", result.email);
         localStorage.setItem("name", result.personName);
         localStorage.setItem("userId", result.id);
@@ -96,7 +99,12 @@ export default function Login() {
         />
         {loginError && <p className="err">{loginFailed}</p>}
 
-        <Button variant="contained" color="success" type="submit" sx={{ marginTop: "20px" }}>
+        <Button
+          variant="contained"
+          color="success"
+          type="submit"
+          sx={{ marginTop: "20px" }}
+        >
           Login
         </Button>
 
@@ -111,12 +119,14 @@ export default function Login() {
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert onClose={handleCloseSnackbar} severity="success" variant="filled">
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="success"
+          variant="filled"
+        >
           Registration successful!
         </Alert>
       </Snackbar>
     </div>
   );
 }
-
-

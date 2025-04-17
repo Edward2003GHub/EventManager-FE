@@ -22,6 +22,7 @@ import EditOrg from "./pages/EditOrg";
 import NewOrg from "./pages/NewOrg";
 import NewNew from "./pages/NewNew";
 import EditNew from "./pages/EditNew";
+import { action as logoutAction } from "./pages/Logout";
 
 const router = createBrowserRouter([
   {
@@ -130,6 +131,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: "forms", element: <Forms /> },
+      { path: "logout", action: logoutAction },
     ],
   },
 ]);
