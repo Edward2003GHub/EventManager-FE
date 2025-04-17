@@ -27,6 +27,7 @@ export default function Carousel({ news }) {
             key={n.id}
             className={`carousel-item ${index === 0 ? "active" : ""}`}
           >
+            
             <img
               src={`https://localhost:7262/${n.photoUrl}`}
               className="d-block w-100 carousel-img"
