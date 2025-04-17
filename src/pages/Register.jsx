@@ -120,7 +120,7 @@ export default function Register() {
         />
         <Input2
           label="Phone"
-          type="number"
+          type="text"
           name="phone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
