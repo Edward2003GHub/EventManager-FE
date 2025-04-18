@@ -125,8 +125,8 @@ export default function Events() {
                   borderColor: "green",
                 },
                 "& .MuiPaginationItem-root:hover": {
-                  backgroundColor: "rgb(189, 252, 201)",
-                  color: "black"
+                  backgroundColor: "rgba(144, 238, 144, 0.2)",
+                  color: "black",
                 },
               }}
             />

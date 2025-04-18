@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import NewsCard from "../components/NewsCard";
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, Pagination, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Add } from "@mui/icons-material";
 import { getNews } from "../utility/apiGetCalls";
@@ -8,17 +8,30 @@ import { getNews } from "../utility/apiGetCalls";
 export default function News() {
   const navigate = useNavigate();
   const [news, setNews] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const newsPerPage = 5;
 
   useEffect(() => {
     async function fetchAndSetNews() {
       const data = await getNews();
       if (data) {
         setNews(data);
+        setCurrentPage(1); // reset to first page
       }
     }
 
     fetchAndSetNews();
   }, []);
+
+  // Pagination logic
+  const totalPages = Math.ceil(news.length / newsPerPage);
+  const indexOfLastNews = currentPage * newsPerPage;
+  const indexOfFirstNews = indexOfLastNews - newsPerPage;
+  const currentNews = news.slice(indexOfFirstNews, indexOfLastNews);
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
 
   return (
     <div className="news-page">
@@ -44,19 +57,46 @@ export default function News() {
           No news articles found
         </Typography>
       ) : (
-        <div className="news-list">
-          {news.map((n) => (
-            <NewsCard
-              key={n.id}
-              image={n.photoUrl.replace(/\\/g, "/")}
-              title={n.title}
-              date={n.updatedDate ? n.updatedDate : n.createdDate}
-              isUpdated={!!n.updatedDate}
-              content={n.content}
-              to={n.id}
+        <>
+          <div className="news-list">
+            {currentNews.map((n) => (
+              <NewsCard
+                key={n.id}
+                image={n.photoUrl.replace(/\\/g, "/")}
+                title={n.title}
+                date={n.updatedDate ? n.updatedDate : n.createdDate}
+                isUpdated={!!n.updatedDate}
+                content={n.content}
+                to={n.id}
+              />
+            ))}
+          </div>
+
+          {/* Pagination Control */}
+          <Box display="flex" justifyContent="center" mt={4}>
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={handlePageChange}
+              variant="outlined"
+              sx={{
+                "& .MuiPaginationItem-root": {
+                  color: "green",
+                  borderColor: "green",
+                },
+                "& .Mui-selected": {
+                  backgroundColor: "green",
+                  color: "white",
+                  borderColor: "green",
+                },
+                "& .MuiPaginationItem-root:hover": {
+                  backgroundColor: "rgba(144, 238, 144, 0.2)",
+                  color: "black",
+                },
+              }}
             />
-          ))}
-        </div>
+          </Box>
+        </>
       )}
     </div>
   );
