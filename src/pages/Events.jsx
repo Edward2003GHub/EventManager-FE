@@ -1,13 +1,23 @@
 import { Link, useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import { useEffect, useState } from "react";
-import { Snackbar, Alert, Button, Typography } from "@mui/material";
+import {
+  Snackbar,
+  Alert,
+  Button,
+  Typography,
+  Pagination,
+  Box,
+} from "@mui/material";
 import { EventNote, Add } from "@mui/icons-material";
 import { getEvents } from "../utility/apiGetCalls";
 
 export default function Events() {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const eventsPerPage = 9;
+
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarUnreg, setSnackbarUnreg] = useState(false);
 
@@ -24,6 +34,7 @@ export default function Events() {
       const data = await getEvents();
       if (data) {
         setEvents(data);
+        setCurrentPage(1); // reset to first page when data updates
       }
     }
 
@@ -39,6 +50,15 @@ export default function Events() {
       localStorage.removeItem("unregistrationSuccess");
     }
   }, []);
+
+  const totalPages = Math.ceil(events.length / eventsPerPage);
+  const indexOfLastEvent = currentPage * eventsPerPage;
+  const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
+  const currentEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
 
   return (
     <div className="events-page">
@@ -67,25 +87,51 @@ export default function Events() {
           </Typography>
         </div>
       ) : (
-        <div className="event-grid">
-          {events.map((evt) => (
-            <Link
-              key={evt.eventID}
-              to={
-                localStorage.getItem("token")
-                  ? `/user/events/${evt.eventID}`
-                  : `/events/${evt.eventID}`
-              }
-              className="event-card-link"
-            >
-              <Card
-                name={evt.name}
-                startDate={evt.startTime}
-                orgId={evt.organizationID}
-              />
-            </Link>
-          ))}
-        </div>
+        <>
+          <div className="event-grid">
+            {currentEvents.map((evt) => (
+              <Link
+                key={evt.eventID}
+                to={
+                  localStorage.getItem("token")
+                    ? `/user/events/${evt.eventID}`
+                    : `/events/${evt.eventID}`
+                }
+                className="event-card-link"
+              >
+                <Card
+                  name={evt.name}
+                  startDate={evt.startTime}
+                  orgId={evt.organizationID}
+                />
+              </Link>
+            ))}
+          </div>
+
+          <Box display="flex" justifyContent="center" mt={4}>
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={handlePageChange}
+              variant="outlined"
+              sx={{
+                "& .MuiPaginationItem-root": {
+                  color: "green",
+                  borderColor: "green",
+                },
+                "& .Mui-selected": {
+                  backgroundColor: "green",
+                  color: "white",
+                  borderColor: "green",
+                },
+                "& .MuiPaginationItem-root:hover": {
+                  backgroundColor: "rgb(189, 252, 201)",
+                  color: "black"
+                },
+              }}
+            />
+          </Box>
+        </>
       )}
 
       <Snackbar
