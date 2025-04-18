@@ -76,7 +76,6 @@ export default function News() {
             ))}
           </div>
 
-          {/* Pagination Control */}
           <Box display="flex" justifyContent="center" mt={4}>
             <Pagination
               count={totalPages}
@@ -92,6 +91,10 @@ export default function News() {
                   backgroundColor: "green",
                   color: "white",
                   borderColor: "green",
+                },
+                "& .MuiPaginationItem-root.Mui-selected:hover": {
+                  backgroundColor: "rgb(177, 255, 177)",
+                  color: "black",
                 },
                 "& .MuiPaginationItem-root:hover": {
                   backgroundColor: "rgb(177, 255, 177)",
