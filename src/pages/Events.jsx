@@ -119,7 +119,7 @@ export default function Events() {
                   color: "green",
                   borderColor: "green",
                 },
-                "& .Mui-selected": {
+                "& .MuiPaginationItem-root.Mui-selected": {
                   backgroundColor: "green",
                   color: "white",
                   borderColor: "green",
