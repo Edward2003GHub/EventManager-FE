@@ -58,7 +58,7 @@ export default function OrgDetails() {
           <div className="org-header">
             <div className="logo-container">
               <img
-                src={org.logoUrl ? `https://localhost:7262/${org.logoUrl}` : "/default-org.png"}
+                src={org.logoUrl ? `https://localhost:7262/${org.logoUrl}` : "/Images/emptyPhoto.png"}
                 alt={org.name}
                 className="org-logo"
               />

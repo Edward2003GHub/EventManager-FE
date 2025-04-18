@@ -62,7 +62,11 @@ export default function News() {
             {currentNews.map((n) => (
               <NewsCard
                 key={n.id}
-                image={n.photoUrl.replace(/\\/g, "/")}
+                image={
+                  n.photoUrl
+                    ? n.photoUrl.replace(/\\/g, "/")
+                    : "/Images/emptyPhoto.png"
+                }
                 title={n.title}
                 date={n.updatedDate ? n.updatedDate : n.createdDate}
                 isUpdated={!!n.updatedDate}

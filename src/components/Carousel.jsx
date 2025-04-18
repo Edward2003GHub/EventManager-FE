@@ -29,7 +29,7 @@ export default function Carousel({ news }) {
           >
             
             <img
-              src={`https://localhost:7262/${n.photoUrl}`}
+              src={n.photoUrl ? `https://localhost:7262/${n.photoUrl}` : "/Images/emptyPhoto.png"}
               className="d-block w-100 carousel-img"
               alt={`Slide ${index + 1}`}
               style={{ objectFit: "cover" }}

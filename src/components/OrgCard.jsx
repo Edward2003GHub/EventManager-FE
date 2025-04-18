@@ -7,7 +7,7 @@ export default function OrgCard({ name, image, to }) {
     <div className="org-card">
       <div className="org-card-content">
         <img
-          src={image ? `https://localhost:7262/${image}` : "/default-org.png"}
+          src={image ? `https://localhost:7262/${image}` : "/Images/emptyPhoto.png"}
           alt={name}
           className="org-logo"
         />

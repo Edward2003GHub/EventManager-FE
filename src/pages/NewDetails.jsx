@@ -78,7 +78,7 @@ export default function NewDetails() {
       <div style={{ width: "100%", overflow: "hidden", margin: "20px 0" }}>
         <div style={{ textAlign: "center", maxWidth: "850px", margin: "auto" }}>
           <img
-            src={`https://localhost:7262/${news.photoUrl}`}
+            src={news.photoUrl ? `https://localhost:7262/${news.photoUrl}` : "/Images/emptyPhoto.png"}
             alt="news-img"
             style={{ minWidth: "inherit", margin: "0px", width: "100%" }}
           />

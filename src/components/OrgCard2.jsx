@@ -6,7 +6,7 @@ export default function OrgCard2({ description, name, image, to }) {
     <Link to={to} className="org-card2-link">
       <div className="org-card2">
         <img
-          src={`https://localhost:7262/${image}`}
+          src={image ? `https://localhost:7262/${image}` : "/Images/emptyPhoto.png"}
           alt={name}
           className="org-logo"
         />
