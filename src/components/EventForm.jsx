@@ -228,9 +228,14 @@ export default function EventForm({ event, method }) {
           </div>
         </div>
 
-        <Input2 style={{display: "none"}} name="PhotoUrl" defaultValue={event?.photoUrl || ""} />
+        <Input2
+          style={{ display: "none" }}
+          name="PhotoUrl"
+          defaultValue={event?.photoUrl || ""}
+        />
 
         <Button
+          sx={{ marginTop: "20px" }}
           variant="contained"
           type="submit"
           className="submit-btn"
