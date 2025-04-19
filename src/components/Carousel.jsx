@@ -27,9 +27,12 @@ export default function Carousel({ news }) {
             key={n.id}
             className={`carousel-item ${index === 0 ? "active" : ""}`}
           >
-            
             <img
-              src={n.photoUrl ? `https://localhost:7262/${n.photoUrl}` : "/Images/emptyPhoto.png"}
+              src={
+                n.photoUrl
+                  ? `https://localhost:7262/${n.photoUrl}`
+                  : "/Images/emptyPhoto.png"
+              }
               className="d-block w-100 carousel-img"
               alt={`Slide ${index + 1}`}
               style={{ objectFit: "cover" }}
@@ -40,12 +43,17 @@ export default function Carousel({ news }) {
             />
             <div
               style={{
-                backgroundColor: "rgba(255, 255, 255, 0.5)",
+                backgroundColor: "rgba(232, 245, 233, 0.8)",
                 borderRadius: "20px",
               }}
               className="carousel-caption d-none d-md-block"
             >
-              <h6 style={{ color: "black" }}>{n.title}</h6>
+              <h6 style={{ color: "green" }}>{n.title}</h6>
+              <div dangerouslySetInnerHTML={{ __html: n.content }} />
+            </div>
+
+            <div className="d-block d-md-none my-5 px-3 text-center">
+              <h6 style={{ color: "green" }}>{n.title}</h6>
               <div dangerouslySetInnerHTML={{ __html: n.content }} />
             </div>
           </div>
