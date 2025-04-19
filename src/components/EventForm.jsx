@@ -57,7 +57,7 @@ export default function EventForm({ event, method }) {
 
     const eventPhotoFile = fd.get("EventPhoto");
 
-    if (!eventPhotoFile || eventPhotoFile.size === 0) {
+    if (method === "POST" && (!eventPhotoFile || eventPhotoFile.size === 0)) {
       setPhotoEmpty(true);
       hasError = true;
     } else {
@@ -200,7 +200,6 @@ export default function EventForm({ event, method }) {
               <select
                 value={selectedOrgId}
                 onChange={(e) => setSelectedOrgId(e.target.value)}
-                
                 className="org-select"
               >
                 <option value="">Select an organization</option>
@@ -228,6 +227,8 @@ export default function EventForm({ event, method }) {
             />
           </div>
         </div>
+
+        <Input2 style={{display: "none"}} name="PhotoUrl" defaultValue={event?.photoUrl || ""} />
 
         <Button
           variant="contained"

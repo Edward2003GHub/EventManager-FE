@@ -59,7 +59,7 @@ export default function OrgForm({ org, method }) {
 
     const orgPhotoFile = fd.get("Logo");
 
-    if (!orgPhotoFile || orgPhotoFile.size === 0) {
+    if (method === "POST" && (!orgPhotoFile || orgPhotoFile.size === 0)) {
       setPhotoEmpty(true);
       hasError = true;
     } else {
@@ -161,6 +161,8 @@ export default function OrgForm({ org, method }) {
             </div>
           </div>
         </div>
+
+        <Input2 style={{display: "none"}} name="LogoUrl" defaultValue={org?.logoUrl || ""} />
 
         <Button
           variant="contained"

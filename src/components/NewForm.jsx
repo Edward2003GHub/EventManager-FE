@@ -35,7 +35,7 @@ export default function NewForm({ n, method }) {
 
     const newsPhotoFile = fd.get("NewsPhoto");
 
-    if (!newsPhotoFile || newsPhotoFile.size === 0) {
+    if (method === "POST" && (!newsPhotoFile || newsPhotoFile.size === 0)) {
       setPhotoEmpty(true);
       hasError = true;
     } else {
@@ -108,6 +108,8 @@ export default function NewForm({ n, method }) {
               errorText="Please pick an image"
             />
           </div>
+
+          <Input2 style={{display: "none"}} name="PhotoUrl" defaultValue={n?.photoUrl || ""} />
 
           <Button
             variant="contained"
