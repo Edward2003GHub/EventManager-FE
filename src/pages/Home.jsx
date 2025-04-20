@@ -51,7 +51,7 @@ export default function Home() {
 
       <div>
         <h2>Latest Events</h2>
-        <div className="event-wrapper" style={{ padding: 0 }}>
+        <div className="event-wrapper">
           {events.slice(0, 4).map((evt) => (
             <Link
               key={evt.eventID}
@@ -61,7 +61,6 @@ export default function Home() {
                   : `/events/${evt.eventID}`
               }
               style={{ textDecoration: "none", color: "inherit" }}
-              className="card-link"
             >
               <Card
                 name={evt.name}
