@@ -9,6 +9,7 @@ import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
 import { Button } from "@mui/material";
+import SearchBar from "./SearchBar";
 
 export default function Events() {
   const navigate = useNavigate();
@@ -60,8 +61,24 @@ export default function Events() {
   return (
     <>
       <div className="header-container">
-        <div className="dashboard-header">
-          <div className="brand">
+        <div
+          className="dashboard-header"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            gap: "16px",
+          }}
+        >
+          <div
+            className="brand"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              minWidth: "fit-content",
+            }}
+          >
             <IconButton sx={{ width: 40, height: 40 }} onClick={handleToggle}>
               <MenuOpenIcon
                 sx={{
@@ -72,7 +89,28 @@ export default function Events() {
             </IconButton>
             <img src="/Images/BAUClubs.png" alt="" width={"45px"} />
           </div>
-          <div>
+
+          <div
+            style={{
+              flex: 1,
+              display: "flex",
+              justifyContent: "center",
+              maxWidth: "800px",
+              minWidth: "250px",
+              margin: "0 24px",
+              position: "relative",
+            }}
+          >
+            <SearchBar />
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              minWidth: "fit-content",
+            }}
+          >
             {isLoggedIn ? (
               <AccountMenu
                 fLetter={localStorage.getItem("name").charAt(0)}
