@@ -49,14 +49,28 @@ export async function getNews() {
   }
 }
 
+export async function getBlogs() {
+  try {
+    const response = await fetch("https://localhost:7262/api/Blogs");
+
+    if (!response.ok) {
+      console.error(`Error: ${response.statusText} (${response.status})`);
+      return null;
+    }
+
+    const resData = await response.json();
+    return resData;
+  } catch (error) {
+    console.error("Error fetching orgs:", error);
+    return null;
+  }
+}
+
 export const searchAll = async (query) => {
   try {
-    const token = localStorage.getItem('token'); 
-    const res = await fetch(`https://localhost:7262/api/search?query=${encodeURIComponent(query)}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
+    const res = await fetch(
+      `https://localhost:7262/api/search?query=${encodeURIComponent(query)}`
+    );
 
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
@@ -66,11 +80,10 @@ export const searchAll = async (query) => {
     return {
       events: data.events || [],
       news: data.news || [],
-      orgs: data.orgs || []
+      orgs: data.orgs || [],
     };
   } catch (err) {
-    console.error('Search failed:', err);
+    console.error("Search failed:", err);
     return { events: [], news: [], orgs: [] };
   }
 };
-

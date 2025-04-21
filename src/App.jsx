@@ -23,6 +23,7 @@ import NewOrg from "./pages/NewOrg";
 import NewNew from "./pages/NewNew";
 import EditNew from "./pages/EditNew";
 import { action as logoutAction } from "./pages/Logout";
+import Blogs from "./pages/Blogs";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: "forms", element: <Forms /> },
+      { path: "blogs", element: <Blogs />},
     ],
   },
   { path: "/register", element: <Register /> },
@@ -131,6 +133,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: "forms", element: <Forms /> },
+      { path: "blogs", element: <Blogs />},
       { path: "logout", action: logoutAction },
     ],
   },

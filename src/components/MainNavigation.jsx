@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import IconButton from "@mui/material/IconButton";
@@ -10,6 +10,7 @@ import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
 import { Button } from "@mui/material";
 import SearchBar from "./SearchBar";
+import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 
 export default function Events() {
   const navigate = useNavigate();
@@ -168,6 +169,14 @@ export default function Events() {
             >
               <SummarizeOutlinedIcon sx={{ fontSize: 28 }} />
               {toggle ? <span>Forms</span> : undefined}
+            </NavLink>
+
+            <NavLink
+              to="blogs"
+              className={({ isActive }) => (isActive ? "active" : undefined)}
+            >
+              <ForumOutlinedIcon sx={{ fontSize: 28 }} />
+              {toggle ? <span>Blogs</span> : undefined}
             </NavLink>
           </div>
         </div>
