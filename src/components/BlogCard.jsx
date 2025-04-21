@@ -1,0 +1,100 @@
+import { IconButton, Button } from "@mui/material";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const year = date.getFullYear();
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
+
+export default function BlogCard({ blog, onOptionsClick }) {
+  return (
+    <div
+      style={{
+        maxWidth: "800px",
+        margin: "2rem auto",
+        padding: "1.5rem",
+        background: "rgba(255, 255, 255, 0.05)",
+        borderRadius: "1rem",
+        backdropFilter: "blur(10px)",
+        border: "1px solid rgba(255, 255, 255, 0.1)",
+        fontFamily: "Arial, sans-serif",
+        boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
+      }}
+    >
+      {/* Header */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "1rem",
+        }}
+      >
+        {/* User Info */}
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <div
+            style={{
+              backgroundColor: "green",
+              color: "white",
+              width: "60px",
+              height: "60px",
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontWeight: "bold",
+              fontSize: "1.25rem",
+              flexShrink: 0,
+            }}
+            aria-label={`Avatar of ${blog.userName}`}
+          >
+            {blog.userName.charAt(0).toUpperCase()}
+          </div>
+          <div>
+            <div style={{ fontWeight: 600, fontSize: "1.5rem" }}>
+              {blog.userName}
+            </div>
+            <div style={{ fontSize: "0.875rem", color: "#ccc" }}>
+              {formatDate(blog.timePosted)}
+            </div>
+          </div>
+        </div>
+
+        {/* Options Icon */}
+        <IconButton
+          aria-label="Options"
+          onClick={(e) => onOptionsClick(e, blog.blogId)}
+          sx={{ alignSelf: "flex-start" }}
+        >
+          <MoreHorizIcon />
+        </IconButton>
+      </div>
+
+      {/* Blog Content */}
+      <div
+        style={{
+          fontSize: "1.125rem",
+          lineHeight: 1.6,
+          marginBottom: "1rem",
+          whiteSpace: "pre-line",
+        }}
+      >
+        {blog.content}
+      </div>
+
+      {/* Actions */}
+      <div style={{ display: "flex", gap: "0.75rem" }}>
+        <Button color="success" variant="contained">
+          👍 0 Likes
+        </Button>
+        <Button color="success">💬 {blog.comments.length} Comments</Button>
+      </div>
+    </div>
+  );
+}

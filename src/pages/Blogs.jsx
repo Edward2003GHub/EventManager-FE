@@ -1,21 +1,27 @@
 import { useState, useEffect } from "react";
 import { getBlogs } from "../utility/apiGetCalls";
-import { IconButton } from "@mui/material";
+import { Button, IconButton, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import DeleteIcon from "@mui/icons-material/Delete";
+import BlogCard from "../components/BlogCard";
 
 function formatDate(dateString) {
-    const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed
-    const year = date.getFullYear();
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-  
-    return `${day}/${month}/${year} ${hours}:${minutes}`;
-  }
+  const date = new Date(dateString);
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const year = date.getFullYear();
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
 
 export default function Blogs() {
   const [blogs, setBlogs] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedBlogId, setSelectedBlogId] = useState(null);
+
+  const open = Boolean(anchorEl);
 
   useEffect(() => {
     async function fetchAndSetBlogs() {
@@ -28,103 +34,65 @@ export default function Blogs() {
     fetchAndSetBlogs();
   }, []);
 
-  console.log(blogs);
+  const handleMenuClick = (event, blogId) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedBlogId(blogId);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    setSelectedBlogId(null);
+  };
+
+  const handleDelete = async () => {
+    handleMenuClose();
+
+    try {
+      const res = await fetch(
+        `https://localhost:7262/api/Blogs/${selectedBlogId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (res.ok) {
+        setBlogs((prevBlogs) =>
+          prevBlogs.filter((blog) => blog.blogId !== selectedBlogId)
+        );
+        console.log(`Blog with ID ${selectedBlogId} deleted successfully.`);
+      } else {
+        console.error("Failed to delete blog:", res.statusText);
+      }
+    } catch (error) {
+      console.error("Error deleting blog:", error);
+    }
+  };
 
   return (
     <>
       {blogs.map((blog) => (
-        <div
+        <BlogCard
           key={blog.blogId}
-          style={{
-            maxWidth: "800px",
-            margin: "20px auto",
-            padding: "20px",
-            background: "rgba(255, 255, 255, 0.05)",
-            borderRadius: "15px",
-            backdropFilter: "blur(10px)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            fontFamily: "Arial, sans-serif",
-            boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              marginBottom: "10px",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <div style={{ display: "flex", gap: "15px", alignItems: "center" }}>
-              <div
-                style={{
-                  backgroundColor: "green",
-                  color: "white",
-                  width: "60px",
-                  height: "60px",
-                  borderRadius: "50%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  fontWeight: "bold",
-                  fontSize: "20px",
-                }}
-              >
-                {blog.userName.charAt(0).toUpperCase()}
-              </div>
-              <div>
-                <div>
-                  <span style={{ fontWeight: "500", fontSize: "25px" }}>
-                    {blog.userName}
-                  </span>
-                </div>
-                <span style={{ fontSize: "15px" }}>{formatDate(blog.timePosted)}</span>
-              </div>
-            </div>
-            <IconButton aria-label="delete" sx={{ alignSelf: "flex-start" }}>
-              <MoreHorizIcon />
-            </IconButton>
-          </div>
-
-          <div
-            style={{
-              marginTop: "20px",
-              marginBottom: "15px",
-              fontSize: "20px",
-              lineHeight: "1.5",
-            }}
-          >
-            {blog.content}
-          </div>
-
-          <div style={{ display: "flex", gap: "10px" }}>
-            <button
-              style={{
-                padding: "6px 12px",
-                borderRadius: "8px",
-                backgroundColor: "#2563eb",
-                color: "#fff",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              👍 0 Likes
-            </button>
-            <button
-              style={{
-                padding: "6px 12px",
-                borderRadius: "8px",
-                backgroundColor: "#4b5563",
-                color: "#fff",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              💬 {blog.comments.length} Comments
-            </button>
-          </div>
-        </div>
+          blog={blog}
+          onOptionsClick={handleMenuClick}
+        />
       ))}
+
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleMenuClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <MenuItem onClick={handleDelete}>
+          <DeleteIcon sx={{ mr: 1, color: "red" }} />
+          <span style={{ color: "red" }}>Delete Post</span>
+        </MenuItem>
+      </Menu>
     </>
   );
 }
