@@ -36,9 +36,9 @@ const SearchBar = () => {
   }, [query]);
 
   const handleClick = (type, id) => {
-    if (type === "event") navigate(`/events/${id}`);
-    else if (type === "news") navigate(`/news/${id}`);
-    else if (type === "org") navigate(`/organizations/${id}`);
+    if (type === "event") navigate(localStorage.getItem('token') ? `/user/events/${id}` : `/events/${id}`);
+    else if (type === "news") navigate(localStorage.getItem('token') ? `/user/news/${id}` : `/news/${id}`);
+    else if (type === "org") navigate(localStorage.getItem('token') ? `/user/organizations/${id}` : `/organizations/${id}`);
     setShowDropdown(false);
   };
 
