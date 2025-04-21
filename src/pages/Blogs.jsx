@@ -136,19 +136,21 @@ export default function Blogs() {
         </MenuItem>
       </Menu>
 
-      <Fab
-        color="success"
-        aria-label="add"
-        style={{
-          position: "fixed",
-          bottom: "2rem",
-          right: "2rem",
-          zIndex: 1000,
-        }}
-        onClick={handleOpen}
-      >
-        <AddIcon />
-      </Fab>
+      {localStorage.getItem("token") && (
+        <Fab
+          color="success"
+          aria-label="add"
+          style={{
+            position: "fixed",
+            bottom: "2rem",
+            right: "2rem",
+            zIndex: 1000,
+          }}
+          onClick={handleOpen}
+        >
+          <AddIcon />
+        </Fab>
+      )}
 
       <Modal
         aria-labelledby="transition-modal-title"

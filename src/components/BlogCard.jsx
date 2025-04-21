@@ -69,13 +69,15 @@ export default function BlogCard({ blog, onOptionsClick }) {
         </div>
 
         {/* Options Icon */}
-        {blog.userId === localStorage.getItem('userId') && <IconButton
-          aria-label="Options"
-          onClick={(e) => onOptionsClick(e, blog.blogId)}
-          sx={{ alignSelf: "flex-start" }}
-        >
-          <MoreHorizIcon />
-        </IconButton>}
+        {blog.userId === localStorage.getItem("userId") && (
+          <IconButton
+            aria-label="Options"
+            onClick={(e) => onOptionsClick(e, blog.blogId)}
+            sx={{ alignSelf: "flex-start" }}
+          >
+            <MoreHorizIcon />
+          </IconButton>
+        )}
       </div>
 
       {/* Blog Content */}
@@ -97,7 +99,7 @@ export default function BlogCard({ blog, onOptionsClick }) {
           0&nbsp; <ThumbUpAltIcon />
         </Button>
         <Button color="success">
-          {blog.comments.length}&nbsp; <ChatIcon />
+          {blog.comments.length || 0}&nbsp; <ChatIcon />
         </Button>
       </div>
     </div>
