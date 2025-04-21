@@ -1,5 +1,7 @@
 import { IconButton, Button } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
+import ChatIcon from "@mui/icons-material/Chat";
 
 function formatDate(dateString) {
   const date = new Date(dateString);
@@ -67,13 +69,13 @@ export default function BlogCard({ blog, onOptionsClick }) {
         </div>
 
         {/* Options Icon */}
-        <IconButton
+        {blog.userId === localStorage.getItem('userId') && <IconButton
           aria-label="Options"
           onClick={(e) => onOptionsClick(e, blog.blogId)}
           sx={{ alignSelf: "flex-start" }}
         >
           <MoreHorizIcon />
-        </IconButton>
+        </IconButton>}
       </div>
 
       {/* Blog Content */}
@@ -85,15 +87,18 @@ export default function BlogCard({ blog, onOptionsClick }) {
           whiteSpace: "pre-line",
         }}
       >
+        <h3>{blog.title}</h3>
         {blog.content}
       </div>
 
       {/* Actions */}
       <div style={{ display: "flex", gap: "0.75rem" }}>
         <Button color="success" variant="contained">
-          👍 0 Likes
+          0&nbsp; <ThumbUpAltIcon />
         </Button>
-        <Button color="success">💬 {blog.comments.length} Comments</Button>
+        <Button color="success">
+          {blog.comments.length}&nbsp; <ChatIcon />
+        </Button>
       </div>
     </div>
   );
