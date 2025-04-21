@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Input2 from "../components/Input2";
 import { Button, Snackbar, Alert } from "@mui/material";
 
@@ -18,8 +18,26 @@ export default function Register() {
   const [error, setError] = useState(false);
   const [registerError, setRegisterError] = useState();
 
-  const [snackbarOpen, setSnackbarOpen] = useState(false); // Add snackbar state
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const containerRef = useRef(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const triggerAnimation = () => {
+    if (!hasAnimated && containerRef.current) {
+      containerRef.current.classList.add("animated-once");
+      setHasAnimated(true);
+    }
+  };
+
+  useEffect(() => {
+    triggerAnimation();
+  }, [location]);
+
+  function handleMouseEnter() {
+    triggerAnimation();
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -66,32 +84,21 @@ export default function Register() {
     if (hasError) return;
 
     try {
-      const response = await fetch(
-        "https://localhost:7262/api/Account/Register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            personName: data.personName,
-            email: data.email,
-            phone: data.phone,
-            password: data.password,
-            confirmationPassword: data.confirmationPassword,
-          }),
-        }
-      );
+      const response = await fetch("https://localhost:7262/api/Account/Register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
       const result = await response.json();
 
       if (response.ok) {
-        setSnackbarOpen(true); // Show snackbar on successful registration
+        setSnackbarOpen(true);
         localStorage.setItem("regGood", "true");
         navigate("/login");
       } else {
         setError(true);
-        setRegisterError(result.detail || result.errors["Phone"][0]);
+        setRegisterError(result.detail || result.errors?.Phone?.[0] || "Registration failed");
       }
     } catch (error) {
       console.error("Error registering user:", error);
@@ -103,62 +110,34 @@ export default function Register() {
   };
 
   return (
-    <div className="container">
+    <div
+      className="container"
+      ref={containerRef}
+      onMouseEnter={handleMouseEnter}
+    >
       <div className="top"></div>
       <div className="bottom"></div>
       <form className="center" onSubmit={handleSubmit}>
-        <h2>Registeration</h2>
+        <h2>Registration</h2>
 
-        <Input2
-          label="Name"
-          type="text"
-          name="personName"
-          value={personName}
-          onChange={(e) => setPersonName(e.target.value)}
-          error={nameEmpty}
-          errorText="Please enter a name"
-        />
-        <Input2
-          label="Phone"
-          type="text"
-          name="phone"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          error={numberEmpty}
-          errorText="Please enter a valid number"
-        />
-        <Input2
-          label="Email"
-          type="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          error={emailNotValid}
-          errorText="Please enter a valid email address"
-        />
-        <Input2
-          label="Password"
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          error={passwordEmpty}
-          errorText="Please enter a valid password"
-        />
-        <Input2
-          label="Confirm password"
-          type="password"
-          name="confirmationPassword"
-          value={confirmationPassword}
-          onChange={(e) => setConfirmationPassword(e.target.value)}
-          error={passwordNotEqual}
-          errorText="The passwords aren't equal"
-        />
+        <Input2 label="Name" name="personName" value={personName} onChange={(e) => setPersonName(e.target.value)} error={nameEmpty} errorText="Please enter a name" />
+        <Input2 label="Phone" name="phone" value={phone} onChange={(e) => setPhone(e.target.value)} error={numberEmpty} errorText="Please enter a valid number" />
+        <Input2 label="Email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} error={emailNotValid} errorText="Please enter a valid email address" />
+        <Input2 label="Password" type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} error={passwordEmpty} errorText="Please enter a password" />
+        <Input2 label="Confirm Password" type="password" name="confirmationPassword" value={confirmationPassword} onChange={(e) => setConfirmationPassword(e.target.value)} error={passwordNotEqual} errorText="Passwords do not match" />
         {registerError && <p className="err">{registerError}</p>}
 
-        <Button color="success" variant="contained" type="submit" sx={{ marginTop: "20px" }}>
+        <Button variant="contained" color="success" type="submit" sx={{ marginTop: "20px" }}>
           Register
         </Button>
+
+        <div className="social-links">
+          <a href="https://www.facebook.com/share/1CMLv3WQdh/?mibextid=qi2Omg" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="https://www.bau.edu.jo/" target="_blank" rel="noopener noreferrer">
+            <img src="/Images/BAUClubs.png" alt="BAU Clubs" className="bau-image" />
+          </a>
+          <a href="https://www.linkedin.com/school/albalqa-applied-university/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
 
         <p className="no-acc">
           Already have an account? <Link to="/login">Login here</Link>

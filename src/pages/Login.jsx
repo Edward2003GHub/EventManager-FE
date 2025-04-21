@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Input2 from "../components/Input2";
 import { Alert, Button, Snackbar } from "@mui/material";
 
@@ -9,12 +9,32 @@ export default function Login() {
   const [loginFailed, setLoginFailed] = useState("");
   const [loginError, setLoginError] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const containerRef = useRef(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  if (localStorage.getItem("regGood")) {
-    setSnackbarOpen(true);
-    localStorage.removeItem("regGood");
+  const triggerAnimation = () => {
+    if (!hasAnimated && containerRef.current) {
+      containerRef.current.classList.add("animated-once");
+      setHasAnimated(true);
+    }
+  };
+
+  useEffect(() => {
+    triggerAnimation();
+  }, [location]);
+
+  function handleMouseEnter() {
+    triggerAnimation();
   }
+
+  useEffect(() => {
+    if (localStorage.getItem("regGood")) {
+      setSnackbarOpen(true);
+      localStorage.removeItem("regGood");
+    }
+  }, []);
 
   function handleCloseSnackbar() {
     setSnackbarOpen(false);
@@ -42,12 +62,11 @@ export default function Login() {
     }
 
     if (hasError) return;
+
     try {
       const response = await fetch("https://localhost:7262/api/Account/Login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: data.email,
           password: data.password,
@@ -67,49 +86,43 @@ export default function Login() {
         setLoginError(false);
         navigate("/user/home");
       } else {
-        console.error("Login failed:", result);
         setLoginError(true);
         setLoginFailed(result.detail);
       }
     } catch (error) {
-      console.error("Error login user:", error);
+      console.error("Error logging in:", error);
     }
   }
 
   return (
-    <div className="container">
+    <div
+      className="container"
+      ref={containerRef}
+      onMouseEnter={handleMouseEnter}
+    >
       <div className="top"></div>
       <div className="bottom"></div>
       <form className="center" onSubmit={handleSubmit}>
         <h2>Login</h2>
 
-        <Input2
-          label="Email"
-          type="email"
-          name="email"
-          error={emailNotValid}
-          errorText="Please enter a valid email address"
-        />
-        <Input2
-          label="Password"
-          type="password"
-          name="password"
-          error={passwordEmpty}
-          errorText="Please enter a valid password"
-        />
+        <Input2 label="Email" type="email" name="email" error={emailNotValid} errorText="Please enter a valid email address" />
+        <Input2 label="Password" type="password" name="password" error={passwordEmpty} errorText="Please enter a valid password" />
         {loginError && <p className="err">{loginFailed}</p>}
 
-        <Button
-          variant="contained"
-          color="success"
-          type="submit"
-          sx={{ marginTop: "20px" }}
-        >
+        <Button variant="contained" color="success" type="submit" sx={{ marginTop: "20px" }}>
           Login
         </Button>
 
+        <div className="social-links">
+          <a href="https://www.facebook.com/share/1CMLv3WQdh/?mibextid=qi2Omg" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="https://www.bau.edu.jo/" target="_blank" rel="noopener noreferrer">
+            <img src="/Images/BAUClubs.png" alt="BAU Clubs" className="bau-image" />
+          </a>
+          <a href="https://www.linkedin.com/school/albalqa-applied-university/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+
         <p className="no-acc">
-          Don't have an account? <Link to="/register">Register here</Link>
+          Don’t have an account? <Link to="/register">Register here</Link>
         </p>
       </form>
 
@@ -119,11 +132,7 @@ export default function Login() {
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert
-          onClose={handleCloseSnackbar}
-          severity="success"
-          variant="filled"
-        >
+        <Alert onClose={handleCloseSnackbar} severity="success" variant="filled">
           Registration successful!
         </Alert>
       </Snackbar>
