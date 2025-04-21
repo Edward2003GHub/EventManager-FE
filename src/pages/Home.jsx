@@ -51,6 +51,20 @@ export default function Home() {
 
       <div>
         <h2>Latest Events</h2>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            variant="outlined"
+            color="success"
+            onClick={() =>
+              navigate(
+                localStorage.getItem("token") ? "/user/events" : "/events"
+              )
+            }
+            sx={{ fontSize: "16px", marginTop: "10px" }}
+          >
+            view more
+          </Button>
+        </div>
         <div className="event-wrapper">
           {events.slice(0, 4).map((evt) => (
             <Link
@@ -71,24 +85,24 @@ export default function Home() {
             </Link>
           ))}
         </div>
+      </div>
+
+      <div>
+        <h2>Organizations</h2>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
             variant="outlined"
             color="success"
             onClick={() =>
               navigate(
-                localStorage.getItem("token") ? "/user/events" : "/events"
+                localStorage.getItem("token") ? "/user/organizations" : "/organizations"
               )
             }
-            sx={{ fontSize: "16px", marginTop: "10px" }}
+            sx={{ fontSize: "16px", marginTop: "10px" , marginBottom: "20px"}}
           >
-            view more events
+            view more
           </Button>
         </div>
-      </div>
-
-      <div>
-        <h2>Organizations</h2>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
           {org.slice(0, 4).map((each) => (
             <OrgCard
