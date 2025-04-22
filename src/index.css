@@ -541,7 +541,25 @@ button {
 .register-inputs > p > a:hover {
   color: #388e3c;
 }
+/*edit on input form*/
+.input-wrapper {
+  margin-bottom: 7px;
+}
 
+input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  box-shadow: none;
+  font-size: 16px;
+  width: 100%;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: none;
+}
+/*end*/
 .err {
   color: #e53935;
   margin: 0;

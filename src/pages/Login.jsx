@@ -105,20 +105,64 @@ export default function Login() {
       <form className="center" onSubmit={handleSubmit}>
         <h2>Login</h2>
 
-        <Input2 label="Email" type="email" name="email" error={emailNotValid} errorText="Please enter a valid email address" />
-        <Input2 label="Password" type="password" name="password" error={passwordEmpty} errorText="Please enter a valid password" />
+        <div className="input-wrapper">
+          <Input2
+            label="Email"
+            type="email"
+            name="email"
+            error={emailNotValid}
+            errorText="Please enter a valid email address"
+          />
+        </div>
+
+        <div className="input-wrapper">
+          <Input2
+            label="Password"
+            type="password"
+            name="password"
+            error={passwordEmpty}
+            errorText="Please enter a valid password"
+          />
+        </div>
+
         {loginError && <p className="err">{loginFailed}</p>}
 
-        <Button variant="contained" color="success" type="submit" sx={{ marginTop: "20px" }}>
+        <Button
+          variant="contained"
+          color="success"
+          type="submit"
+          sx={{ marginTop: "20px" }}
+        >
           Login
         </Button>
 
         <div className="social-links">
-          <a href="https://www.facebook.com/share/1CMLv3WQdh/?mibextid=qi2Omg" target="_blank" rel="noopener noreferrer">Facebook</a>
-          <a href="https://www.bau.edu.jo/" target="_blank" rel="noopener noreferrer">
-            <img src="/Images/BAUClubs.png" alt="BAU Clubs" className="bau-image" />
+          <a
+            href="https://www.facebook.com/share/1CMLv3WQdh/?mibextid=qi2Omg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Facebook
           </a>
-          <a href="https://www.linkedin.com/school/albalqa-applied-university/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a
+            href="https://www.bau.edu.jo/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="/Images/BAUClubs.png"
+              alt="BAU Clubs"
+              className="bau-image"
+            />
+          </a>
+          <a
+            href="https://www.linkedin.com/school/albalqa-applied-university/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+          
         </div>
 
         <p className="no-acc">
@@ -132,7 +176,11 @@ export default function Login() {
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert onClose={handleCloseSnackbar} severity="success" variant="filled">
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="success"
+          variant="filled"
+        >
           Registration successful!
         </Alert>
       </Snackbar>

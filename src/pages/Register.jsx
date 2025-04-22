@@ -84,11 +84,14 @@ export default function Register() {
     if (hasError) return;
 
     try {
-      const response = await fetch("https://localhost:7262/api/Account/Register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://localhost:7262/api/Account/Register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
 
       const result = await response.json();
 
@@ -98,7 +101,9 @@ export default function Register() {
         navigate("/login");
       } else {
         setError(true);
-        setRegisterError(result.detail || result.errors?.Phone?.[0] || "Registration failed");
+        setRegisterError(
+          result.detail || result.errors?.Phone?.[0] || "Registration failed"
+        );
       }
     } catch (error) {
       console.error("Error registering user:", error);
@@ -120,23 +125,101 @@ export default function Register() {
       <form className="center" onSubmit={handleSubmit}>
         <h2>Registration</h2>
 
-        <Input2 label="Name" name="personName" value={personName} onChange={(e) => setPersonName(e.target.value)} error={nameEmpty} errorText="Please enter a name" />
-        <Input2 label="Phone" name="phone" value={phone} onChange={(e) => setPhone(e.target.value)} error={numberEmpty} errorText="Please enter a valid number" />
-        <Input2 label="Email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} error={emailNotValid} errorText="Please enter a valid email address" />
-        <Input2 label="Password" type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} error={passwordEmpty} errorText="Please enter a password" />
-        <Input2 label="Confirm Password" type="password" name="confirmationPassword" value={confirmationPassword} onChange={(e) => setConfirmationPassword(e.target.value)} error={passwordNotEqual} errorText="Passwords do not match" />
+        <div className="input-wrapper">
+          <Input2
+            label="Name"
+            name="personName"
+            value={personName}
+            onChange={(e) => setPersonName(e.target.value)}
+            error={nameEmpty}
+            errorText="Please enter a name"
+          />
+        </div>
+
+        <div className="input-wrapper">
+          <Input2
+            label="Phone"
+            name="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            error={numberEmpty}
+            errorText="Please enter a valid number"
+          />
+        </div>
+
+        <div className="input-wrapper">
+          <Input2
+            label="Email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            error={emailNotValid}
+            errorText="Please enter a valid email address"
+          />
+        </div>
+
+        <div className="input-wrapper">
+          <Input2
+            label="Password"
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            error={passwordEmpty}
+            errorText="Please enter a password"
+          />
+        </div>
+
+        <div className="input-wrapper">
+          <Input2
+            label="Confirm Password"
+            type="password"
+            name="confirmationPassword"
+            value={confirmationPassword}
+            onChange={(e) => setConfirmationPassword(e.target.value)}
+            error={passwordNotEqual}
+            errorText="Passwords do not match"
+          />
+        </div>
+
         {registerError && <p className="err">{registerError}</p>}
 
-        <Button variant="contained" color="success" type="submit" sx={{ marginTop: "20px" }}>
+        <Button
+          variant="contained"
+          color="success"
+          type="submit"
+          sx={{ marginTop: "20px" }}
+        >
           Register
         </Button>
 
         <div className="social-links">
-          <a href="https://www.facebook.com/share/1CMLv3WQdh/?mibextid=qi2Omg" target="_blank" rel="noopener noreferrer">Facebook</a>
-          <a href="https://www.bau.edu.jo/" target="_blank" rel="noopener noreferrer">
-            <img src="/Images/BAUClubs.png" alt="BAU Clubs" className="bau-image" />
+          <a
+            href="https://www.facebook.com/share/1CMLv3WQdh/?mibextid=qi2Omg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Facebook
           </a>
-          <a href="https://www.linkedin.com/school/albalqa-applied-university/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a
+            href="https://www.bau.edu.jo/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="/Images/BAUClubs.png"
+              alt="BAU Clubs"
+              className="bau-image"
+            />
+          </a>
+          <a
+            href="https://www.linkedin.com/school/albalqa-applied-university/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+          
         </div>
 
         <p className="no-acc">
@@ -150,7 +233,11 @@ export default function Register() {
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert onClose={handleCloseSnackbar} severity="success" variant="filled">
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="success"
+          variant="filled"
+        >
           Registration successful!
         </Alert>
       </Snackbar>
