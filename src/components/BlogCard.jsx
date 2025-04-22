@@ -2,6 +2,7 @@ import { IconButton, Button } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ChatIcon from "@mui/icons-material/Chat";
+import { useNavigate } from "react-router-dom";
 
 function formatDate(dateString) {
   const date = new Date(dateString);
@@ -15,11 +16,11 @@ function formatDate(dateString) {
 }
 
 export default function BlogCard({ blog, onOptionsClick }) {
+  const navigate = useNavigate();
+
   return (
     <div
       style={{
-        maxWidth: "800px",
-        margin: "2rem auto",
         padding: "1.5rem",
         background: "rgba(255, 255, 255, 0.05)",
         borderRadius: "1rem",
@@ -98,7 +99,10 @@ export default function BlogCard({ blog, onOptionsClick }) {
         <Button color="success" variant="contained">
           0&nbsp; <ThumbUpAltIcon />
         </Button>
-        <Button color="success">
+        <Button
+          color="success"
+          onClick={() => navigate(`/user/blogs/${blog.blogId}`)}
+        >
           {blog.comments.length || 0}&nbsp; <ChatIcon />
         </Button>
       </div>

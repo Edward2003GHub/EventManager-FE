@@ -10,7 +10,7 @@ import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
 import { Button } from "@mui/material";
 import SearchBar from "./SearchBar";
-import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
+import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
 
 export default function Events() {
   const navigate = useNavigate();
@@ -20,6 +20,15 @@ export default function Events() {
   function handleLogin() {
     navigate("/login");
   }
+
+  const handleNavClick = () => {
+    const isSmallScreen = window.innerWidth < 768;
+    const isLargeScreen = window.innerWidth >= 768;
+
+    if (isSmallScreen || (isLargeScreen && toggle)) {
+      setToggle(false);
+    }
+  };
 
   async function handleLogout() {
     try {
@@ -127,60 +136,62 @@ export default function Events() {
           </div>
         </div>
       </div>
-      <div className="acc-nav">
+      <div className={`acc-nav ${toggle ? "expanded" : "collapsed"}`}>
         <div className="logo-nav">
           <div className="nav-links">
             <NavLink
               to={isLoggedIn ? "home" : "/"}
+              onClick={handleNavClick}
               className={({ isActive }) => (isActive ? "active" : undefined)}
               end
             >
               <HomeOutlinedIcon sx={{ fontSize: 28 }} />
-              {toggle ? <span>Home</span> : undefined}
+              <span className="link-text">Home</span>
             </NavLink>
-
             <NavLink
               to="events"
+              onClick={handleNavClick}
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
               <EventOutlinedIcon sx={{ fontSize: 28 }} />
-              {toggle ? <span>Events</span> : undefined}
+              <span className="link-text">Events</span>
             </NavLink>
-
             <NavLink
               to="organizations"
+              onClick={handleNavClick}
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
               <PeopleOutlineOutlinedIcon sx={{ fontSize: 28 }} />
-              {toggle ? <span>Organizations</span> : undefined}
+              <span className="link-text">Organizations</span>
             </NavLink>
-
             <NavLink
               to="news"
+              onClick={handleNavClick}
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
               <ArticleOutlinedIcon sx={{ fontSize: 28 }} />
-              {toggle ? <span>News</span> : undefined}
+              <span className="link-text">News</span>
             </NavLink>
-
             <NavLink
               to="forms"
+              onClick={handleNavClick}
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
               <SummarizeOutlinedIcon sx={{ fontSize: 28 }} />
-              {toggle ? <span>Forms</span> : undefined}
+              <span className="link-text">Forms</span>
             </NavLink>
-
             <NavLink
               to="blogs"
+              onClick={handleNavClick}
               className={({ isActive }) => (isActive ? "active" : undefined)}
             >
               <ForumOutlinedIcon sx={{ fontSize: 28 }} />
-              {toggle ? <span>Blogs</span> : undefined}
+              <span className="link-text">Blogs</span>
             </NavLink>
           </div>
         </div>
       </div>
+
       <div className="dashboard-wrapper">
         <Outlet />
       </div>

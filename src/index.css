@@ -649,6 +649,45 @@ input:focus {
   z-index: 999;
   border-right: 1px solid rgba(0, 0, 0, 0.12);
   text-align: center;
+  overflow-x: hidden;
+  transition: all 0.3s ease;
+}
+
+.acc-nav.expanded {
+  width: 200px;
+}
+
+.acc-nav.collapsed {
+  width: 60px;
+}
+
+.acc-nav .link-text {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.acc-nav.collapsed .link-text {
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  display: inline-block;
+}
+
+/* Responsive: hide completely on small screens */
+@media (max-width: 768px) {
+  .acc-nav {
+    transform: translateX(-100%);
+    position: absolute;
+  }
+
+  .acc-nav.expanded {
+    transform: translateX(0);
+    width: 200px;
+  }
+
+  .dashboard-wrapper {
+    padding-left: 0px;
+  }
 }
 
 .logo-nav {

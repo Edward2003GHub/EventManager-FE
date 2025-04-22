@@ -4,7 +4,8 @@ import { Button, Fab, Menu, MenuItem } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BlogCard from "../components/BlogCard";
-import { Modal, Fade, Backdrop, Box, Typography } from "@mui/material";
+import { Modal, Fade, Backdrop, Box } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 import Input2 from "../components/Input2";
 
 const style = {
@@ -23,10 +24,17 @@ export default function Blogs() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedBlogId, setSelectedBlogId] = useState(null);
 
+  const [titleEmpty, setTitleEmpty] = useState(false);
+  const [contentEmpty, setContentEmpty] = useState(false);
+
   const open = Boolean(anchorEl);
 
   const [modalOpen, setModalOpen] = useState(false);
-  const handleOpen = () => setModalOpen(true);
+  const handleOpen = () => {
+    setTitleEmpty(false);
+    setContentEmpty(false);
+    setModalOpen(true);
+  };
   const handleClose = () => setModalOpen(false);
 
   useEffect(() => {
@@ -83,6 +91,24 @@ export default function Blogs() {
     const fd = new FormData(event.target);
     const data = Object.fromEntries(fd.entries());
 
+    let hasError = false;
+
+    if (!data.title.trim()) {
+      setTitleEmpty(true);
+      hasError = true;
+    } else {
+      setTitleEmpty(false);
+    }
+
+    if (!data.content.trim()) {
+      setContentEmpty(true);
+      hasError = true;
+    } else {
+      setContentEmpty(false);
+    }
+
+    if (hasError) return;
+
     const payload = {
       title: data.title,
       content: data.content,
@@ -95,7 +121,7 @@ export default function Blogs() {
       const res = await fetch("https://localhost:7262/api/Blogs", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json", // This was missing!
+          "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify(payload),
@@ -115,13 +141,24 @@ export default function Blogs() {
 
   return (
     <>
-      {blogs.map((blog) => (
-        <BlogCard
-          key={blog.blogId}
-          blog={blog}
-          onOptionsClick={handleMenuClick}
-        />
-      ))}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "25px",
+          maxWidth: "800px",
+          margin: "auto",
+          padding: "10px",
+        }}
+      >
+        {blogs.map((blog) => (
+          <BlogCard
+            key={blog.blogId}
+            blog={blog}
+            onOptionsClick={handleMenuClick}
+          />
+        ))}
+      </div>
 
       <Menu
         anchorEl={anchorEl}
@@ -130,6 +167,10 @@ export default function Blogs() {
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         transformOrigin={{ vertical: "top", horizontal: "right" }}
       >
+        <MenuItem>
+          <EditIcon sx={{ mr: 1, color: "green" }} />
+          <span style={{ color: "green" }}>Edit Post</span>
+        </MenuItem>
         <MenuItem onClick={handleDelete}>
           <DeleteIcon sx={{ mr: 1, color: "red" }} />
           <span style={{ color: "red" }}>Delete Post</span>
@@ -178,8 +219,18 @@ export default function Blogs() {
                   marginBottom: "15px",
                 }}
               >
-                <Input2 label="Title" name="title" />
-                <Input2 label="Content" name="content" />
+                <Input2
+                  label="Title"
+                  name="title"
+                  error={titleEmpty}
+                  errorText="Please fill this field"
+                />
+                <Input2
+                  label="Content"
+                  name="content"
+                  error={contentEmpty}
+                  errorText="Please fill this field"
+                />
                 <Button
                   type="submit"
                   style={{ marginTop: "15px" }}
