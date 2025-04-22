@@ -41,8 +41,6 @@ export default function Card({ name, startDate, orgId }) {
       <div className="event-card-right">
         <h3 className="event-title-modern">{name}</h3>
 
-        <div className="event-chip">{org.name}</div>
-
         <div className="event-meta-modern">
           <div className="info">
             <EventIcon fontSize="small" />

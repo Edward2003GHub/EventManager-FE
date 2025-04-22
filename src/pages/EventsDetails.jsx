@@ -6,9 +6,10 @@ import { Button } from "@mui/material";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import OrgCard2 from "../components/OrgCard2";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { format } from 'date-fns';
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { format } from "date-fns";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 export default function EventDetails() {
   const navigate = useNavigate();
@@ -154,9 +155,9 @@ export default function EventDetails() {
               >
                 <EditIcon /> Edit
               </Button>
-              <Button 
-                variant="contained" 
-                color="error" 
+              <Button
+                variant="contained"
+                color="error"
                 onClick={handleDelete}
                 className="delete-btn"
               >
@@ -164,40 +165,57 @@ export default function EventDetails() {
               </Button>
             </div>
           )}
-  
+
           <div className="event-header">
             <div className="event-image-container">
               <div
                 className="event-image"
                 style={{
                   backgroundImage: eventData.photoUrl
-                    ? `url(https://localhost:7262/${eventData.photoUrl.replace(/\\/g, "/")})`
+                    ? `url(https://localhost:7262/${eventData.photoUrl.replace(
+                        /\\/g,
+                        "/"
+                      )})`
                     : `url(/Images/emptyPhoto.png)`,
                 }}
               />
             </div>
             <div className="event-info">
-              <h1 className="event-title">{eventData.name}</h1>
-              
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <h1 className="event-title" style={{ alignSelf: "flex-start" }}>
+                  {eventData.name}
+                </h1>
+                <span>
+                  {eventData.views} <VisibilityIcon />
+                </span>
+              </div>
+
               <div className="event-meta">
                 <div className="meta-item">
                   <DateRangeIcon className="meta-icon" />
                   <div>
                     <h3>Date and Time</h3>
                     <div className="date-time-group">
-                      <span className="date-icon">📅</span>
-                      <p className="date-text">
-                        {format(new Date(eventData.startTime), "EEEE, MMMM d, yyyy")}
-                      </p>
-                      <span className="time-icon">🕒</span>
-                      <p className="time-text">
-                        {format(new Date(eventData.startTime), "h:mm a")} - {" "}
-                        {format(new Date(eventData.endTime), "h:mm a")}
-                      </p>
+                      <div style={{display: "flex"}}>
+                        <span className="date-icon">📅</span>
+                        <p className="date-text">
+                          {format(
+                            new Date(eventData.startTime),
+                            "EEEE, MMMM d, yyyy"
+                          )}
+                        </p>
+                      </div>
+                      <div style={{display: "flex"}}>
+                        <span className="time-icon">🕒</span>
+                        <p className="time-text">
+                          {format(new Date(eventData.startTime), "h:mm a")} -{" "}
+                          {format(new Date(eventData.endTime), "h:mm a")}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="meta-item">
                   <PeopleAltIcon className="meta-icon" />
                   <div>
@@ -210,12 +228,12 @@ export default function EventDetails() {
               </div>
             </div>
           </div>
-  
+
           <div className="event-section">
             <h2 className="section-title">Description</h2>
             <p className="event-description">{eventData.description}</p>
           </div>
-  
+
           <div className="event-section">
             <h2 className="section-title">Hosted by</h2>
             <OrgCard2
@@ -230,7 +248,7 @@ export default function EventDetails() {
               name={org.name}
             />
           </div>
-  
+
           <div className="event-actions">
             <Button
               onClick={isRegistered ? handleUnregister : handleRegister}
