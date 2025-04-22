@@ -677,7 +677,7 @@ input:focus {
 @media (max-width: 768px) {
   .acc-nav {
     transform: translateX(-100%);
-    position: absolute;
+    position: fixed;
   }
 
   .acc-nav.expanded {
