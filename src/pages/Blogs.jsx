@@ -152,7 +152,7 @@ export default function Blogs() {
           gap: "25px",
           maxWidth: "800px",
           margin: "auto",
-          padding: "10px",
+          padding: "35px",
         }}
       >
         {blogs.map((blog) => (
