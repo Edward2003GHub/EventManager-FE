@@ -109,19 +109,26 @@ export default function EventDetails() {
 
   useEffect(() => {
     async function fetchOrgById() {
-      const response = await fetch(
-        `https://localhost:7262/api/Organizations/${eventData.organizationID}`
-      );
+      try {
+        const response = await fetch(
+          `https://localhost:7262/api/Organizations/${eventData.organizationID}`
+        );
 
-      if (!response.ok) {
-        console.log("fetch error");
-      } else {
-        setOrg(await response.json());
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setOrg(data);
+      } catch (error) {
+        console.error("Failed to fetch organization:", error);
       }
     }
 
-    fetchOrgById();
-  }, []);
+    if (eventData.organizationID) {
+      fetchOrgById();
+    }
+  }, [eventData.organizationID]);
 
   async function handleDelete() {
     const response = await fetch(
@@ -196,7 +203,7 @@ export default function EventDetails() {
                   <div>
                     <h3>Date and Time</h3>
                     <div className="date-time-group">
-                      <div style={{display: "flex"}}>
+                      <div style={{ display: "flex" }}>
                         <span className="date-icon">📅</span>
                         <p className="date-text">
                           {format(
@@ -205,7 +212,7 @@ export default function EventDetails() {
                           )}
                         </p>
                       </div>
-                      <div style={{display: "flex"}}>
+                      <div style={{ display: "flex" }}>
                         <span className="time-icon">🕒</span>
                         <p className="time-text">
                           {format(new Date(eventData.startTime), "h:mm a")} -{" "}
