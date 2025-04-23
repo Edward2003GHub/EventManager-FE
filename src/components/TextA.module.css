@@ -15,7 +15,7 @@
   border-color: black;
 }
 
-.textareaError {
+.textareaError, .textareaError:hover {
   border-color: red;
 }
 

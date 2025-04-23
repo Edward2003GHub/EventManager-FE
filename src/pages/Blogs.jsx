@@ -8,13 +8,16 @@ import { Modal, Fade, Backdrop, Box } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import Input2 from "../components/Input2";
 import CloseIcon from "@mui/icons-material/Close";
+import TextA from "../components/TextA";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 600,
+  maxHeight: "80vh",
+  overflowY: "auto",
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -211,18 +214,12 @@ export default function Blogs() {
       >
         <Fade in={modalOpen}>
           <Box sx={style}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <h2>Add Blog</h2>
+            <div style={{ position: "fixed", right: "10px", top: "10px" }}>
               <IconButton aria-label="close" onClick={handleClose}>
                 <CloseIcon />
               </IconButton>
             </div>
+            <h1>Add Blog</h1>
             <form onSubmit={handleSubmit}>
               <div
                 style={{
@@ -239,7 +236,7 @@ export default function Blogs() {
                   error={titleEmpty}
                   errorText="Please fill this field"
                 />
-                <Input2
+                <TextA
                   label="Content"
                   name="content"
                   error={contentEmpty}
