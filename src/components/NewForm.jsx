@@ -4,6 +4,20 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import TextA from "./TextA";
 
+function formatHtml(html) {
+
+  if (!html) {
+    return;
+  }
+
+  const formatted = html
+    .replace(/></g, ">\n<")
+    .replace(/(\s*)(<[^/!][^>]*>)/g, "\t$2")
+    .trim();
+
+  return formatted;
+}
+
 export default function NewForm({ n, method }) {
   const navigate = useNavigate();
   const params = useParams();
@@ -89,7 +103,7 @@ export default function NewForm({ n, method }) {
           <TextA
             label="Content"
             name="Content"
-            defaultValue={n?.content || ""}
+            defaultValue={formatHtml(n?.content) || ""}
             error={contentEmpty}
             errorText="Please fill this field"
           />
