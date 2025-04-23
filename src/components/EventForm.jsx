@@ -3,6 +3,7 @@ import Input2 from "./Input2";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getOrgs } from "../utility/apiGetCalls";
+import TextA from "./TextA";
 
 export default function EventForm({ event, method }) {
   const navigate = useNavigate();
@@ -158,16 +159,12 @@ export default function EventForm({ event, method }) {
               errorText="Please fill this field"
               fullWidth
             />
-            <Input2
+            <TextA
               label="Description"
-              type="text"
               name="Description"
-              multiline
-              rows={10}
               defaultValue={event?.description || ""}
               error={edesempty}
               errorText="Please fill this field"
-              fullWidth
             />
           </div>
 
@@ -223,6 +220,7 @@ export default function EventForm({ event, method }) {
               name="EventPhoto"
               error={photoEmpty}
               errorText="Please pick an image"
+              inputProps={{ accept: "image/*" }}
               fullWidth
             />
           </div>

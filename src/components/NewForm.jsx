@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import Input2 from "./Input2";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import TextA from "./TextA";
 
 export default function NewForm({ n, method }) {
   const navigate = useNavigate();
@@ -85,16 +86,12 @@ export default function NewForm({ n, method }) {
             fullWidth
           />
 
-          <Input2
+          <TextA
             label="Content"
-            type="text"
             name="Content"
-            multiline
-            rows={12}
             defaultValue={n?.content || ""}
             error={contentEmpty}
             errorText="Please fill this field"
-            fullWidth
           />
 
           <div className="image-input-group">
@@ -106,10 +103,15 @@ export default function NewForm({ n, method }) {
               fullWidth
               error={photoEmpty}
               errorText="Please pick an image"
+              inputProps={{ accept: "image/*" }}
             />
           </div>
 
-          <Input2 style={{display: "none"}} name="PhotoUrl" defaultValue={n?.photoUrl || ""} />
+          <Input2
+            style={{ display: "none" }}
+            name="PhotoUrl"
+            defaultValue={n?.photoUrl || ""}
+          />
 
           <Button
             variant="contained"

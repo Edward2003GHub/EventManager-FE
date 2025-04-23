@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import Input2 from "./Input2";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import TextA from "./TextA";
 
 export default function OrgForm({ org, method }) {
   const navigate = useNavigate();
@@ -137,16 +138,12 @@ export default function OrgForm({ org, method }) {
           </div>
 
           <div className="form-column">
-            <Input2
+            <TextA
               label="Description"
-              type="text"
               name="Description"
-              multiline
-              rows={10}
               defaultValue={org?.description || ""}
               error={desEmpty}
               errorText="Please fill this field"
-              fullWidth
             />
             <div className="file-input-group">
               <Input2
@@ -156,15 +153,21 @@ export default function OrgForm({ org, method }) {
                 name="Logo"
                 error={photoEmpty}
                 errorText="Please pick an image"
+                inputProps={{ accept: "image/*" }}
                 fullWidth
               />
             </div>
           </div>
         </div>
 
-        <Input2 style={{display: "none"}} name="LogoUrl" defaultValue={org?.logoUrl || ""} />
+        <Input2
+          style={{ display: "none" }}
+          name="LogoUrl"
+          defaultValue={org?.logoUrl || ""}
+        />
 
         <Button
+        sx={{marginTop: "15px"}}
           variant="contained"
           type="submit"
           className="submit-btn"
