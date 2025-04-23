@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { getBlogs } from "../utility/apiGetCalls";
-import { Button, Fab, Menu, MenuItem } from "@mui/material";
+import { Button, Fab, IconButton, Menu, MenuItem } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BlogCard from "../components/BlogCard";
 import { Modal, Fade, Backdrop, Box } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import Input2 from "../components/Input2";
+import CloseIcon from "@mui/icons-material/Close";
 
 const style = {
   position: "absolute",
@@ -194,10 +195,12 @@ export default function Blogs() {
       )}
 
       <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
         open={modalOpen}
-        onClose={handleClose}
+        onClose={(event, reason) => {
+          if (reason !== "backdropClick" && reason !== "escapeKeyDown") {
+            handleClose();
+          }
+        }}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{
@@ -208,7 +211,18 @@ export default function Blogs() {
       >
         <Fade in={modalOpen}>
           <Box sx={style}>
-            <h2>Add Blog</h2>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <h2>Add Blog</h2>
+              <IconButton aria-label="close" onClick={handleClose}>
+                <CloseIcon />
+              </IconButton>
+            </div>
             <form onSubmit={handleSubmit}>
               <div
                 style={{
