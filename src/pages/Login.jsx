@@ -161,8 +161,7 @@ export default function Login() {
             rel="noopener noreferrer"
           >
             LinkedIn
-          </a>
-          
+           </a>
         </div>
 
         <p className="no-acc">
