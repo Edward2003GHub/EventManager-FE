@@ -150,7 +150,7 @@ export default function Blogs() {
           display: "flex",
           flexDirection: "column",
           gap: "25px",
-          maxWidth: "800px",
+          maxWidth: "1330px",
           margin: "auto",
           padding: "35px",
         }}

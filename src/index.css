@@ -123,9 +123,9 @@ button {
 
 /* Events Page Styles */
 .events-page {
-  max-width: 1400px;
+  max-width: 1330px;
   margin: 0 auto;
-  padding: 30px;
+  padding: 35px;
 }
 
 .events-header {
@@ -870,9 +870,9 @@ input:focus {
 
 /* Organizations Page */
 .organizations-page {
-  max-width: 1200px;
+  max-width: 1330px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 35px;
 }
 
 .page-title {
@@ -1383,7 +1383,7 @@ input:focus {
 /* News Page Styles*/
 
 .news-page {
-  max-width: 1200px;
+  max-width: 1330px;
   margin: 0 auto;
   padding: 35px;
 }
