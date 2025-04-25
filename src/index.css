@@ -954,9 +954,9 @@ input:focus {
 
 /* Organization Details Page */
 .org-details-page {
-  max-width: 1200px;
+  max-width: 1330px;
   margin: 0 auto;
-  padding: 30px;
+  padding: 35px;
 }
 
 .org-details-container {
@@ -1197,9 +1197,9 @@ input:focus {
 
 /* Event Details Page */
 .event-details-page {
-  max-width: 1200px;
+  max-width: 1330px;
   margin: 0 auto;
-  padding: 30px;
+  padding: 35px;
 }
 
 .event-details-container {

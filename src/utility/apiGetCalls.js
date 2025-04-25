@@ -66,6 +66,29 @@ export async function getBlogs() {
   }
 }
 
+export async function getComments(id, token) {
+  try {
+    const response = await fetch(`https://localhost:7262/api/Comments/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      console.error(`Error: ${response.statusText} (${response.status})`);
+      return null;
+    }
+
+    const resData = await response.json();
+    return resData;
+  } catch (error) {
+    console.error("Error fetching comments:", error);
+    return null;
+  }
+}
+
 export const searchAll = async (query) => {
   try {
     const res = await fetch(

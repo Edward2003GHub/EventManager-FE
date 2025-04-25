@@ -6,6 +6,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { getComments } from "../utility/apiGetCalls";
+import Input2 from "../components/Input2";
+import SendIcon from "@mui/icons-material/Send";
 
 function formatDate(dateString) {
   const date = new Date(dateString);
@@ -22,6 +25,9 @@ export default function BlogDetails() {
   const navigate = useNavigate();
   const params = useParams();
   const [blog, setBlog] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [commentEmpty, setCommentEmpty] = useState(false);
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -32,6 +38,59 @@ export default function BlogDetails() {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    let hasError = false;
+
+    const fd = new FormData(event.target);
+    const data = Object.fromEntries(fd.entries());
+
+    if (!data.content.trim()) {
+      setCommentEmpty(true);
+      hasError = true;
+    } else {
+      setCommentEmpty(false);
+    }
+
+    if (hasError) return;
+
+    try {
+      const res = await fetch(
+        `https://localhost:7262/api/Comments/${params.id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            content: data.content,
+          }),
+        }
+      );
+
+      if (!res.ok) {
+        console.log(res.status);
+      } else {
+        event.target.reset();
+        getAllComments();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const getAllComments = async () => {
+    const data = await getComments(params.id, localStorage.getItem("token"));
+    if (data) {
+      setComments(data);
+    }
+  };
+
+  useEffect(() => {
+    getAllComments();
+  }, [params.id]);
 
   useEffect(() => {
     async function getBlogById() {
@@ -86,9 +145,9 @@ export default function BlogDetails() {
           display: "flex",
           flexDirection: "column",
           gap: "35px",
-          maxWidth: "800px",
+          maxWidth: "1330px",
           margin: "auto",
-          padding: "10px",
+          padding: "35px",
         }}
       >
         <div
@@ -176,12 +235,12 @@ export default function BlogDetails() {
               disabled
               onClick={() => navigate(`/user/blogs/${blog.blogId}`)}
             >
-              {blog.comments.length || 0}&nbsp; <ChatIcon />
+              {comments.length}&nbsp; <ChatIcon />
             </Button>
           </div>
         </div>
         <div>
-          <h5>Messages</h5>
+          <h5>Comments</h5>
           <div
             style={{
               padding: "1.5rem",
@@ -193,12 +252,99 @@ export default function BlogDetails() {
               boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
             }}
           >
-            {blog.comments.length === 0 && (
-              <span>There's no comments for this blog!</span>
-            )}
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+            >
+              {comments.length === 0 && (
+                <span>Be the first one to add comment!</span>
+              )}
+              {comments.map((comment) => (
+                <div key={comment.id}>
+                  <div style={{ display: "flex", gap: "15px" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        background: "green",
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                        color: "white",
+                        fontSize: "30px",
+                      }}
+                    >
+                      {comment.commentatorName.charAt(0)}
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "3px",
+                        flex: 1,
+                      }}
+                    >
+                      <div
+                        style={{
+                          backgroundColor: "rgb(228, 228, 228)",
+                          padding: "6px",
+                          borderRadius: "8px",
+                        }}
+                      >
+                        <div style={{ fontWeight: "bolder", fontSize: "25px" }}>
+                          {comment.commentatorName}
+                        </div>
+                        <div style={{ fontSize: "20px" }}>
+                          {comment.content}
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          color: "rgb(156, 156, 156)",
+                          fontSize: "13px",
+                        }}
+                      >
+                        {formatDate(comment.timeCommented)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
+
+      <form onSubmit={handleSubmit}>
+        <div
+          style={{
+            position: "fixed",
+            bottom: "30px",
+            left: "200px",
+            width: "1330px",
+            maxWidth: '1330px',
+            margin: 'auto',
+            display: "flex",
+            gap: "10px",
+            background: "white",
+            padding: "10px",
+            boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
+            backdropFilter: "blur(10px)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+          }}
+        >
+          <Input2
+            style={{ flex: 1 }}
+            label="Add comment"
+            name="content"
+            error={commentEmpty}
+            errorText="Please add comment first."
+          />
+          <Button type="submit" variant="contained" color="success">
+            <SendIcon />
+          </Button>
+        </div>
+      </form>
 
       <Menu
         anchorEl={anchorEl}
