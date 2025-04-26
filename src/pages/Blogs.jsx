@@ -169,13 +169,7 @@ export default function Blogs() {
       }
 
       if (res.ok) {
-        if (isEditing) {
-          await fetchAndSetBlogs();
-        } else {
-          const newBlog = await res.json();
-          setBlogs((prevBlogs) => [...prevBlogs, newBlog]);
-        }
-
+        await fetchAndSetBlogs();
         setModalOpen(false);
         setIsEditing(false);
         setEditBlogData(null);
@@ -189,6 +183,21 @@ export default function Blogs() {
 
   return (
     <>
+      {blogs.length === 0 && (
+        <h4
+          style={{
+            backgroundColor: "rgb(237, 237, 237)",
+            textAlign: "center",
+            margin: "35px auto",
+            width: "800px",
+            padding: "35px",
+            borderRadius: "15px",
+          }}
+        >
+          There's no blogs right now check back later
+        </h4>
+      )}
+
       <div
         style={{
           display: "flex",
