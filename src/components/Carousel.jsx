@@ -7,6 +7,7 @@ export default function Carousel({ news }) {
       className="carousel slide"
       data-bs-ride="carousel"
     >
+      <h2>Latest News</h2>
       <div className="carousel-indicators">
         {news.slice(0, 5).map((_, index) => (
           <button
