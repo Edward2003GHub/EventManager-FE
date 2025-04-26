@@ -125,7 +125,7 @@ button {
   font-size: 16px;
   margin: 0 auto 20px auto;
   color: #333;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 
 .desc-link {
@@ -514,7 +514,7 @@ button {
     align-self: center;
   }
 }
- 
+
 .no-acc {
   margin-top: 10px;
   font-size: 0.95rem;
@@ -527,14 +527,14 @@ button {
 }
 .no-acc a:hover {
   color: #388e3c;
-} 
+}
 
 .no-acc {
   color: #555;
   text-align: center;
   font-size: 0.95rem;
 }
- 
+
 .header-container {
   position: fixed;
   top: 0;
@@ -1718,4 +1718,28 @@ button {
 
 .event-status.unknown {
   color: gray;
+}
+
+.comment {
+  position: fixed;
+  bottom: 0;
+  left: calc(50% + 28px);
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 730px;
+  margin: auto;
+  display: flex;
+  gap: 10px;
+  background: white;
+  padding: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .comment {
+    left: 50%;
+  }
 }

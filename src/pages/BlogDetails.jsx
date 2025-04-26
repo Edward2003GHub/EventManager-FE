@@ -285,23 +285,7 @@ export default function BlogDetails() {
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div
-          style={{
-            position: "fixed",
-            bottom: "0",
-            left: "200px",
-            width: "1330px",
-            maxWidth: "1330px",
-            margin: "auto",
-            display: "flex",
-            gap: "10px",
-            background: "white",
-            padding: "10px",
-            boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
-            backdropFilter: "blur(10px)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-          }}
-        >
+        <div className="comment">
           <Input2
             style={{ flex: 1 }}
             label="Add comment"
