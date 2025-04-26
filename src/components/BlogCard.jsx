@@ -104,7 +104,7 @@ export default function BlogCard({ blog, onOptionsClick }) {
           color="success"
           onClick={() => navigate(`/user/blogs/${blog.blogId}`)}
         >
-          {blog.comments.length || 0}&nbsp; <ChatIcon />
+          {blog.comments?.length || 0}&nbsp; <ChatIcon />
         </Button>
       </div>
     </div>
