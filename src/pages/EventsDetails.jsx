@@ -10,6 +10,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { format } from "date-fns";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import InfoIcon from "@mui/icons-material/Info";
 
 export default function EventDetails() {
   const navigate = useNavigate();
@@ -148,6 +149,12 @@ export default function EventDetails() {
     }
   }
 
+  const now = new Date();
+  const eventEnd = new Date(eventData.endTime);
+
+  const isEventEnded = now > eventEnd;
+  const status = isEventEnded ? "Ended" : "Upcoming";
+
   return (
     <div className="event-details-page">
       {eventData && (
@@ -232,6 +239,18 @@ export default function EventDetails() {
                     </p>
                   </div>
                 </div>
+
+                <div className="meta-item">
+                  <InfoIcon className="meta-icon" />
+                  <div>
+                    <h3>Event Status</h3>
+                    <p
+                      className={`attendees-count event-status ${status.toLowerCase()}`}
+                    >
+                      {status}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -256,17 +275,19 @@ export default function EventDetails() {
             />
           </div>
 
-          <div className="event-actions">
-            <Button
-              onClick={isRegistered ? handleUnregister : handleRegister}
-              variant="contained"
-              color={isRegistered ? "error" : "success"}
-              startIcon={isRegistered ? <ExitToAppIcon /> : <HowToRegIcon />}
-              className="register-btn"
-            >
-              {isRegistered ? "Unregister" : "Register"}
-            </Button>
-          </div>
+          {!isEventEnded && (
+            <div className="event-actions">
+              <Button
+                onClick={isRegistered ? handleUnregister : handleRegister}
+                variant="contained"
+                color={isRegistered ? "error" : "success"}
+                startIcon={isRegistered ? <ExitToAppIcon /> : <HowToRegIcon />}
+                className="register-btn"
+              >
+                {isRegistered ? "Unregister" : "Register"}
+              </Button>
+            </div>
+          )}
         </div>
       )}
     </div>

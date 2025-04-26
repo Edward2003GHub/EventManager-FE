@@ -1704,3 +1704,20 @@ button {
     font-size: 1rem;
   }
 }
+
+.event-status {
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.event-status.ended {
+  color: red;
+}
+
+.event-status.upcoming {
+  color: green;
+}
+
+.event-status.unknown {
+  color: gray;
+}

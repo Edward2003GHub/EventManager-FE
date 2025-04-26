@@ -1,4 +1,4 @@
-import { format, parseISO } from "date-fns";
+import { format, parseISO, isBefore } from "date-fns";
 import { Button } from "@mui/material";
 import EventIcon from "@mui/icons-material/Event";
 import GroupsIcon from "@mui/icons-material/Groups";
@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 export default function Card({ name, startDate, orgId }) {
   const [org, setOrg] = useState({ name: "..." });
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     async function fetchOrgById() {
@@ -25,8 +26,23 @@ export default function Card({ name, startDate, orgId }) {
     fetchOrgById();
   }, [orgId]);
 
+  useEffect(() => {
+    if (startDate) {
+      const eventDate = parseISO(startDate);
+      const now = new Date();
+
+      if (isBefore(eventDate, now)) {
+        setStatus("Ended");
+      } else {
+        setStatus("Upcoming");
+      }
+    } else {
+      setStatus("Unknown");
+    }
+  }, [startDate]);
+
   const formattedDate = startDate
-    ? format(parseISO(startDate), "EEE, MMM d, yyy 'at' h:mm a")
+    ? format(parseISO(startDate), "EEE, MMM d, yyyy 'at' h:mm a")
     : "N/A";
 
   const dayOfMonth = startDate ? format(parseISO(startDate), "d") : "--";
@@ -49,6 +65,11 @@ export default function Card({ name, startDate, orgId }) {
           <div className="info">
             <GroupsIcon fontSize="small" />
             <span>{org.name}</span>
+          </div>
+          <div className="info">
+            <span className={`event-status ${status.toLowerCase()}`}>
+              {status}
+            </span>
           </div>
         </div>
 
