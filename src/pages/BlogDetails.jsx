@@ -1,10 +1,9 @@
-import { IconButton, Button, Menu, MenuItem } from "@mui/material";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { Button, IconButton } from "@mui/material";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ChatIcon from "@mui/icons-material/Chat";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import EditIcon from "@mui/icons-material/Edit";
+
 import DeleteIcon from "@mui/icons-material/Delete";
 import { getComments } from "../utility/apiGetCalls";
 import Input2 from "../components/Input2";
@@ -28,16 +27,28 @@ export default function BlogDetails() {
   const [comments, setComments] = useState([]);
   const [commentEmpty, setCommentEmpty] = useState(false);
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  async function handleDelete(commentId) {
+    try {
+      console.log(commentId);
+      const response = await fetch(
+        `https://localhost:7262/api/Comments/${commentId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
-  const handleMenuClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
+      if (response.ok) {
+        console.log("Comment deleted successfully.");
+      } else {
+        console.error("Failed to delete comment:", response.statusText);
+      }
+    } catch (error) {
+      console.error("An error occurred while deleting the comment:", error);
+    }
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -260,11 +271,33 @@ export default function BlogDetails() {
                           borderRadius: "8px",
                         }}
                       >
-                        <div style={{ fontWeight: "bolder", fontSize: "25px" }}>
-                          {comment.commentatorName}
-                        </div>
-                        <div style={{ fontSize: "20px" }}>
-                          {comment.content}
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <div>
+                            <div
+                              style={{ fontWeight: "bolder", fontSize: "25px" }}
+                            >
+                              {comment.commentatorName}
+                            </div>
+                            <div style={{ fontSize: "20px" }}>
+                              {comment.content}
+                            </div>
+                          </div>
+                          {comment.userId ===
+                            localStorage.getItem("userId") && (
+                            <div>
+                              <IconButton
+                                aria-label="delete"
+                                onClick={() => handleDelete(comment.id)}
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </div>
+                          )}
                         </div>
                       </div>
                       <div
