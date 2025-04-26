@@ -291,7 +291,6 @@ export default function BlogDetails() {
             label="Add comment"
             name="content"
             error={commentEmpty}
-            errorText="Please add comment first."
           />
           <Button type="submit" variant="contained" color="success">
             <SendIcon />
