@@ -24,12 +24,16 @@ const style = {
 };
 
 export default function Blogs() {
-  const [blogs, setBlogs] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const [blogs, setBlogs] = useState([]);
   const [selectedBlogId, setSelectedBlogId] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editBlogData, setEditBlogData] = useState(null);
 
   const [titleEmpty, setTitleEmpty] = useState(false);
   const [contentEmpty, setContentEmpty] = useState(false);
+  const [imageEmpty, setImageEmpty] = useState(false);
 
   const open = Boolean(anchorEl);
 
@@ -37,18 +41,23 @@ export default function Blogs() {
   const handleOpen = () => {
     setTitleEmpty(false);
     setContentEmpty(false);
+    setImageEmpty(false);
     setModalOpen(true);
   };
-  const handleClose = () => setModalOpen(false);
+  const handleClose = () => {
+    setModalOpen(false);
+    setIsEditing(false);
+    setEditBlogData(null);
+  };
+
+  async function fetchAndSetBlogs() {
+    const data = await getBlogs();
+    if (data) {
+      setBlogs(data);
+    }
+  }
 
   useEffect(() => {
-    async function fetchAndSetBlogs() {
-      const data = await getBlogs();
-      if (data) {
-        setBlogs(data);
-      }
-    }
-
     fetchAndSetBlogs();
   }, []);
 
@@ -97,46 +106,81 @@ export default function Blogs() {
 
     let hasError = false;
 
-    if (!data.title.trim()) {
+    if (!data.Title.trim()) {
       setTitleEmpty(true);
       hasError = true;
     } else {
       setTitleEmpty(false);
     }
 
-    if (!data.content.trim()) {
+    if (!data.Content.trim()) {
       setContentEmpty(true);
       hasError = true;
     } else {
       setContentEmpty(false);
     }
 
+    if (!isEditing) {
+      const blogPhotoFile = fd.get("Image");
+      if (!blogPhotoFile || blogPhotoFile.size === 0) {
+        setImageEmpty(true);
+        hasError = true;
+      } else {
+        setImageEmpty(false);
+      }
+    }
+
     if (hasError) return;
 
-    const payload = {
-      title: data.title,
-      content: data.content,
-      userId: localStorage.getItem("userId"),
-      userName: localStorage.getItem("name"),
-      timePosted: new Date().toISOString(),
-    };
-
     try {
-      const res = await fetch("https://localhost:7262/api/Blogs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(payload),
-      });
+      let res;
+
+      if (isEditing) {
+        // 🔥 Build a new FormData for PATCH manually
+        const formData = new FormData();
+        formData.append("Title", data.Title);
+        formData.append("Content", data.Content);
+        formData.append("ImagePath", editBlogData?.imagePath || "");
+
+        const imageFile = fd.get("Image");
+        if (imageFile && imageFile.size > 0) {
+          formData.append("Image", imageFile);
+        }
+
+        res = await fetch(
+          `https://localhost:7262/api/Blogs/${editBlogData.blogId}`,
+          {
+            method: "PATCH",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: formData,
+          }
+        );
+      } else {
+        // POST Request (creating new blog)
+        res = await fetch("https://localhost:7262/api/Blogs", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: fd,
+        });
+      }
 
       if (res.ok) {
-        const newBlog = await res.json();
-        setBlogs((prevBlogs) => [...prevBlogs, newBlog]);
+        if (isEditing) {
+          await fetchAndSetBlogs();
+        } else {
+          const newBlog = await res.json();
+          setBlogs((prevBlogs) => [...prevBlogs, newBlog]);
+        }
+
         setModalOpen(false);
+        setIsEditing(false);
+        setEditBlogData(null);
       } else {
-        console.error("Failed to add blog:", res.statusText);
+        console.error("Failed to submit blog:", res.statusText);
       }
     } catch (error) {
       console.error(error);
@@ -150,7 +194,7 @@ export default function Blogs() {
           display: "flex",
           flexDirection: "column",
           gap: "25px",
-          maxWidth: "1330px",
+          maxWidth: "800px",
           margin: "auto",
           padding: "35px",
         }}
@@ -171,7 +215,15 @@ export default function Blogs() {
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         transformOrigin={{ vertical: "top", horizontal: "right" }}
       >
-        <MenuItem>
+        <MenuItem
+          onClick={() => {
+            const blogToEdit = blogs.find((b) => b.blogId === selectedBlogId);
+            setEditBlogData(blogToEdit);
+            setIsEditing(true);
+            setModalOpen(true);
+            handleMenuClose();
+          }}
+        >
           <EditIcon sx={{ mr: 1, color: "green" }} />
           <span style={{ color: "green" }}>Edit Post</span>
         </MenuItem>
@@ -232,23 +284,35 @@ export default function Blogs() {
               >
                 <Input2
                   label="Title"
-                  name="title"
+                  name="Title"
                   error={titleEmpty}
+                  defaultValue={editBlogData?.title || ""}
                   errorText="Please fill this field"
                 />
                 <TextA
                   label="Content"
-                  name="content"
+                  name="Content"
                   error={contentEmpty}
+                  defaultValue={editBlogData?.content || ""}
                   errorText="Please fill this field"
                 />
+                <Input2
+                  label="Blog Photo"
+                  name="Image"
+                  InputLabelProps={{ shrink: true }}
+                  type="file"
+                  inputProps={{ accept: "image/*" }}
+                  error={imageEmpty}
+                  errorText="Please pick an image"
+                />
+                <Input2 style={{ display: "none" }} name="ImagePath" />
                 <Button
                   type="submit"
                   style={{ marginTop: "15px" }}
                   color="success"
                   variant="contained"
                 >
-                  Add Blog
+                  {isEditing ? "Edit Blog" : "Add Blog"}
                 </Button>
               </div>
             </form>

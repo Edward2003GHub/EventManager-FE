@@ -93,6 +93,7 @@ export default function BlogCard({ blog, onOptionsClick }) {
         <h3>{blog.title}</h3>
         {blog.content}
       </div>
+      <img src={`https://localhost:7262/${blog.imagePath}`} style={{marginBottom: "16px", width: "100%"}} />
 
       {/* Actions */}
       <div style={{ display: "flex", gap: "0.75rem" }}>

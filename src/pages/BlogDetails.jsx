@@ -114,30 +114,6 @@ export default function BlogDetails() {
 
   if (!blog) return <p align="center">Loading...</p>;
 
-  const handleDelete = async () => {
-    handleMenuClose();
-
-    try {
-      const res = await fetch(
-        `https://localhost:7262/api/Blogs/${blog.blogId}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      if (res.ok) {
-        navigate("..");
-      } else {
-        console.error("Failed to delete blog:", res.statusText);
-      }
-    } catch (error) {
-      console.error("Error deleting blog:", error);
-    }
-  };
-
   return (
     <>
       <div
@@ -145,9 +121,9 @@ export default function BlogDetails() {
           display: "flex",
           flexDirection: "column",
           gap: "35px",
-          maxWidth: "1330px",
+          maxWidth: "800px",
           margin: "auto",
-          padding: "35px",
+          padding: "35px 35px 115px 35px",
         }}
       >
         <div
@@ -199,17 +175,6 @@ export default function BlogDetails() {
                 </div>
               </div>
             </div>
-
-            {/* Options Icon */}
-            {blog.userId === localStorage.getItem("userId") && (
-              <IconButton
-                aria-label="Options"
-                onClick={(e) => handleMenuClick(e)}
-                sx={{ alignSelf: "flex-start" }}
-              >
-                <MoreHorizIcon />
-              </IconButton>
-            )}
           </div>
 
           {/* Blog Content */}
@@ -224,6 +189,10 @@ export default function BlogDetails() {
             <h3>{blog.title}</h3>
             {blog.content}
           </div>
+          <img
+            src={`https://localhost:7262/${blog.imagePath}`}
+            style={{ marginBottom: "16px", width: "100%" }}
+          />
 
           {/* Actions */}
           <div style={{ display: "flex", gap: "0.75rem" }}>
@@ -319,11 +288,11 @@ export default function BlogDetails() {
         <div
           style={{
             position: "fixed",
-            bottom: "30px",
+            bottom: "0",
             left: "200px",
             width: "1330px",
-            maxWidth: '1330px',
-            margin: 'auto',
+            maxWidth: "1330px",
+            margin: "auto",
             display: "flex",
             gap: "10px",
             background: "white",
@@ -345,23 +314,6 @@ export default function BlogDetails() {
           </Button>
         </div>
       </form>
-
-      <Menu
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleMenuClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        transformOrigin={{ vertical: "top", horizontal: "right" }}
-      >
-        <MenuItem>
-          <EditIcon sx={{ mr: 1, color: "green" }} />
-          <span style={{ color: "green" }}>Edit Post</span>
-        </MenuItem>
-        <MenuItem onClick={handleDelete}>
-          <DeleteIcon sx={{ mr: 1, color: "red" }} />
-          <span style={{ color: "red" }}>Delete Post</span>
-        </MenuItem>
-      </Menu>
     </>
   );
 }
