@@ -42,6 +42,7 @@ export default function BlogDetails() {
 
       if (response.ok) {
         console.log("Comment deleted successfully.");
+        getAllComments();
       } else {
         console.error("Failed to delete comment:", response.statusText);
       }
