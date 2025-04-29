@@ -70,7 +70,8 @@ export default function BlogCard({ blog, onOptionsClick }) {
         </div>
 
         {/* Options Icon */}
-        {blog.userId === localStorage.getItem("userId") && (
+        {(blog.userId === localStorage.getItem("userId") ||
+          localStorage.getItem("email") === "admin@example.com") && (
           <IconButton
             aria-label="Options"
             onClick={(e) => onOptionsClick(e, blog.blogId)}
@@ -93,7 +94,10 @@ export default function BlogCard({ blog, onOptionsClick }) {
         <h3>{blog.title}</h3>
         {blog.content}
       </div>
-      <img src={`https://localhost:7262/${blog.imagePath}`} style={{marginBottom: "16px", width: "100%"}} />
+      <img
+        src={`https://localhost:7262/${blog.imagePath}`}
+        style={{ marginBottom: "16px", width: "100%" }}
+      />
 
       {/* Actions */}
       <div style={{ display: "flex", gap: "0.75rem" }}>

@@ -288,8 +288,9 @@ export default function BlogDetails() {
                               {comment.content}
                             </div>
                           </div>
-                          {comment.userId ===
-                            localStorage.getItem("userId") && (
+                          {(comment.userId === localStorage.getItem("userId") ||
+                            localStorage.getItem("email") ===
+                              "admin@example.com") && (
                             <div>
                               <IconButton
                                 aria-label="delete"

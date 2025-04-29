@@ -229,7 +229,12 @@ export default function Blogs() {
             const blogToEdit = blogs.find((b) => b.blogId === selectedBlogId);
             setEditBlogData(blogToEdit);
             setIsEditing(true);
+
+            setTitleEmpty(false);
+            setContentEmpty(false);
+            setImageEmpty(false);
             setModalOpen(true);
+
             handleMenuClose();
           }}
         >
