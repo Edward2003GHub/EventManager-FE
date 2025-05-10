@@ -7,14 +7,11 @@ import Home from "./pages/Home";
 import EventDetails, {
   loader as eventDetailLoader,
 } from "./pages/EventsDetails";
-import EventsRoot from "./components/EventsRoot";
 import Organization from "./pages/Organization";
 import News from "./pages/News";
 import Forms from "./pages/Forms";
 import OrgDetails, { loader as orgDetailLoader } from "./pages/OrgDetails";
-import OrgRoot from "./components/OrgRoot";
 import NewDetails, { loader as newDetailLoader } from "./pages/NewDetails";
-import NewsRoot from "./components/NewsRoot";
 import WelcomeRoot from "./components/WelcomeRoot";
 import EditEvent from "./pages/EditEvent";
 import NewEvent from "./pages/NewEvent";
@@ -25,16 +22,17 @@ import EditNew from "./pages/EditNew";
 import { action as logoutAction } from "./pages/Logout";
 import Blogs from "./pages/Blogs";
 import BlogDetails from "./pages/BlogDetails";
+import PageNotFound from "./components/PageNotFound";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    errorElement: <PageNotFound />,
     element: <WelcomeRoot />,
     children: [
       { path: "", element: <Home /> },
       {
         path: "events",
-        element: <EventsRoot />,
         children: [
           { path: "", element: <Events /> },
           {
@@ -47,7 +45,6 @@ const router = createBrowserRouter([
       },
       {
         path: "organizations",
-        element: <OrgRoot />,
         children: [
           { path: "", element: <Organization /> },
           {
@@ -60,7 +57,6 @@ const router = createBrowserRouter([
       },
       {
         path: "news",
-        element: <NewsRoot />,
         children: [
           { path: "", element: <News /> },
           {
@@ -84,7 +80,6 @@ const router = createBrowserRouter([
       { path: "home", element: <Home /> },
       {
         path: "events",
-        element: <EventsRoot />,
         children: [
           { path: "", element: <Events /> },
           {
@@ -101,7 +96,6 @@ const router = createBrowserRouter([
       },
       {
         path: "organizations",
-        element: <OrgRoot />,
         children: [
           { path: "", element: <Organization /> },
           {
@@ -118,7 +112,6 @@ const router = createBrowserRouter([
       },
       {
         path: "news",
-        element: <NewsRoot />,
         children: [
           { path: "", element: <News /> },
           {

@@ -132,6 +132,7 @@ export default function Home() {
               <Card
                 name={evt.name}
                 startDate={evt.startTime}
+                endDate={evt.endTime}
                 image={evt.photoUrl}
                 orgId={evt.organizationID}
               />

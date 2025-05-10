@@ -97,7 +97,7 @@ export default function Events() {
                 }}
               />
             </IconButton>
-            <img src="/Images/BAUClubs.png" alt="" width={"45px"} />
+            <img src="/Images/BAUClubs.png" alt="" width={"40px"} />
           </div>
 
           <div

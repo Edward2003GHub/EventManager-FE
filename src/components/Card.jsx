@@ -4,7 +4,7 @@ import EventIcon from "@mui/icons-material/Event";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { useEffect, useState } from "react";
 
-export default function Card({ name, startDate, orgId }) {
+export default function Card({ name, startDate, endDate, orgId }) {
   const [org, setOrg] = useState({ name: "..." });
   const [status, setStatus] = useState("");
 
@@ -27,19 +27,22 @@ export default function Card({ name, startDate, orgId }) {
   }, [orgId]);
 
   useEffect(() => {
-    if (startDate) {
-      const eventDate = parseISO(startDate);
+    if (startDate && endDate) {
+      const start = parseISO(startDate);
+      const end = parseISO(endDate);
       const now = new Date();
 
-      if (isBefore(eventDate, now)) {
-        setStatus("Ended");
-      } else {
+      if (isBefore(now, start)) {
         setStatus("Upcoming");
+      } else if (isBefore(now, end)) {
+        setStatus("Ongoing");
+      } else {
+        setStatus("Ended");
       }
     } else {
       setStatus("Unknown");
     }
-  }, [startDate]);
+  }, [startDate, endDate]);
 
   const formattedDate = startDate
     ? format(parseISO(startDate), "EEE, MMM d, yyyy 'at' h:mm a")

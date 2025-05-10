@@ -150,10 +150,17 @@ export default function EventDetails() {
   }
 
   const now = new Date();
+  const eventStart = new Date(eventData.startTime);
   const eventEnd = new Date(eventData.endTime);
 
-  const isEventEnded = now > eventEnd;
-  const status = isEventEnded ? "Ended" : "Upcoming";
+  let status = "Unknown";
+  if (now < eventStart) {
+    status = "Upcoming";
+  } else if (now >= eventStart && now <= eventEnd) {
+    status = "Ongoing";
+  } else if (now > eventEnd) {
+    status = "Ended";
+  }
 
   return (
     <div className="event-details-page">
@@ -275,7 +282,7 @@ export default function EventDetails() {
             />
           </div>
 
-          {!isEventEnded && (
+          {status !== "Ended" && (
             <div className="event-actions">
               <Button
                 onClick={isRegistered ? handleUnregister : handleRegister}

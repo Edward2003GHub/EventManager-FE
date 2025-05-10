@@ -102,6 +102,7 @@ export default function Events() {
                 <Card
                   name={evt.name}
                   startDate={evt.startTime}
+                  endDate={evt.endTime}
                   orgId={evt.organizationID}
                 />
               </Link>
