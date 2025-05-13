@@ -64,7 +64,7 @@ export default function Events() {
     <div className="events-page">
       <div className="events-header">
         <Typography variant="h4" component="h1" className="events-title">
-          <EventNote className="title-icon" /> Upcoming Events
+          <EventNote className="title-icon" />University Events
         </Typography>
         {localStorage.getItem("email") === "admin@example.com" && (
           <Button

@@ -173,14 +173,6 @@ export default function Events() {
               <span className="link-text">News</span>
             </NavLink>
             <NavLink
-              to="forms"
-              onClick={handleNavClick}
-              className={({ isActive }) => (isActive ? "active" : undefined)}
-            >
-              <SummarizeOutlinedIcon sx={{ fontSize: 28 }} />
-              <span className="link-text">Forms</span>
-            </NavLink>
-            <NavLink
               to="blogs"
               onClick={handleNavClick}
               className={({ isActive }) => (isActive ? "active" : undefined)}

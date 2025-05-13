@@ -9,7 +9,6 @@ import EventDetails, {
 } from "./pages/EventsDetails";
 import Organization from "./pages/Organization";
 import News from "./pages/News";
-import Forms from "./pages/Forms";
 import OrgDetails, { loader as orgDetailLoader } from "./pages/OrgDetails";
 import NewDetails, { loader as newDetailLoader } from "./pages/NewDetails";
 import WelcomeRoot from "./components/WelcomeRoot";
@@ -67,7 +66,6 @@ const router = createBrowserRouter([
           },
         ],
       },
-      { path: "forms", element: <Forms /> },
       { path: "blogs", element: <Blogs /> },
     ],
   },
@@ -126,7 +124,6 @@ const router = createBrowserRouter([
           { path: "new", element: <NewNew /> },
         ],
       },
-      { path: "forms", element: <Forms /> },
       {
         path: "blogs",
         children: [
