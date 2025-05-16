@@ -10,19 +10,6 @@ import Input2 from "../components/Input2";
 import CloseIcon from "@mui/icons-material/Close";
 import TextA from "../components/TextA";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 600,
-  maxHeight: "80vh",
-  overflowY: "auto",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-};
-
 export default function Blogs() {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -279,7 +266,23 @@ export default function Blogs() {
         }}
       >
         <Fade in={modalOpen}>
-          <Box sx={style}>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: {
+                xs: "90%", // for small screens (0px - 600px)
+                sm: 600, // for 600px and up
+              },
+              maxHeight: "80vh",
+              overflowY: "auto",
+              bgcolor: "background.paper",
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
             <div style={{ position: "fixed", right: "10px", top: "10px" }}>
               <IconButton aria-label="close" onClick={handleClose}>
                 <CloseIcon />

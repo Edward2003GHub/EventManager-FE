@@ -107,7 +107,6 @@ export default function Events() {
               justifyContent: "center",
               maxWidth: "800px",
               minWidth: "250px",
-              margin: "0 24px",
               position: "relative",
             }}
           >
