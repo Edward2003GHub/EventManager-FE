@@ -10,8 +10,8 @@ export default function OrgForm({ org, method }) {
 
   const [orgEmpty, setOrgEmpty] = useState(false);
   const [collegeEmpty, setCollegeEmpty] = useState(false);
-  const [numberEmpty, setNumberEmpty] = useState(false);
-  const [emailEmpty, setEmailEmpty] = useState(false);
+  const [numberError, setNumberError] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [desEmpty, setDesEmpty] = useState(false);
   const [photoEmpty, setPhotoEmpty] = useState(false);
 
@@ -22,6 +22,18 @@ export default function OrgForm({ org, method }) {
     const data = Object.fromEntries(fd.entries());
 
     let hasError = false;
+
+    const jordanPhoneRegex = /^07[7-9]\d{7}$/;
+
+    if (!data.ContactNumber.trim()) {
+      setNumberError("Please fill this field");
+      hasError = true;
+    } else if (!jordanPhoneRegex.test(data.ContactNumber.trim())) {
+      setNumberError("Please enter a valid Jordanian phone number");
+      hasError = true;
+    } else {
+      setNumberError("");
+    }
 
     if (!data.Name.trim()) {
       setOrgEmpty(true);
@@ -44,18 +56,16 @@ export default function OrgForm({ org, method }) {
       setCollegeEmpty(false);
     }
 
-    if (!data.ContactNumber.trim()) {
-      setNumberEmpty(true);
-      hasError = true;
-    } else {
-      setNumberEmpty(false);
-    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.(com|net|org|edu|gov|mil|jo|edu\.jo)$/i;
 
     if (!data.Email.trim()) {
-      setEmailEmpty(true);
+      setEmailError("Please fill this field");
+      hasError = true;
+    } else if (!emailRegex.test(data.Email.trim())) {
+      setEmailError("Please enter a valid email address");
       hasError = true;
     } else {
-      setEmailEmpty(false);
+      setEmailError("");
     }
 
     const orgPhotoFile = fd.get("Logo");
@@ -122,8 +132,8 @@ export default function OrgForm({ org, method }) {
               type="tel"
               name="ContactNumber"
               defaultValue={org?.contactNumber || ""}
-              error={numberEmpty}
-              errorText="Please fill this field"
+              error={!!numberError}
+              errorText={numberError}
               fullWidth
             />
             <Input2
@@ -131,8 +141,8 @@ export default function OrgForm({ org, method }) {
               type="email"
               name="Email"
               defaultValue={org?.email || ""}
-              error={emailEmpty}
-              errorText="Please fill this field"
+              error={!!emailError}
+              errorText={emailError}
               fullWidth
             />
           </div>
@@ -167,7 +177,7 @@ export default function OrgForm({ org, method }) {
         />
 
         <Button
-        sx={{marginTop: "15px"}}
+          sx={{ marginTop: "15px" }}
           variant="contained"
           type="submit"
           className="submit-btn"
