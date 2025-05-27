@@ -199,8 +199,11 @@ export default function BlogDetails() {
             }}
           >
             <h3>{blog.title}</h3>
-            {blog.content}
           </div>
+          <div
+            dangerouslySetInnerHTML={{ __html: blog.content }}
+            style={{ marginBottom: "5px" }}
+          />
           <img
             src={`https://localhost:7262/${blog.imagePath}`}
             style={{ marginBottom: "16px", width: "100%" }}

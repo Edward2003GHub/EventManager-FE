@@ -264,7 +264,10 @@ export default function EventDetails() {
 
           <div className="event-section">
             <h2 className="section-title">Description</h2>
-            <p className="event-description">{eventData.description}</p>
+            <p
+              className="event-description"
+              dangerouslySetInnerHTML={{ __html: eventData.description }}
+            ></p>
           </div>
 
           <div className="event-section">

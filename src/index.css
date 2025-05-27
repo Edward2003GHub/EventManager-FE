@@ -954,7 +954,7 @@ button {
   margin-bottom: 20px !important;
 }
 
-.org-description {
+.org-description > div {
   line-height: 1.8 !important;
   color: #333 !important;
 }
