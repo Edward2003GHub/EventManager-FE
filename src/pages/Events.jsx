@@ -12,6 +12,30 @@ import {
 import { EventNote, Add } from "@mui/icons-material";
 import { getEvents } from "../utility/apiGetCalls";
 
+function sortEventsByTime(events) {
+  const now = new Date();
+
+  const upcoming = [];
+  const ongoing = [];
+  const ended = [];
+
+  events.forEach((event) => {
+    const start = new Date(event.startTime);
+    const end = new Date(event.endTime);
+
+    if (start > now) {
+      upcoming.push(event);
+    } else if (start <= now && end >= now) {
+      ongoing.push(event);
+    } else {
+      ended.push(event);
+    }
+  });
+
+  return [...upcoming, ...ongoing, ...ended];
+}
+
+
 export default function Events() {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
@@ -33,7 +57,8 @@ export default function Events() {
     async function fetchAndSetEvents() {
       const data = await getEvents();
       if (data) {
-        setEvents(data);
+        const sortedEvents = sortEventsByTime(data);
+        setEvents(sortedEvents);
         setCurrentPage(1); // reset to first page when data updates
       }
     }
