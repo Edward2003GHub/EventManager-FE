@@ -4,6 +4,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import TextA from "./TextA";
 
+function formatHtml(html) {
+  if (!html) return;
+
+  const formatted = html
+    .replace(/></g, ">\n<")
+    .trim();
+
+  return formatted;
+}
+
 export default function OrgForm({ org, method }) {
   const navigate = useNavigate();
   const params = useParams();
@@ -151,7 +161,7 @@ export default function OrgForm({ org, method }) {
             <TextA
               label="Description"
               name="Description"
-              defaultValue={org?.description || ""}
+              defaultValue={formatHtml(org?.description) || ""}
               error={desEmpty}
               errorText="Please fill this field"
             />

@@ -10,6 +10,16 @@ import Input2 from "../components/Input2";
 import CloseIcon from "@mui/icons-material/Close";
 import TextA from "../components/TextA";
 
+function formatHtml(html) {
+  if (!html) return;
+
+  const formatted = html
+    .replace(/></g, ">\n<")
+    .trim();
+
+  return formatted;
+}
+
 export default function Blogs() {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -310,7 +320,7 @@ export default function Blogs() {
                   label="Content"
                   name="Content"
                   error={contentEmpty}
-                  defaultValue={editBlogData?.content || ""}
+                  defaultValue={formatHtml(editBlogData?.content) || ""}
                   errorText="Please fill this field"
                 />
                 <Input2
