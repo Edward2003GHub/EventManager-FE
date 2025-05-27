@@ -121,7 +121,7 @@ export default function Home() {
         </div>
         <div className="event-wrapper">
           {events
-            .filter((evt) => new Date(evt.startTime) > new Date())
+            .filter((evt) => new Date(evt.endTime) > new Date())
             .slice(0, 4)
             .map((evt) => (
               <Link
