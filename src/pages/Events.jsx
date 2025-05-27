@@ -32,9 +32,8 @@ function sortEventsByTime(events) {
     }
   });
 
-  return [...upcoming, ...ongoing, ...ended];
+  return [...ongoing, ...upcoming, ...ended];
 }
-
 
 export default function Events() {
   const navigate = useNavigate();
@@ -59,7 +58,7 @@ export default function Events() {
       if (data) {
         const sortedEvents = sortEventsByTime(data);
         setEvents(sortedEvents);
-        setCurrentPage(1); // reset to first page when data updates
+        setCurrentPage(1);
       }
     }
 
@@ -89,7 +88,8 @@ export default function Events() {
     <div className="events-page">
       <div className="events-header">
         <Typography variant="h4" component="h1" className="events-title">
-          <EventNote className="title-icon" />University Events
+          <EventNote className="title-icon" />
+          University Events
         </Typography>
         {localStorage.getItem("email") === "admin@example.com" && (
           <Button
