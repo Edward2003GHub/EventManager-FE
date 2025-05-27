@@ -55,6 +55,7 @@ export default function Home() {
           boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
         }}
       >
+        <img src="/Images/BAULogo.png" style={{marginBottom: "20px", width: "200px"}} />
         <h1
           style={{
             fontSize: "40px",
@@ -119,25 +120,28 @@ export default function Home() {
           </Button>
         </div>
         <div className="event-wrapper">
-          {events.slice(0, 4).map((evt) => (
-            <Link
-              key={evt.eventID}
-              to={
-                localStorage.getItem("token")
-                  ? `/user/events/${evt.eventID}`
-                  : `/events/${evt.eventID}`
-              }
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <Card
-                name={evt.name}
-                startDate={evt.startTime}
-                endDate={evt.endTime}
-                image={evt.photoUrl}
-                orgId={evt.organizationID}
-              />
-            </Link>
-          ))}
+          {events
+            .filter((evt) => new Date(evt.startTime) > new Date())
+            .slice(0, 4)
+            .map((evt) => (
+              <Link
+                key={evt.eventID}
+                to={
+                  localStorage.getItem("token")
+                    ? `/user/events/${evt.eventID}`
+                    : `/events/${evt.eventID}`
+                }
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Card
+                  name={evt.name}
+                  startDate={evt.startTime}
+                  endDate={evt.endTime}
+                  image={evt.photoUrl}
+                  orgId={evt.organizationID}
+                />
+              </Link>
+            ))}
         </div>
       </div>
 

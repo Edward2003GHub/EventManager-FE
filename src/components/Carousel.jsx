@@ -39,7 +39,7 @@ export default function Carousel({ news }) {
               style={{ objectFit: "cover" }}
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = "https://picsum.photos/id/1015/1200/400";
+                e.target.src = "/Images/emptyPhoto.png";
               }}
             />
             <div
