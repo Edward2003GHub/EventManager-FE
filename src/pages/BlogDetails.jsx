@@ -96,7 +96,10 @@ export default function BlogDetails() {
   const getAllComments = async () => {
     const data = await getComments(params.id, localStorage.getItem("token"));
     if (data) {
-      setComments(data);
+      const sortedComments = data.sort(
+        (a, b) => new Date(a.timeCommented) - new Date(b.timeCommented)
+      );
+      setComments(sortedComments);
     }
   };
 

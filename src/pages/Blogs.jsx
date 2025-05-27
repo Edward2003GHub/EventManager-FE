@@ -13,9 +13,7 @@ import TextA from "../components/TextA";
 function formatHtml(html) {
   if (!html) return;
 
-  const formatted = html
-    .replace(/></g, ">\n<")
-    .trim();
+  const formatted = html.replace(/></g, ">\n<").trim();
 
   return formatted;
 }
@@ -50,7 +48,13 @@ export default function Blogs() {
   async function fetchAndSetBlogs() {
     const data = await getBlogs();
     if (data) {
-      setBlogs(data);
+      const sortedData = data.sort((a, b) => {
+        const dateA = new Date(a.timePosted);
+        const dateB = new Date(b.timePosted);
+        return dateB - dateA;
+      });
+
+      setBlogs(sortedData);
     }
   }
 
