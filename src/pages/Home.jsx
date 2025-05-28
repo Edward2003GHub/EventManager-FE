@@ -126,10 +126,21 @@ export default function Home() {
           </Button>
         </div>
         <div className="event-wrapper">
-          {events
-            .filter((evt) => new Date(evt.endTime) > new Date())
-            .slice(0, 4)
-            .map((evt) => (
+          {(() => {
+            const now = new Date();
+
+            const ongoingEvents = events.filter(
+              (evt) =>
+                new Date(evt.startTime) <= now && new Date(evt.endTime) >= now
+            );
+
+            const upcomingEvents = events.filter(
+              (evt) => new Date(evt.startTime) > now
+            );
+
+            const combined = [...ongoingEvents, ...upcomingEvents].slice(0, 4); // Max 4
+
+            return combined.map((evt) => (
               <Link
                 key={evt.eventID}
                 to={
@@ -147,7 +158,8 @@ export default function Home() {
                   orgId={evt.organizationID}
                 />
               </Link>
-            ))}
+            ));
+          })()}
         </div>
       </div>
 
