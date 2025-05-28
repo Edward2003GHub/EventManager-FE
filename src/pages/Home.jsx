@@ -36,7 +36,10 @@ export default function Home() {
     async function fetchAndSetNews() {
       const data = await getNews();
       if (data) {
-        setNews(data);
+        const sortedNews = data
+          .sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate))
+          .slice(0, 5);
+        setNews(sortedNews);
       }
     }
     fetchAndSetNews();
@@ -55,7 +58,10 @@ export default function Home() {
           boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <img src="/Images/BAULogo.png" style={{marginBottom: "20px", width: "200px"}} />
+        <img
+          src="/Images/BAULogo.png"
+          style={{ marginBottom: "20px", width: "200px" }}
+        />
         <h1
           style={{
             fontSize: "40px",
