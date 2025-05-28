@@ -1705,7 +1705,6 @@ button {
 
 .event-status {
   font-weight: bold;
-  margin-left: 5px;
 }
 
 .event-status.ended {

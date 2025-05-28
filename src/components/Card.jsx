@@ -1,5 +1,6 @@
 import { format, parseISO, isBefore } from "date-fns";
 import { Button } from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
 import EventIcon from "@mui/icons-material/Event";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { useEffect, useState } from "react";
@@ -70,6 +71,7 @@ export default function Card({ name, startDate, endDate, orgId }) {
             <span>{org.name}</span>
           </div>
           <div className="info">
+            <InfoIcon fontSize="small" />
             <span className={`event-status ${status.toLowerCase()}`}>
               {status}
             </span>
