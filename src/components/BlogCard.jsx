@@ -3,6 +3,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ChatIcon from "@mui/icons-material/Chat";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function formatDate(dateString) {
   const date = new Date(dateString);
@@ -15,8 +16,20 @@ function formatDate(dateString) {
   return `${day}/${month}/${year} ${hours}:${minutes}`;
 }
 
-export default function BlogCard({ blog, onOptionsClick }) {
+export default function BlogCard({ blog, onOptionsClick, onLikeToggle }) {
   const navigate = useNavigate();
+  const [isLiked, setIsLiked] = useState(false);
+
+  const userId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    const liked = blog.likes.some((like) => like.id === userId);
+    setIsLiked(liked);
+  }, [blog.likes]);
+
+  function handleLikeClick() {
+    onLikeToggle(blog.blogId, isLiked);
+  }
 
   return (
     <div
@@ -104,8 +117,12 @@ export default function BlogCard({ blog, onOptionsClick }) {
 
       {/* Actions */}
       <div style={{ display: "flex", gap: "0.75rem" }}>
-        <Button color="success" variant="contained">
-          0&nbsp; <ThumbUpAltIcon />
+        <Button
+          onClick={handleLikeClick}
+          color="success"
+          variant={isLiked ? "contained" : "outlined"}
+        >
+          {blog.likes?.length}&nbsp; <ThumbUpAltIcon />
         </Button>
         <Button
           color="success"

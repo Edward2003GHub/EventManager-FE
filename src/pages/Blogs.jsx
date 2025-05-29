@@ -182,6 +182,28 @@ export default function Blogs() {
     }
   }
 
+  async function handleLikeToggle(blogId, isCurrentlyLiked) {
+    console.log(blogId);
+    const url = isCurrentlyLiked
+      ? `https://localhost:7262/api/Blogs/${blogId}/unlike`
+      : `https://localhost:7262/api/Blogs/${blogId}/like`;
+
+    try {
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(localStorage.getItem("userId")),
+      });
+
+      await fetchAndSetBlogs();
+    } catch (error) {
+      console.error("Error toggling like:", error);
+    }
+  }
+
   return (
     <>
       {blogs.length === 0 && (
@@ -214,6 +236,7 @@ export default function Blogs() {
             key={blog.blogId}
             blog={blog}
             onOptionsClick={handleMenuClick}
+            onLikeToggle={handleLikeToggle}
           />
         ))}
       </div>
