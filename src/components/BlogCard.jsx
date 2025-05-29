@@ -28,7 +28,11 @@ export default function BlogCard({ blog, onOptionsClick, onLikeToggle }) {
   }, [blog.likes]);
 
   function handleLikeClick() {
-    onLikeToggle(blog.blogId, isLiked);
+    if (localStorage.getItem("token")) {
+      onLikeToggle(blog.blogId, isLiked);
+    } else {
+      navigate('/login')
+    }
   }
 
   return (
