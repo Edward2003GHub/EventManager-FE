@@ -83,9 +83,12 @@ export default function OrgDetails() {
             <Typography variant="h4" className="section-title">
               About
             </Typography>
-            <Typography variant="body1" className="org-description">
-              <div dangerouslySetInnerHTML={{ __html: org.description }} />
-            </Typography>
+            <Typography
+              variant="body1"
+              className="org-description"
+              component="div"
+              dangerouslySetInnerHTML={{ __html: org.description }}
+            />
           </div>
 
           <Divider className="divider" />
