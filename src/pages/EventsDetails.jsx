@@ -275,7 +275,6 @@ export default function EventDetails() {
             <OrgCard2
               key={org.organizationID}
               image={org.logoUrl}
-              description={org.description}
               to={
                 localStorage.getItem("token")
                   ? `/user/organizations/${org.organizationID}`
